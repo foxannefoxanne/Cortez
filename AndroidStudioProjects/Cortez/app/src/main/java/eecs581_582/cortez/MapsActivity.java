@@ -1,5 +1,6 @@
 package eecs581_582.cortez;
 
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -39,8 +40,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        // Solution below found at http://stackoverflow.com/questions/21403496/how-to-get-current-location-in-google-map-android
+        // Activate GPS on the device to find location.
+        mMap.setMyLocationEnabled(true);
+        // Check if we were successful in obtaining the map.
+        if (mMap != null) {
+
+            mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+
+                @Override
+                public void onMyLocationChange(Location arg0) {
+                    if (arg0 != null) {
+                        LatLng here = new LatLng(arg0.getLatitude(), arg0.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(here).title("You are here"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(here));
+
+                    }
+                }
+            });
+
+        }
+
     }
 }
