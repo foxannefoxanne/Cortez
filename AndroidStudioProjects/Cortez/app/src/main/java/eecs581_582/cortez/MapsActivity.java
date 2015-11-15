@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -57,9 +58,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (arg0 != null) {
                         LatLng here = new LatLng(arg0.getLatitude(), arg0.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(here).title("You are here"));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(here));
-
+                        moveCameraToLocation(here);
                     }
+                }
+
+                private void moveCameraToLocation(LatLng loc) {
+                    /* TODO: We might want to pass in some function call for zoom(),
+                     * to account for larger / smaller user-defined maps,
+                     */
+                    CameraPosition c = new CameraPosition.Builder()
+                            .target(loc)
+                            .zoom(19).build();
+
+                    // Displays the map from the defined Camera position
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(c));
                 }
             });
 
