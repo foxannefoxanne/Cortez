@@ -15,10 +15,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [google_maps_key:""]
         }
 
         debug {
             debuggable true
+            manifestPlaceholders = [google_maps_key:""]
         }
     }
 }
