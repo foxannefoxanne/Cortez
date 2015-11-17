@@ -8,18 +8,17 @@
 </div>
 
 <script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers([
-      {
-        "lat": 38.971667,
-        "lng": -95.235278,
-        infowindow: "hello!"
+var handler = Gmaps.build('Google');
+handler.buildMap({ internal: {id: 'map'}}, function(){
+  var markers = handler.addMarkers([
+    { lat: 43, lng: 3.5},
+    { lat: 45, lng: 4},
+    { lat: 47, lng: 3.5},
+    { lat: 49, lng: 4},
+    { lat: 51, lng: 3.5}
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
 
-      }
-
-    ]);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-  });
 </script> 
