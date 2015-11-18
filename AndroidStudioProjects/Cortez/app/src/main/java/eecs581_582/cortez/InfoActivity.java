@@ -1,7 +1,9 @@
 package eecs581_582.cortez;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -9,5 +11,20 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+        // Get the message from the intent
+        // TODO: Get selected pin from MapsActivity to display here.
+        Intent intent = getIntent();
+        //String message = intent.getStringExtra(MapsActivity.SELECTED_PIN);
+        String message = "Selected Pin";
+
+        // Create the text view
+        TextView textView = new TextView(this);
+        textView.setTextSize(40);
+        textView.setText(message);
+
+        // Set the text view as the activity layout
+        setContentView(textView);
+
     }
 }
