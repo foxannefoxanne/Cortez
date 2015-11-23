@@ -3,3 +3,24 @@
 <%= render 'form' %>
 
 <%= link_to 'Back', pins_path %>
+
+<script type="text/javascript">
+
+var handler = Gmaps.build('Google');
+handler.buildMap({ internal: {id: 'map'} }, function(){
+  if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(displayOnMap);
+});
+
+function displayOnMap(position){
+  var marker = handler.addMarker({
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+
+  });
+
+  handler.map.centerOn(marker);
+
+};
+</script> 
+
