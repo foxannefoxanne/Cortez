@@ -1,6 +1,7 @@
 class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
 
+
   # GET /pins
   def index
     @pins = Pin.all
@@ -56,3 +57,4 @@ class PinsController < ApplicationController
       params.require(:pin).permit(:latitude, :longitude, :name, :description)
     end
 end
+
