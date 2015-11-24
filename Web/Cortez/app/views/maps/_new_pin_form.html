@@ -1,5 +1,7 @@
 <%= form_for @map do |f| %>
-   <%= f.fields_for :pins do |p| %>   
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+   <%= f.fields_for :pin do |p| %>   
    <div class="field">
      <%= p.label :latitude %><br>
      <%= p.text_field :latitude %>
@@ -16,7 +18,7 @@
      <%= p.label :description %><br>
      <%= p.text_field :description %>
    </div>
-   <div class="actions">
-     <%= p.submit %>
 <% end %>
+   <div class="actions">
+     <%= f.submit %>
 <% end %> 
