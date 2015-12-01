@@ -22,8 +22,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
-        android:text="Here is where we will have lots of information about the Tai Chi statue"
+        android:text="This bronze statue came to KU in 1985. It was bought by the Barbara Benton Wescoe Fund to honor the memory of Judge Willard M. Benton (KU School of Law alumnus, 1920). It technically belongs to the Spencer Museum of Art!"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true"
+        android:text="Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
