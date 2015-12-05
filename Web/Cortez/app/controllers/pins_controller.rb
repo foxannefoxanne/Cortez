@@ -1,7 +1,6 @@
 class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
 
-
   # GET /pins
   def index
     @pins = Pin.all
@@ -54,7 +53,6 @@ class PinsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pin_params
-      params.require(:pin).permit(:latitude, :longitude, :name, :description)
+      params.require(:pin).permit(:name, :description, :address, :latitude, :longitude)
     end
 end
-

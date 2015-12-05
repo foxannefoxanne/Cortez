@@ -13,6 +13,7 @@ class MapsController < ApplicationController
   # GET /maps/new
   def new
     @map = Map.new
+    @map.pins.build
   end
 
   # GET /maps/1/edit
