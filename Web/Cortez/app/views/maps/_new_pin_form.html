@@ -1,0 +1,28 @@
+<%= form_for @map do |f| %>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+   <%= f.fields_for :pin do |p| %>   
+   <div class="field">
+     <%= p.label :latitude %><br>
+     <%= p.text_field :latitude %>
+   </div>
+   <div class="field">
+     <%= p.label :longitude %><br>
+     <%= p.text_field :longitude %>
+   </div>
+   <div class="field">
+     <%= p.label :address %><br>
+     <%= p.text_field :address %>
+   </div>
+   <div class="field">
+     <%= p.label :name %><br>
+     <%= p.text_field :name %>
+   </div>
+   <div class="field">
+     <%= p.label :description %><br>
+     <%= p.text_field :description %>
+   </div>
+<% end %>
+   <div class="actions">
+     <%= f.submit %>
+<% end %> 

@@ -1,14 +1,21 @@
 class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
 
-
   # GET /pins
   def index
     @pins = Pin.all
+     @hash = Gmaps4rails.build_markers(@pins) do |pin, marker|
+      marker.lat pin.latitude
+      marker.lng pin.longitude
+      marker.title pin.title
+      info = pin.title + "\n" + pin.description + "\n" + pin.address
+      marker.infowindow marker.infowindow info
+    end
   end
 
   # GET /pins/1
   def show
+  
   end
 
   # GET /pins/new
@@ -54,7 +61,6 @@ class PinsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pin_params
-      params.require(:pin).permit(:latitude, :longitude, :name, :description)
+      params.require(:pin).permit(:title, :description, :address, :latitude, :longitude)
     end
 end
-
