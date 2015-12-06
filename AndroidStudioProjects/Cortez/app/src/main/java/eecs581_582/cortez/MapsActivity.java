@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
 public class MapsActivity extends FragmentActivity implements LocationProvider.LocationCallback {
 
@@ -84,14 +85,17 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
                 .position(new LatLng(38.956880, -95.253530))
                 .title("TAI CHI STATUE MARKER")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-    }
 
-// DOESN'T WORK YET.
-    public boolean onMarkerClick(Marker marker) {
-        // Use a specific layout (some_layout.xml) for this activity
-        setContentView(R.layout.activity_info);
-
-        return false;
+        mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(marker.getTitle().equals("TAI CHI STATUE MARKER")) {
+                    setContentView(R.layout.activity_info);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void handleNewLocation(Location location) {
