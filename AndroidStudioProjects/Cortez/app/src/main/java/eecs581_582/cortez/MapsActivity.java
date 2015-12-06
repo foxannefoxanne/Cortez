@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -67,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
                 setUpMap();
             }
         }
+        
     }
 
     /**
@@ -77,6 +79,11 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      */
     private void setUpMap() {
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(38.9566831, -95.2550803))
+                .title("TAI CHI STATUE MARKER")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
     }
 
     public void handleNewLocation(Location location) {
