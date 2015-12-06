@@ -54,6 +54,6 @@ class MapsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def map_params
-      params.require(:map).permit(:title)
+      params.require(:map).permit(:title, :description, pins_attributes: [:title, :description, :address, :latitude, :longitude])
     end
 end

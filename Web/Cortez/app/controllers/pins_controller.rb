@@ -53,6 +53,6 @@ class PinsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pin_params
-      params.require(:pin).permit(:name, :description, :address, :latitude, :longitude)
+      params.require(:pin).permit(:title, :description, :address, :latitude, :longitude)
     end
 end
