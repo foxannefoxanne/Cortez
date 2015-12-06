@@ -8,6 +8,8 @@ class PinsController < ApplicationController
       marker.lat pin.latitude
       marker.lng pin.longitude
       marker.title pin.title
+      info = pin.title + "\n" + pin.description + "\n" + pin.address
+      marker.infowindow marker.infowindow info
     end
   end
 

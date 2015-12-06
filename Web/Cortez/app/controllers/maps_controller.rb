@@ -18,6 +18,12 @@ class MapsController < ApplicationController
 
   # GET /maps/1/edit
   def edit
+     @hash = Gmaps4rails.build_markers(@pins) do |pin, marker|
+      marker.lat pin.latitude
+      marker.lng pin.longitude
+      marker.title pin.title
+      marker.infowindow "beep"
+    end 
   end
 
   # POST /maps
