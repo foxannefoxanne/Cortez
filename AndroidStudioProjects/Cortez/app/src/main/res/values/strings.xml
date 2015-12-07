@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Cortez</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Cortez</string>
     <string name="title_activity_info">InfoActivity</string>
 </resources>

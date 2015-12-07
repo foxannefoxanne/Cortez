@@ -42,19 +42,23 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        // Get the message from the intent
-        // TODO: Get selected pin from MapsActivity to display here.
-        Intent intent = getIntent();
-        //String message = intent.getStringExtra(MapsActivity.SELECTED_PIN);
-        String message = "Selected Pin";
+//        // Get the message from the intent
+//        // TODO: Get selected pin from MapsActivity to display here.
+//        Intent intent = getIntent();
+//        //String message = intent.getStringExtra(MapsActivity.SELECTED_PIN);
+//        String message = "Selected Pin";
+//
+//        // Create the text view
+//        TextView textView = new TextView(this);
+//        textView.setTextSize(40);
+//        textView.setText(message);
+//
+//        // Set the text view as the activity layout
+//        setContentView(textView);
 
-        // Create the text view
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
+    }
 
-        // Set the text view as the activity layout
-        setContentView(textView);
-
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -1,5 +1,6 @@
 package eecs581_582.cortez;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,6 +24,8 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
     private LocationProvider mLocationProvider;
 
+    private Marker currentLocation; // Designated Marker for holding the user's current location.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+//        setUpMapIfNeeded();
         mLocationProvider.connect();
     }
 
@@ -81,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      */
     private void setUpMap() {
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        mMap.addMarker(new MarkerOptions()
+        final Marker demo = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(38.956880, -95.253530))
                 .title("TAI CHI STATUE MARKER")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
@@ -89,8 +93,12 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if(marker.getTitle().equals("TAI CHI STATUE MARKER")) {
-                    setContentView(R.layout.activity_info);
+                if (marker.equals(demo)) {
+                    Intent poi_details = new Intent(MapsActivity.this, InfoActivity.class);
+                    startActivity(poi_details);
+
+//                  setContentView(R.layout.activity_info);
+
                     return true;
                 }
                 return false;
@@ -105,11 +113,21 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         double currentLongitude = location.getLongitude();
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
-        MarkerOptions options = new MarkerOptions()
+//        mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
+        MarkerOptions updatedLocation = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
-        mMap.addMarker(options);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        // Update the Marker designated to hold the user's current location.
+        if (currentLocation != null) {
+            currentLocation.remove();
+        }
+        currentLocation = mMap.addMarker(updatedLocation);
+
+        CameraPosition cp = new CameraPosition.Builder()
+                .target(updatedLocation.getPosition())
+                .zoom(18).build();
+
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
     }
 }
