@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :maps
   
   #root 'maps#index'
-  root 'pins#index'
+  root 'maps#home'
+  get 'new_maps' => 'maps#new'
 
 end

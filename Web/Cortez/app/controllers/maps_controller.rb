@@ -52,6 +52,9 @@ class MapsController < ApplicationController
     redirect_to maps_url, notice: 'Map was successfully destroyed.'
   end
 
+  def home
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_map
@@ -62,4 +65,5 @@ class MapsController < ApplicationController
     def map_params
       params.require(:map).permit(:title, :description, pins_attributes: [:title, :description, :address, :latitude, :longitude])
     end
+    
 end
