@@ -110,7 +110,7 @@ public class GeofenceIntentService extends IntentService {
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
                     context).setSmallIcon(R.mipmap.logo)                            // Use Cortez logo
-                    .setPriority(Notification.PRIORITY_MIN)                         // Don't annoy the user (shifts to bottom of Notification stack)
+                    .setPriority(Notification.PRIORITY_DEFAULT)                     // Don't annoy the user
                     .setAutoCancel(true)                                            // Close when clicked
                     .setContentTitle(notificationTitle)                             // Add Notification title
                     .setContentText(getTriggeringGeofences(intent))                 // Add Notification text
