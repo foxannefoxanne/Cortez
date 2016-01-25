@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@mipmap/medievalmap"
     tools:context="eecs581_582.cortez.InfoActivity">
 
-    <TextView
-        android:id="@+id/textView1"
+    <!--Background Photo Credit: http://www.alegriphotos.com/Medieval_map-lphoto-783d2d9be853220c13c336f9056fd5f9.html
+                   Photo License: http://creativecommons.org/licenses/by/3.0/-->
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
-        android:text="Tai Chi Statue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_centerHorizontal="true"
-        android:text="This bronze statue came to KU in 1985. It was bought by the Barbara Benton Wescoe Fund to honor the memory of Judge Willard M. Benton (KU School of Law alumnus, 1920). It technically belongs to the Spencer Museum of Art!"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_centerHorizontal="true"
-        android:text="Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/infoActivityTextView1"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="0dp"
+            android:text="@string/infoActivityTextView1Test"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideOverlay"
+            android:fadeScrollbars="true"
+            android:fadingEdge="vertical"
+            android:layout_weight="1"
+            android:background="#c3ffffff"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:textColor="@android:color/black" />
 
-    </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:id="@+id/infoActivityTextView2"
+            android:layout_width="fill_parent"
+            android:layout_height="140dp"
+            android:text="@string/infoActivityTextView2Test"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center"
 
-    <include layout="@layout/content_info" />
+            android:background="#000000"
+            android:textColor="#ffffff" />
+    </LinearLayout>
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
@@ -58,4 +56,4 @@
         <!--android:layout_margin="@dimen/fab_margin"-->
         <!--android:src="@android:drawable/ic_dialog_email" />-->
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -1,64 +1,37 @@
-//package eecs581_582.cortez;
-//
-//import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-//import android.view.View;
-//
-//public class InfoActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_info);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
-//
-//}
-
 package eecs581_582.cortez;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-
-//        // Get the message from the intent
-//        // TODO: Get selected pin from MapsActivity to display here.
-//        Intent intent = getIntent();
-//        //String message = intent.getStringExtra(MapsActivity.SELECTED_PIN);
-//        String message = "Selected Pin";
-//
-//        // Create the text view
-//        TextView textView = new TextView(this);
-//        textView.setTextSize(40);
-//        textView.setText(message);
-//
-//        // Set the text view as the activity layout
-//        setContentView(textView);
-
+        setUpViewFromIntent(getIntent());
     }
 
     public void onBackPressed() {
         finish();
+    }
+
+    private void setUpViewFromIntent(Intent intent) {
+        setTitle(intent.getStringExtra("title"));
+
+        // Set the upper TextView
+        TextView textViewToChange = (TextView) findViewById(R.id.infoActivityTextView1);
+        String message = intent.getStringExtra("infoActivityMessage1");
+//        textViewToChange.setVisibility(message.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+        textViewToChange.setText(!message.isEmpty() ? message : getString(R.string.infoActivityTextView1Test));
+        textViewToChange.setMovementMethod(new ScrollingMovementMethod()); // Allow scrolling for the TextView
+
+        // Set the lower TextView
+        textViewToChange = (TextView) findViewById(R.id.infoActivityTextView2);
+        String links = intent.getStringExtra("infoActivityMessage2");
+        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextView2Test));
     }
 }

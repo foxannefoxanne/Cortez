@@ -1,0 +1,111 @@
+{
+  "filename": "cortezSampleJson.json",
+  "mapName": "Sample Map Name",
+  "geofences": [
+    {
+      "displayName": "Sample Blank Geofence",
+
+      "location": {
+        "lat": 38.8570033,
+        "lng": -95.059010
+      },
+      "radius": 100,
+
+      "expirationDuration": -1,
+
+      "notificationResponsiveness": 0,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "Entered Blank Geofence"
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "Dwelling in Blank Geofence"
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Exited Blank Geofence"
+      },
+
+      "infoActivityString1": "",
+      "infoActivityString2": "",
+
+      "displayGeofenceMarker": true,
+      "displayGeofenceCircle": true
+    },
+
+
+
+    {
+      "displayName": "Tai Chi Statue",
+
+      "location": {
+        "lat": 38.956880,
+        "lng": -95.253530
+      },
+      "radius": 100,
+
+      "expirationDuration": -1,
+
+      "notificationResponsiveness": 0,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "Welcome!"
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "Bored Yet?"
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Goodbye!"
+      },
+
+      "infoActivityString1": "This bronze statue came to KU in 1985. It was bought by the Barbara Benton Wescoe Fund to honor the memory of Judge Willard M. Benton (KU School of Law alumnus, 1920). It technically belongs to the Spencer Museum of Art!",
+      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!",
+
+      "displayGeofenceMarker": true,
+      "displayGeofenceCircle": true
+    },
+
+
+
+    {
+      "displayName": "Home",
+
+      "location": {
+        "lat": 38.7590022,
+        "lng": -95.019012
+      },
+      "radius": 100,
+
+      "expirationDuration": -1,
+
+      "notificationResponsiveness": 0,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "It's good to be back."
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "You've been cooped up for too long here."
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Leaving so soon?"
+      },
+
+      "infoActivityString1": "No place like it.",
+      "infoActivityString2": "",
+
+      "displayGeofenceMarker": true,
+      "displayGeofenceCircle": true
+    }
+  ]
+}
