@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Cortez</string>
     <string name="title_activity_maps">Cortez</string>
+    <string name="markerTest">Empty Marker Title</string>
+
+
     <string name="title_activity_info">InfoActivity</string>
     <string name="infoActivityTextView1Test">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Donec ante sem, imperdiet vitae odio quis, ultrices rutrum libero.

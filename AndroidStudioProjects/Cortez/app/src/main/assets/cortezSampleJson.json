@@ -3,7 +3,7 @@
   "mapName": "Sample Map Name",
   "geofences": [
     {
-      "displayName": "Sample Blank Geofence",
+      "displayName": "",
 
       "location": {
         "lat": 38.8570033,

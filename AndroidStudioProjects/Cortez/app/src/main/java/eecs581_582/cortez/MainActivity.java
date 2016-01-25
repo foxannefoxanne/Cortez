@@ -212,7 +212,7 @@ public class MainActivity extends FragmentActivity {
                 MarkerOptions markerOptions = new MarkerOptions()
                         .visible(displayGeofenceMarker)
                         .position(latlng)
-                        .title(requestId)
+                        .title(!requestId.isEmpty() ? requestId : getString(R.string.markerTest))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
                 CircleOptions circleOptions = new CircleOptions()
