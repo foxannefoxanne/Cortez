@@ -23,7 +23,7 @@
             android:id="@+id/infoActivityTextView1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/infoActivityTextView1Test"
+            android:text="@string/infoActivityTextView1Default"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:scrollbars="vertical"
@@ -40,7 +40,7 @@
             android:id="@+id/infoActivityTextView2"
             android:layout_width="fill_parent"
             android:layout_height="140dp"
-            android:text="@string/infoActivityTextView2Test"
+            android:text="@string/infoActivityTextView2Default"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"
 

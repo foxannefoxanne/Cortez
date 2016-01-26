@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Custom app theme colors -->
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796b</color>
     <color name="colorAccent">#ff9e80</color>
     <color name="secondary_text_dark">#5fffffff</color>
     <color name="secondary_text_light">#5f000000</color>
+
+    <!-- Geofence circle color defaults -->
+    <color name="geofenceCircleFillDefault">#4000ffff</color>
+    <color name="geofenceCircleStrokeDefault">#4000ffff</color>
+
 </resources>

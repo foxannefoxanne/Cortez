@@ -1,5 +1,16 @@
 <resources>>
 
+    <!--
+            Apparently the names for style components vary across Android versions,
+            so I've made an *attempt* at establishing an app theme for the version
+            running on my phone: SDK 21 (5.0 Lolipop). Hence, the dedicated folder
+            entitled values-v21. The theme is only intended for use by  SDK 21+,
+            and may fail to initialize for other SDK versions.
+
+            TODO: each Acvitity view should have its own theme (style) defined here.
+    -->
+
+    <!-- Info Activity view -->
     <style name="AppTheme.InfoActivity" parent="android:Theme.DeviceDefault">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,8 +28,8 @@
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+    <!-- Map Activity view -->
     <style name="AppTheme.MainActivity" parent="android:Theme.DeviceDefault">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

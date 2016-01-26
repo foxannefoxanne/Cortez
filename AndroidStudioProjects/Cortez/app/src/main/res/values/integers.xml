@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Geofence radius default -->
+    <integer name="geofenceRadiusDefault">100</integer>
+
+    <!-- Thickness of the Geofence Circle displayed on the map -->
+    <integer name="geofenceCircleStrokeWidthDefault">2</integer>
+
+</resources>

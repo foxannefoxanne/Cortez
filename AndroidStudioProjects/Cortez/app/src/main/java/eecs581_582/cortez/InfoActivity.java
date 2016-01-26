@@ -26,12 +26,12 @@ public class InfoActivity extends Activity {
         TextView textViewToChange = (TextView) findViewById(R.id.infoActivityTextView1);
         String message = intent.getStringExtra("infoActivityMessage1");
 //        textViewToChange.setVisibility(message.isEmpty() ? View.INVISIBLE : View.VISIBLE);
-        textViewToChange.setText(!message.isEmpty() ? message : getString(R.string.infoActivityTextView1Test));
+        textViewToChange.setText(!message.isEmpty() ? message : getString(R.string.infoActivityTextView1Default));
         textViewToChange.setMovementMethod(new ScrollingMovementMethod()); // Allow scrolling for the TextView
 
         // Set the lower TextView
         textViewToChange = (TextView) findViewById(R.id.infoActivityTextView2);
         String links = intent.getStringExtra("infoActivityMessage2");
-        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextView2Test));
+        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextView2Default));
     }
 }

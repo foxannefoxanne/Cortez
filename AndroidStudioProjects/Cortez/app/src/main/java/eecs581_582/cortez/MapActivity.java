@@ -34,15 +34,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends FragmentActivity {
+public class MapActivity extends FragmentActivity {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = MapActivity.class.getSimpleName();
 
     /**
      * Google Map object
@@ -62,6 +63,8 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Cortez Geofences
+     *
+     * TODO: Might change this to ArrayList<CortezGeofence> later
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
@@ -189,41 +192,42 @@ public class MainActivity extends FragmentActivity {
             // Build each geofence and add them to the list.
             for (int i = 0; i < array.length(); i++) {
                 JSONObject geofenceJson = array.getJSONObject(i);
-                String requestId = geofenceJson.getString("displayName");
+                String displayName = geofenceJson.getString("displayName");
 
+                // Required parameters to set (MUST have been read in from JSON)
                 JSONObject location = geofenceJson.getJSONObject("location");
-                double latitude = Double.parseDouble(location.getString("lat"));
-                double longitude = Double.parseDouble(location.getString("lng"));
+                double latitude = location.getDouble("lat");
+                double longitude = location.getDouble("lng");
                 LatLng latlng = new LatLng(latitude, longitude);
-
-                int radius = Integer.parseInt(geofenceJson.getString("radius"));
-                long expirationDuration = Long.parseLong(geofenceJson.getString("expirationDuration"));
-                int notificationResponsiveness = Integer.parseInt(geofenceJson.getString("notificationResponsiveness"));
                 int loiteringDelay = Integer.parseInt(geofenceJson
                         .getJSONObject("GEOFENCE_TRANSITION_DWELL").getString("loiteringDelay"));
-
                 String infoActivityMessage1 = geofenceJson.getString("infoActivityString1");
                 String infoActivityMessage2 = geofenceJson.getString("infoActivityString2");
 
-                boolean displayGeofenceMarker = Boolean.parseBoolean(geofenceJson.getString("displayGeofenceMarker"));
-                boolean displayGeofenceCircle = Boolean.parseBoolean(geofenceJson.getString("displayGeofenceCircle"));
+                // Optional parameters to set (may / may not exist in JSON)
+                int radius = getIntFromJsonObject(geofenceJson, "radius", getResources().getInteger(R.integer.geofenceRadiusDefault));
+                long expirationDuration = getLongFromJsonObject(geofenceJson, "expirationDuration", Geofence.NEVER_EXPIRE);
+                int notificationResponsiveness = getIntFromJsonObject(geofenceJson, "notificationResponsiveness", 0);
 
                 // TODO: modify the lines for MarkerOptions and CircleOptions when customization is supported
                 MarkerOptions markerOptions = new MarkerOptions()
-                        .visible(displayGeofenceMarker)
+                        .visible(true)
                         .position(latlng)
-                        .title(!requestId.isEmpty() ? requestId : getString(R.string.markerTest))
+                        // Markers will assume our default settings if not specified from JSON
+                        .title(!displayName.isEmpty() ? displayName : getString(R.string.geofenceMarkerTitleDefault))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
                 CircleOptions circleOptions = new CircleOptions()
-                        .visible(displayGeofenceCircle)
+                        .visible(true)
                         .center(latlng)
                         .radius(radius)
-                        .fillColor(0x4000ffff)
-                        .strokeColor(0x4000ffff).strokeWidth(2);
+                        // Circles will assume our default settings if not specified from JSON
+                        .fillColor(ContextCompat.getColor(this, R.color.geofenceCircleFillDefault))
+                        .strokeColor(ContextCompat.getColor(this, R.color.geofenceCircleStrokeDefault))
+                        .strokeWidth(getResources().getInteger(R.integer.geofenceCircleStrokeWidthDefault));
 
                 Geofence geofence = new Geofence.Builder()
-                        .setRequestId(requestId)
+                        .setRequestId(displayName)
                                 // The coordinates of the center of the geofence and the radius in meters.
                         .setCircularRegion(latitude, longitude, radius)
                         .setExpirationDuration(expirationDuration)
@@ -235,6 +239,7 @@ public class MainActivity extends FragmentActivity {
                                         | Geofence.GEOFENCE_TRANSITION_DWELL
                                         | Geofence.GEOFENCE_TRANSITION_EXIT).build();
 
+                // TODO: set any new parameters for CortezGeofence here when they are supported / implemented in CortezGeofence.class
                 // Add CortezGeofence
                 cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
                         .markerOptions(markerOptions)
@@ -250,6 +255,40 @@ public class MainActivity extends FragmentActivity {
         }
 
         return new HashMap<>(); // Returned on error
+    }
+
+    /**
+     * Attempts to get an integer value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private int getIntFromJsonObject(JSONObject jsonObject, String jsonKey, int defaultValue) {
+        try {
+            return jsonObject.getInt(jsonKey);
+        }
+        catch (JSONException e) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Attempts to get a long value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private long getLongFromJsonObject(JSONObject jsonObject, String jsonKey, long defaultValue) {
+        try {
+            return jsonObject.getInt(jsonKey);
+        }
+        catch (JSONException e) {
+            return defaultValue;
+        }
     }
 
     /**
@@ -290,7 +329,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.v(TAG, "Clicked Marker at " + marker.getPosition());
-                Intent poi_details = new Intent(MainActivity.this, InfoActivity.class);
+                Intent poi_details = new Intent(MapActivity.this, InfoActivity.class);
 
                 String infoActivityMessage1 = cortezGeofences
                         .get(marker.getPosition())

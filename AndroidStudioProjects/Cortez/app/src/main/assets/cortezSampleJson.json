@@ -11,10 +11,6 @@
       },
       "radius": 100,
 
-      "expirationDuration": -1,
-
-      "notificationResponsiveness": 0,
-
       "GEOFENCE_TRANSITION_ENTER": {
         "sendNotification": true,
         "notificationText": "Entered Blank Geofence"
@@ -30,10 +26,7 @@
       },
 
       "infoActivityString1": "",
-      "infoActivityString2": "",
-
-      "displayGeofenceMarker": true,
-      "displayGeofenceCircle": true
+      "infoActivityString2": ""
     },
 
 
@@ -46,10 +39,6 @@
         "lng": -95.253530
       },
       "radius": 100,
-
-      "expirationDuration": -1,
-
-      "notificationResponsiveness": 0,
 
       "GEOFENCE_TRANSITION_ENTER": {
         "sendNotification": true,
@@ -66,10 +55,7 @@
       },
 
       "infoActivityString1": "This bronze statue came to KU in 1985. It was bought by the Barbara Benton Wescoe Fund to honor the memory of Judge Willard M. Benton (KU School of Law alumnus, 1920). It technically belongs to the Spencer Museum of Art!",
-      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!",
-
-      "displayGeofenceMarker": true,
-      "displayGeofenceCircle": true
+      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!"
     },
 
 
@@ -82,10 +68,6 @@
         "lng": -95.019012
       },
       "radius": 100,
-
-      "expirationDuration": -1,
-
-      "notificationResponsiveness": 0,
 
       "GEOFENCE_TRANSITION_ENTER": {
         "sendNotification": true,
@@ -102,10 +84,7 @@
       },
 
       "infoActivityString1": "No place like it.",
-      "infoActivityString2": "",
-
-      "displayGeofenceMarker": true,
-      "displayGeofenceCircle": true
+      "infoActivityString2": ""
     }
   ]
 }

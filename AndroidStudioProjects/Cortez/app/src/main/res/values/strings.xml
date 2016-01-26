@@ -1,11 +1,16 @@
 <resources>
+
+    <!-- The name that displays in Task Manager -->
     <string name="app_name">Cortez</string>
+
+    <!-- Map Activity title -->
     <string name="title_activity_maps">Cortez</string>
-    <string name="markerTest">Empty Marker Title</string>
 
-
+    <!-- Info Activity title -->
     <string name="title_activity_info">InfoActivity</string>
-    <string name="infoActivityTextView1Test">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+    <!-- TextViews inside Info Activity -->
+    <string name="infoActivityTextView1Default">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Donec ante sem, imperdiet vitae odio quis, ultrices rutrum libero.
         Aliquam fringilla a nisi a cursus. Vestibulum semper ex nunc, eget vehicula massa vulputate id. Fusce sollicitudin lectus lectus.
         Sed posuere metus id nisl dapibus, et finibus erat tempus. Duis imperdiet mauris at velit blandit, vel vulputate odio sagittis.
@@ -16,8 +21,14 @@
         Phasellus varius diam eget mi eleifend, ut porttitor massa blandit.
         Morbi accumsan orci vel tellus ultricies varius. Ut ultricies dolor eget purus rhoncus dignissim. Vestibulum vehicula gravida dui in suscipit. Pellentesque vitae tincidunt lorem. Sed consequat at dolor id efficitur.
         Nam erat arcu, posuere sit amet sapien ut, condimentum euismod libero.</string>
-    <string name="infoActivityTextView2Test">Links, Media Go Here</string>
+    <string name="infoActivityTextView2Default">Links, Media Go Here</string>
+
+    <!-- Geofence Marker title -->
+    <string name="geofenceMarkerTitleDefault">Empty Marker Title</string>
+
+    <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
     <string name="notifyGeofenceDwell">Geofence Dwell</string>
     <string name="notifyGeofenceExit">Geofence Exited</string>
+
 </resources>
