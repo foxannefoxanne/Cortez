@@ -18,4 +18,9 @@
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
         YOUR_KEY_HERE
     </string>
+
+    <!-- The Google App ID for Cortez (required for Google Play Services) -->
+    <!-- It be found in the Google Developers Console under "Project ID" -->
+    <string name="google_app_id">YOUR_PROJECT_ID_HERE</string>
+
 </resources>

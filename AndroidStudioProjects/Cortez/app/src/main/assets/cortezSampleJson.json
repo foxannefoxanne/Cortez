@@ -3,7 +3,8 @@
   "mapName": "Sample Map Name",
   "geofences": [
     {
-      "displayName": "",
+      "markerTitle": "",
+      "markerSnippet": "",
 
       "location": {
         "lat": 38.8570033,
@@ -32,7 +33,8 @@
 
 
     {
-      "displayName": "Tai Chi Statue",
+      "markerTitle": "Tai Chi Statue",
+      "markerSnippet": "",
 
       "location": {
         "lat": 38.956880,
@@ -61,7 +63,8 @@
 
 
     {
-      "displayName": "Home",
+      "markerTitle": "Home",
+      "markerSnippet": "",
 
       "location": {
         "lat": 38.7590022,

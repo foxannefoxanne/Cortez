@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationServices;
 
 /**
  * Credit: https://github.com/the-paulus/Android-Geofence
+ * Modifications by Joseph on 1/28/16.
  */
 public class GeofenceStore implements ConnectionCallbacks,
         OnConnectionFailedListener, ResultCallback<Status>, LocationListener {
@@ -76,9 +77,13 @@ public class GeofenceStore implements ConnectionCallbacks,
         // Build a new GoogleApiClient, specify that we want to use LocationServices
         // by adding the API to the client, specify the connection callbacks are in
         // this class as well as the OnConnectionFailed method.
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API).addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this).build();
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(context)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
         // This is purely optional and has nothing to do with geofencing.
         // I added this as a way of debugging.
@@ -99,13 +104,13 @@ public class GeofenceStore implements ConnectionCallbacks,
     @Override
     public void onResult(Status result) {
         if (result.isSuccess()) {
-            Log.v(TAG, "Success!");
+            Log.d(TAG, "Success!");
         } else if (result.hasResolution()) {
             // TODO Handle resolution
         } else if (result.isCanceled()) {
-            Log.v(TAG, "Canceled");
+            Log.d(TAG, "Canceled");
         } else if (result.isInterrupted()) {
-            Log.v(TAG, "Interrupted");
+            Log.d(TAG, "Interrupted");
         } else {
 
         }
@@ -114,7 +119,7 @@ public class GeofenceStore implements ConnectionCallbacks,
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.v(TAG, "Connection failed.");
+        Log.d(TAG, "Connection failed.");
     }
 
     @Override
@@ -142,7 +147,7 @@ public class GeofenceStore implements ConnectionCallbacks,
 
     @Override
     public void onConnectionSuspended(int cause) {
-        Log.v(TAG, "Connection suspended.");
+        Log.d(TAG, "Connection suspended.");
     }
 
     /**
@@ -154,7 +159,7 @@ public class GeofenceStore implements ConnectionCallbacks,
      */
     private PendingIntent createRequestPendingIntent() {
         if (mPendingIntent == null) {
-            Log.v(TAG, "Creating PendingIntent");
+            Log.d(TAG, "Creating PendingIntent");
             Intent intent = new Intent(mContext, GeofenceIntentService.class);
             mPendingIntent = PendingIntent.getService(mContext, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
@@ -165,8 +170,7 @@ public class GeofenceStore implements ConnectionCallbacks,
 
     @Override
     public void onLocationChanged(Location location) {
-
-        Log.v(TAG, "Location Information\n"
+        Log.d(TAG, "Location Information\n"
                 + "==========\n"
                 + "Provider:\t" + location.getProvider() + "\n"
                 + "Lat & Long:\t" + location.getLatitude() + ", "

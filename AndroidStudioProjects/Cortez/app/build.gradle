@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 23            // Android 6.0 Marshmallow (highest supported SDK)
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "eecs581_582.cortez"
-        minSdkVersion 15
-        targetSdkVersion 23
+        minSdkVersion 17            // Android 4.3 Jelly Bean
+        targetSdkVersion 21         // Android 5.0 Lollipop
         versionCode 1
         versionName "1.0"
     }

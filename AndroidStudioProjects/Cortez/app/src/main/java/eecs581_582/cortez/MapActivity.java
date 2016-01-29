@@ -75,219 +75,43 @@ public class MapActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Initialize variables
-        mGeofenceVisibleMarkers = new HashMap<LatLng, Marker>();
-        mGeofenceVisibleCircles = new HashMap<LatLng, Circle>();
-
-        cortezJSONData = getCortezJSONData();
-        try {
-            setTitle(cortezJSONData.getString("mapName"));
-        } catch (JSONException e) {}
-
-        cortezGeofences = getCortezGeofences(cortezJSONData);
-
-        // Add the geofences to the GeofenceStore object.
-        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
-        for (CortezGeofence c : cortezGeofences.values()) {
-            geofences.add(c.getGeofence());
-        }
-        mGeofenceStore = new GeofenceStore(this, geofences);
     }
 
     @Override
     protected void onStart() {
-        Log.v(TAG, "onStart");
+        Log.d(TAG, "onStart");
         super.onStart();
     }
 
     @Override
     protected void onPause() {
-        Log.v(TAG, "onPause");
+        Log.d(TAG, "onPause");
         mGeofenceStore.disconnect();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.v(TAG, "onStop");
+        Log.d(TAG, "onStop");
         mGeofenceStore.disconnect();
         super.onStop();
     }
 
     @Override
     protected void onResume() {
-        Log.v(TAG, "onResume");
+        Log.d(TAG, "onResume");
         super.onResume();
+
+        // TODO: move Google Play Services check to MainActivity.java
         if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
             setUpMapIfNeeded();
         } else {
             GooglePlayServicesUtil.getErrorDialog(
                     GooglePlayServicesUtil.isGooglePlayServicesAvailable(this),
                     this, 0);
-        }
-    }
-
-    /**
-     * Gets Cortez JSON data.
-     * @return a traversable JSON object containing all textual data for Cortez
-     */
-    private JSONObject getCortezJSONData() {
-        // TODO: implement in a way that downloads JSON from the database
-        try {
-            InputStream is = this.getAssets().open("cortezSampleJson.json");
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            StringBuilder stringBuilder = new StringBuilder();
-
-            String inputStr;
-            while ((inputStr = streamReader.readLine()) != null)
-                stringBuilder.append(inputStr);
-
-            return new JSONObject(stringBuilder.toString());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return new JSONObject(); // Returned on error
-    }
-
-    /**
-     * Saves a copy of the Cortez JSON data to internal storage.
-     * This copy can be used to load the Geofence data for the map at a later time,
-     * without redundant database calls.
-     */
-    private void saveCortezJSONData() {
-        FileOutputStream outputStream;
-        try {
-            String filename = cortezJSONData.getString("filename");
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            Log.v(TAG, "Saving Cortez JSON Data...");
-            outputStream.write(cortezJSONData.toString().getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Builds a GeofenceStore object from JSON data.
-     * @param jsonObject
-     * @return
-     */
-    private HashMap<LatLng, CortezGeofence> getCortezGeofences(JSONObject jsonObject) {
-        try {
-
-            // Get the geofence data from the JSON object.
-            JSONArray array = jsonObject.getJSONArray("geofences");
-
-            HashMap<LatLng, CortezGeofence> cortezGeofences = new HashMap<LatLng, CortezGeofence>(array.length());
-
-            // Build each geofence and add them to the list.
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject geofenceJson = array.getJSONObject(i);
-                String displayName = geofenceJson.getString("displayName");
-
-                // Required parameters to set (MUST have been read in from JSON)
-                JSONObject location = geofenceJson.getJSONObject("location");
-                double latitude = location.getDouble("lat");
-                double longitude = location.getDouble("lng");
-                LatLng latlng = new LatLng(latitude, longitude);
-                int loiteringDelay = Integer.parseInt(geofenceJson
-                        .getJSONObject("GEOFENCE_TRANSITION_DWELL").getString("loiteringDelay"));
-                String infoActivityMessage1 = geofenceJson.getString("infoActivityString1");
-                String infoActivityMessage2 = geofenceJson.getString("infoActivityString2");
-
-                // Optional parameters to set (may / may not exist in JSON)
-                int radius = getIntFromJsonObject(geofenceJson, "radius", getResources().getInteger(R.integer.geofenceRadiusDefault));
-                long expirationDuration = getLongFromJsonObject(geofenceJson, "expirationDuration", Geofence.NEVER_EXPIRE);
-                int notificationResponsiveness = getIntFromJsonObject(geofenceJson, "notificationResponsiveness", 0);
-
-                // TODO: modify the lines for MarkerOptions and CircleOptions when customization is supported
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .visible(true)
-                        .position(latlng)
-                        // Markers will assume our default settings if not specified from JSON
-                        .title(!displayName.isEmpty() ? displayName : getString(R.string.geofenceMarkerTitleDefault))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-
-                CircleOptions circleOptions = new CircleOptions()
-                        .visible(true)
-                        .center(latlng)
-                        .radius(radius)
-                        // Circles will assume our default settings if not specified from JSON
-                        .fillColor(ContextCompat.getColor(this, R.color.geofenceCircleFillDefault))
-                        .strokeColor(ContextCompat.getColor(this, R.color.geofenceCircleStrokeDefault))
-                        .strokeWidth(getResources().getInteger(R.integer.geofenceCircleStrokeWidthDefault));
-
-                Geofence geofence = new Geofence.Builder()
-                        .setRequestId(displayName)
-                                // The coordinates of the center of the geofence and the radius in meters.
-                        .setCircularRegion(latitude, longitude, radius)
-                        .setExpirationDuration(expirationDuration)
-                        .setNotificationResponsiveness(notificationResponsiveness)
-                                // Required when we use the transition type of GEOFENCE_TRANSITION_DWELL
-                        .setLoiteringDelay(loiteringDelay)
-                        .setTransitionTypes(
-                                Geofence.GEOFENCE_TRANSITION_ENTER
-                                        | Geofence.GEOFENCE_TRANSITION_DWELL
-                                        | Geofence.GEOFENCE_TRANSITION_EXIT).build();
-
-                // TODO: set any new parameters for CortezGeofence here when they are supported / implemented in CortezGeofence.class
-                // Add CortezGeofence
-                cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
-                        .markerOptions(markerOptions)
-                        .circleOptions(circleOptions)
-                        .infoActivityMessage1(infoActivityMessage1)
-                        .infoActivityMessage2(infoActivityMessage2)
-                        .build());
-            }
-
-            return cortezGeofences;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return new HashMap<>(); // Returned on error
-    }
-
-    /**
-     * Attempts to get an integer value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private int getIntFromJsonObject(JSONObject jsonObject, String jsonKey, int defaultValue) {
-        try {
-            return jsonObject.getInt(jsonKey);
-        }
-        catch (JSONException e) {
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Attempts to get a long value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private long getLongFromJsonObject(JSONObject jsonObject, String jsonKey, long defaultValue) {
-        try {
-            return jsonObject.getInt(jsonKey);
-        }
-        catch (JSONException e) {
-            return defaultValue;
         }
     }
 
@@ -317,6 +141,18 @@ public class MapActivity extends FragmentActivity {
                 setUpMap();
             }
         }
+        else {
+            /* Map is already initialized -- move camera to latest location.
+             *
+             * This will be executed if either of the following conditions are met:
+             *
+             * 1. The app has been minimized, and then brought back to focus
+             *
+             * 2. A marker on the map is clicked (switching views to InfoActivity),
+             *    followed by clicking the "back" button (swtiching back to MapActivity)
+             */
+            locate();
+        }
     }
 
     /**
@@ -325,10 +161,28 @@ public class MapActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        // Hide labels.
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setIndoorEnabled(false);
+        mMap.setMyLocationEnabled(true);
+
+        // Build Cortez Geofences and place them on the map.
+        setUpGeofences();
+
+        // Display the map from the user's initial location upon starting the app.
+        locate();
+
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition position) {
+                displayGeofences();
+            }
+        });
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Log.v(TAG, "Clicked Marker at " + marker.getPosition());
+                Log.d(TAG, "Clicked Marker at " + marker.getPosition());
                 Intent poi_details = new Intent(MapActivity.this, InfoActivity.class);
 
                 String infoActivityMessage1 = cortezGeofences
@@ -345,12 +199,12 @@ public class MapActivity extends FragmentActivity {
                 return true;
             }
         });
+    }
 
-        // Hide labels.
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.setIndoorEnabled(false);
-        mMap.setMyLocationEnabled(true);
-
+    /**
+     * Finds the user's Location and moves the Camera to that Location at a fixed height.
+     */
+    private void locate() {
         // Get LocationManager object from System Service LOCATION_SERVICE
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -372,29 +226,237 @@ public class MapActivity extends FragmentActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         Location myLocation = locationManager.getLastKnownLocation(provider);
 
-        // Get latitude of the current location
-        double latitude = myLocation.getLatitude();
+        if (myLocation != null) {
 
-        // Get longitude of the current location
-        double longitude = myLocation.getLongitude();
+            // Get latitude of the current location
+            double latitude = myLocation.getLatitude();
 
-        // Create a LatLng object for the current location
-        LatLng latLng = new LatLng(latitude, longitude);
+            // Get longitude of the current location
+            double longitude = myLocation.getLongitude();
 
-        // Show the current location in Google Map
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            // Create a LatLng object for the current location
+            LatLng latLng = new LatLng(latitude, longitude);
 
-        // Zoom in the Google Map
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+            // Show the current location in Google Map
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-                @Override
-                public void onCameraChange(CameraPosition position) {
-                    displayGeofences();
-                }
-        });
+            // Zoom in the Google Map
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+        }
+    }
+
+    /**
+     * Initializes Cortez Geofences.
+     */
+    private void setUpGeofences() {
+        // Initialize variables
+        mGeofenceVisibleMarkers = new HashMap<LatLng, Marker>();
+        mGeofenceVisibleCircles = new HashMap<LatLng, Circle>();
+
+        // Get data
+        cortezJSONData = getCortezJSONData();
+
+        // Set map title
+        setTitle(getStringFromJsonObject(cortezJSONData, "mapName", getString(R.string.cortezMapNameDefault)));
+
+        cortezGeofences = getCortezGeofences(cortezJSONData);
+
+        // Add the geofences to the GeofenceStore object.
+        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
+        for (CortezGeofence c : cortezGeofences.values()) {
+            geofences.add(c.getGeofence());
+        }
+        mGeofenceStore = new GeofenceStore(this, geofences);
+    }
+
+    /**
+     * Gets Cortez JSON data.
+     * @return a traversable JSON object containing all textual data for Cortez
+     */
+    private JSONObject getCortezJSONData() {
+        // TODO: implement in a way that downloads JSON from the database
+        try {
+            InputStream is = this.getAssets().open("cortezSampleJson.json");
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null)
+                stringBuilder.append(inputStr);
+
+            return new JSONObject(stringBuilder.toString());
+        }
+        catch (IOException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+        catch (JSONException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+
+        return new JSONObject(); // Returned on error
+    }
+
+    /**
+     * Saves a copy of the Cortez JSON data to internal storage.
+     * This copy can be used to load the Geofence data for the map at a later time,
+     * without redundant database calls.
+     */
+    private void saveCortezJSONData() {
+        FileOutputStream outputStream;
+        try {
+            String filename = cortezJSONData.getString("filename");
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            Log.i(TAG, "Saving Cortez JSON Data...");
+            outputStream.write(cortezJSONData.toString().getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Builds a GeofenceStore object from JSON data.
+     * @param jsonObject
+     * @return
+     */
+    private HashMap<LatLng, CortezGeofence> getCortezGeofences(JSONObject jsonObject) {
+        try {
+
+            // Get the geofence data from the JSON object.
+            JSONArray array = jsonObject.getJSONArray("geofences");
+
+            HashMap<LatLng, CortezGeofence> cortezGeofences = new HashMap<LatLng, CortezGeofence>(array.length());
+
+            // Build each geofence and add them to the list.
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject geofenceJson = array.getJSONObject(i);
+
+                // Required parameters to set (MUST have been read in from JSON)
+                String markerTitle = getStringFromJsonObject(geofenceJson, "markerTitle", getString(R.string.geofenceMarkerTitleDefault));
+                String markerSnippet = getStringFromJsonObject(geofenceJson, "markerSnippet", getString(R.string.geofenceMarkerSnippetDefault));
+                JSONObject location = geofenceJson.getJSONObject("location");
+                double latitude = location.getDouble("lat");
+                double longitude = location.getDouble("lng");
+                LatLng latlng = new LatLng(latitude, longitude);
+                int loiteringDelay = Integer.parseInt(geofenceJson
+                        .getJSONObject("GEOFENCE_TRANSITION_DWELL").getString("loiteringDelay"));
+                String infoActivityMessage1 = geofenceJson.getString("infoActivityString1");
+                String infoActivityMessage2 = geofenceJson.getString("infoActivityString2");
+
+                // Optional parameters to set (may / may not exist in JSON)
+                int radius = getIntFromJsonObject(geofenceJson, "radius", getResources().getInteger(R.integer.geofenceRadiusDefault));
+                long expirationDuration = getLongFromJsonObject(geofenceJson, "expirationDuration", Geofence.NEVER_EXPIRE);
+                int notificationResponsiveness = getIntFromJsonObject(geofenceJson, "notificationResponsiveness", 0);
+
+                // TODO: modify the lines for MarkerOptions and CircleOptions when customization is supported
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .visible(true)
+                        .position(latlng)
+                                // Markers will assume our default settings if not specified from JSON
+                        .title(markerTitle)
+                        .snippet(markerSnippet)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+
+                CircleOptions circleOptions = new CircleOptions()
+                        .visible(true)
+                        .center(latlng)
+                        .radius(radius)
+                                // Circles will assume our default settings if not specified from JSON
+                        .fillColor(ContextCompat.getColor(this, R.color.geofenceCircleFillDefault))
+                        .strokeColor(ContextCompat.getColor(this, R.color.geofenceCircleStrokeDefault))
+                        .strokeWidth(getResources().getInteger(R.integer.geofenceCircleStrokeWidthDefault));
+
+                Geofence geofence = new Geofence.Builder()
+                        .setRequestId(markerTitle)
+                                // The coordinates of the center of the geofence and the radius in meters.
+                        .setCircularRegion(latitude, longitude, radius)
+                        .setExpirationDuration(expirationDuration)
+                        .setNotificationResponsiveness(notificationResponsiveness)
+                                // Required when we use the transition type of GEOFENCE_TRANSITION_DWELL
+                        .setLoiteringDelay(loiteringDelay)
+                        .setTransitionTypes(
+                                Geofence.GEOFENCE_TRANSITION_ENTER
+                                        | Geofence.GEOFENCE_TRANSITION_DWELL
+                                        | Geofence.GEOFENCE_TRANSITION_EXIT).build();
+
+                // TODO: set any new parameters for CortezGeofence here when they are supported / implemented in CortezGeofence.java
+                // Add CortezGeofence
+                cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
+                        .markerOptions(markerOptions)
+                        .circleOptions(circleOptions)
+                        .infoActivityMessage1(infoActivityMessage1)
+                        .infoActivityMessage2(infoActivityMessage2)
+                        .build());
+            }
+
+            return cortezGeofences;
+        } catch (JSONException e) {
+
+            // A required value for the CortezGeofence was not found in the JSONObject.
+            // Check the log for a red message specifying which one.
+            Log.e(TAG, e.getLocalizedMessage());
+
+            // TODO: Handle the bad JSON file in some way
+        }
+
+        return new HashMap<>(); // Returned on error
+    }
+
+    /**
+     * Attempts to get an integer value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private int getIntFromJsonObject(JSONObject jsonObject, String jsonKey, int defaultValue) {
+        try {
+            return jsonObject.getInt(jsonKey);
+        }
+        catch (JSONException e) {
+            Log.w(TAG, e.getLocalizedMessage());
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Attempts to get a long value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private long getLongFromJsonObject(JSONObject jsonObject, String jsonKey, long defaultValue) {
+        try {
+            return jsonObject.getInt(jsonKey);
+        }
+        catch (JSONException e) {
+            Log.w(TAG, e.getLocalizedMessage());
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Attempts to get a String value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private String getStringFromJsonObject(JSONObject jsonObject, String jsonKey, String defaultValue) {
+        try {
+            return jsonObject.getString(jsonKey);
+        }
+        catch (JSONException e) {
+            Log.w(TAG, e.getLocalizedMessage());
+            return defaultValue;
+        }
     }
 
     /**
@@ -418,7 +480,9 @@ public class MapActivity extends FragmentActivity {
                     //If the item isn't already being displayed
                     if (!mGeofenceVisibleMarkers.containsKey(key)) {
                         //Add the Marker / Circle to the Map and keep track of it with the HashMap
-                        mGeofenceVisibleMarkers.put(key, mMap.addMarker(c.getGeofenceMarkerOptions()));
+                        Marker marker = mMap.addMarker(c.getGeofenceMarkerOptions());
+                        mGeofenceVisibleMarkers.put(key, marker);
+                        marker.showInfoWindow();
                         mGeofenceVisibleCircles.put(key, mMap.addCircle(c.getGeofenceCircleOptions()));
                     }
                 }

@@ -26,17 +26,17 @@ public class GeofenceIntentService extends IntentService {
 
     public GeofenceIntentService() {
         super("GeofenceIntentService");
-        Log.v(TAG, "Constructor.");
+        Log.d(TAG, "Constructor.");
     }
 
     public void onCreate() {
         super.onCreate();
-        Log.v(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
     }
 
     public void onDestroy() {
         super.onDestroy();
-        Log.v(TAG, "onDestroy");
+        Log.d(TAG, "onDestroy");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class GeofenceIntentService extends IntentService {
 
         // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
         sendNotification(this, intent);
-        Log.v(TAG, "onHandleIntent");
+        Log.d(TAG, "onHandleIntent");
     }
 
     /**
@@ -85,19 +85,19 @@ public class GeofenceIntentService extends IntentService {
             switch (transition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = getString(R.string.notifyGeofenceEnter);
-                    Log.v(TAG, "Geofence Entered");
+                    Log.d(TAG, "Geofence Entered");
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = getString(R.string.notifyGeofenceDwell);
-                    Log.v(TAG, "Dwelling in Geofence");
+                    Log.d(TAG, "Dwelling in Geofence");
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = getString(R.string.notifyGeofenceExit);
-                    Log.v(TAG, "Geofence Exited");
+                    Log.d(TAG, "Geofence Exited");
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
-                    Log.v(TAG, "Geofence Unknown");
+                    Log.d(TAG, "Geofence Unknown");
             }
 
             // Enable the Notification to take the user back to the map (MainActivity)
@@ -121,7 +121,7 @@ public class GeofenceIntentService extends IntentService {
             NotificationManager notificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Log.v(TAG, "Sending Notification");
+            Log.d(TAG, "Sending Notification");
             notificationManager.notify(0, notificationBuilder.build());
         }
 

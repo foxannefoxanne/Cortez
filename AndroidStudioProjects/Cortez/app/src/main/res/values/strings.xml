@@ -10,21 +10,41 @@
     <string name="title_activity_info">InfoActivity</string>
 
     <!-- TextViews inside Info Activity -->
-    <string name="infoActivityTextView1Default">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <string name="infoActivityTextView1Default">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Donec ante sem, imperdiet vitae odio quis, ultrices rutrum libero.
-        Aliquam fringilla a nisi a cursus. Vestibulum semper ex nunc, eget vehicula massa vulputate id. Fusce sollicitudin lectus lectus.
-        Sed posuere metus id nisl dapibus, et finibus erat tempus. Duis imperdiet mauris at velit blandit, vel vulputate odio sagittis.
-        Quisque est massa, feugiat eget lobortis vitae, congue pellentesque magna. Ut tempus, dolor a eleifend lacinia, arcu massa dapibus tortor, eget ullamcorper ipsum risus sed arcu.
-        Phasellus massa lectus, semper vel sagittis non, malesuada eu tortor. Quisque nulla leo, faucibus quis ipsum ac, bibendum maximus sapien.
-        Curabitur libero sem, suscipit ac aliquam eu, elementum quis diam.Aenean tempus ex lectus, non congue nibh efficitur at. Quisque urna diam, fermentum nec velit eget, rutrum ullamcorper ligula.
-        Aliquam auctor faucibus tortor quis varius. In imperdiet iaculis leo et pretium. Etiam in turpis enim. Etiam a scelerisque erat. In quis feugiat ex. Nulla augue enim, tristique a magna vitae, tincidunt dapibus ante.
+        Aliquam fringilla a nisi a cursus.
+        Vestibulum semper ex nunc, eget vehicula massa vulputate id.
+        Fusce sollicitudin lectus lectus.
+        Sed posuere metus id nisl dapibus, et finibus erat tempus.\n\n
+        Duis imperdiet mauris at velit blandit, vel vulputate odio sagittis.
+        Quisque est massa, feugiat eget lobortis vitae, congue pellentesque magna.
+        Ut tempus, dolor a eleifend lacinia, arcu massa dapibus tortor, eget ullamcorper ipsum risus sed arcu.
+        Phasellus massa lectus, semper vel sagittis non, malesuada eu tortor.
+        Quisque nulla leo, faucibus quis ipsum ac, bibendum maximus sapien.\n\n
+        Curabitur libero sem, suscipit ac aliquam eu, elementum quis diam.
+        Aenean tempus ex lectus, non congue nibh efficitur at.
+        Quisque urna diam, fermentum nec velit eget, rutrum ullamcorper ligula.
+        Aliquam auctor faucibus tortor quis varius. In imperdiet iaculis leo et pretium.\n\n
+        Etiam in turpis enim. Etiam a scelerisque erat. In quis feugiat ex.
+        Nulla augue enim, tristique a magna vitae, tincidunt dapibus ante.
         Phasellus varius diam eget mi eleifend, ut porttitor massa blandit.
-        Morbi accumsan orci vel tellus ultricies varius. Ut ultricies dolor eget purus rhoncus dignissim. Vestibulum vehicula gravida dui in suscipit. Pellentesque vitae tincidunt lorem. Sed consequat at dolor id efficitur.
-        Nam erat arcu, posuere sit amet sapien ut, condimentum euismod libero.</string>
+        Morbi accumsan orci vel tellus ultricies varius.
+        Ut ultricies dolor eget purus rhoncus dignissim.\n\n
+        Vestibulum vehicula gravida dui in suscipit.
+        Pellentesque vitae tincidunt lorem. Sed consequat at dolor id efficitur.
+        Nam erat arcu, posuere sit amet sapien ut, condimentum euismod libero.
+    </string>
     <string name="infoActivityTextView2Default">Links, Media Go Here</string>
+
+    <!-- Cortez Map name -->
+    <string name="cortezMapNameDefault">Empty Map Name</string>
 
     <!-- Geofence Marker title -->
     <string name="geofenceMarkerTitleDefault">Empty Marker Title</string>
+
+    <!-- Geofence Marker snippet -->
+    <string name="geofenceMarkerSnippetDefault">Empty Marker Snippet</string>
 
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>

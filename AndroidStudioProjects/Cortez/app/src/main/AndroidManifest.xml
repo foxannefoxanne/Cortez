@@ -6,11 +6,11 @@
 
     <!--
             Android Versions supported by Cortez:
-            15 (4.0.3 Ice Cream Sandwich) thru 23 (6.0 Marshmallow)
+            17 (4.3 Jelly Bean) thru 23 (6.0 Marshmallow)
     -->
     <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="23" />
+        android:minSdkVersion="17"
+        android:targetSdkVersion="21" />
 
     <!-- System permissions required for Cortez to work -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -66,6 +66,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <!-- The Google Maps Services version (Google Play Services version) -->
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
     </application>
 
