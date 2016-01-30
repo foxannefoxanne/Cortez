@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "eecs581_582.cortez"
         minSdkVersion 17            // Android 4.3 Jelly Bean
-        targetSdkVersion 21         // Android 5.0 Lollipop
+        targetSdkVersion 23         // Android 6.0 Marshmallow
         versionCode 1
         versionName "1.0"
     }

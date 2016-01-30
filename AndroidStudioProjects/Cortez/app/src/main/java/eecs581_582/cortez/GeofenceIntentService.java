@@ -7,12 +7,12 @@ import com.google.android.gms.location.GeofencingEvent;
 
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -69,7 +69,7 @@ public class GeofenceIntentService extends IntentService {
     /**
      * Sends a Notification to the user's Notification Bar when 1+ Geofences are triggered.
      * @param context the GeofenceIntentService Context
-     * @param intent the Intent coming from GeofenceStore which had been fired when Geofences were triggered
+     * @param intent the Intent coming from GeofenceMonitor which had been fired when Geofences were triggered
      */
     private void sendNotification(Context context, Intent intent) {
         PowerManager pm = (PowerManager) context
@@ -102,14 +102,14 @@ public class GeofenceIntentService extends IntentService {
 
             // Enable the Notification to take the user back to the map (MainActivity)
             Intent notificationIntent = new Intent(context, MapActivity.class);
-            // If an activity other than the map (MainActivity) is running in Cortez, it will be closed
+            // If an activity other than the map (MapActivity) is running in Cortez, it will be closed
             // (stopping any running processes within that activity), and the map will be added
             // to the top of the history stack.
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
-                    context).setSmallIcon(R.mipmap.logo)                            // Use Cortez logo
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.mipmap.logo)                                    // Use Cortez logo
                     .setPriority(Notification.PRIORITY_DEFAULT)                     // Don't annoy the user
                     .setAutoCancel(true)                                            // Close when clicked
                     .setContentTitle(notificationTitle)                             // Add Notification title
@@ -118,8 +118,8 @@ public class GeofenceIntentService extends IntentService {
                     .setContentIntent(pendingIntent);                               // Set the next PendingIntent to go back to the MainActivity
 
 
-            NotificationManager notificationManager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+            notificationManager.getEnabledListenerPackages(context);
 
             Log.d(TAG, "Sending Notification");
             notificationManager.notify(0, notificationBuilder.build());
@@ -130,7 +130,7 @@ public class GeofenceIntentService extends IntentService {
 
     /**
      * Names the list of Geofences that have been triggered from the same location (Intent).
-     * @param intent the Intent coming from GeofenceStore which had been fired when Geofences were triggered
+     * @param intent the Intent coming from GeofenceMonitor which had been fired when Geofences were triggered
      * @return a comma-separated String containing the names of triggered Geofences
      */
     private String getTriggeringGeofences(Intent intent) {

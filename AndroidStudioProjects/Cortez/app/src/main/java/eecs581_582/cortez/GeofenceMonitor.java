@@ -23,10 +23,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 /**
+ * Monitors all Geofence objects.
  * Credit: https://github.com/the-paulus/Android-Geofence
  * Modifications by Joseph on 1/28/16.
  */
-public class GeofenceStore implements ConnectionCallbacks,
+public class GeofenceMonitor implements ConnectionCallbacks,
         OnConnectionFailedListener, ResultCallback<Status>, LocationListener {
 
     private final String TAG = this.getClass().getSimpleName();
@@ -67,7 +68,7 @@ public class GeofenceStore implements ConnectionCallbacks,
      * @param context The context to use.
      * @param geofences List of geofences to monitor.
      */
-    public GeofenceStore(Context context, ArrayList<Geofence> geofences) {
+    public GeofenceMonitor(Context context, ArrayList<Geofence> geofences) {
 
         mContext = context;
         mGeofences = geofences;
