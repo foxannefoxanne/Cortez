@@ -21,6 +21,13 @@ android {
             debuggable true
         }
     }
+    sourceSets {
+        main {
+            // New subdirectories can be added here manually, but they must come before src/main/java.
+            // See http://stackoverflow.com/a/22426467
+            java.srcDirs = ['src/main/java/activity', 'src/main/java']
+        }
+    }
 }
 
 dependencies {
@@ -29,9 +36,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile 'com.google.android.gms:play-services-identity:8.3.0'
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile 'com.google.android.gms:play-services-identity:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:support-v13:23.1.1'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }

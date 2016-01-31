@@ -5,48 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@mipmap/medievalmap"
-    tools:context="eecs581_582.cortez.InfoActivity">
+    tools:context=".activity.InfoActivity">
 
     <!--Background Photo Credit: http://www.alegriphotos.com/Medieval_map-lphoto-783d2d9be853220c13c336f9056fd5f9.html
                    Photo License: http://creativecommons.org/licenses/by/3.0/-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <TextView
-            android:id="@+id/infoActivityTextView1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@string/infoActivityTextView1Default"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:gravity="center"
-            android:scrollbars="vertical"
-            android:scrollbarStyle="insideOverlay"
-            android:fadeScrollbars="true"
-            android:fadingEdge="vertical"
-            android:layout_weight="1"
-            android:background="#c3ffffff"
-            android:textStyle="bold"
-            android:visibility="visible"
-            android:textColor="@android:color/black" />
+    <WebView
+        android:id="@+id/infoActivityWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
 
-        <TextView
-            android:id="@+id/infoActivityTextView2"
-            android:layout_width="fill_parent"
-            android:layout_height="140dp"
-            android:text="@string/infoActivityTextView2Default"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
 
-            android:background="#000000"
-            android:textColor="#ffffff" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/infoActivityTextView"
+        android:layout_width="match_parent"
+        android:layout_height="140dip"
+        android:text="@string/infoActivityTextViewDefault"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->

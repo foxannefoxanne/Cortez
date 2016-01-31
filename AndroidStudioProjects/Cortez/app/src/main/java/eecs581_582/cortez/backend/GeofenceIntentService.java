@@ -1,4 +1,4 @@
-package eecs581_582.cortez;
+package eecs581_582.cortez.backend;
 
 import java.util.List;
 
@@ -15,6 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
+
+import eecs581_582.cortez.R;
+import eecs581_582.cortez.activity.MapActivity;
 
 /**
  * Credit: https://github.com/the-paulus/Android-Geofence
@@ -61,9 +64,9 @@ public class GeofenceIntentService extends IntentService {
          * 4. Let's try not to annoy / spam the user with content, mkay?
          */
 
+        Log.d(TAG, "onHandleIntent");
         // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
         sendNotification(this, intent);
-        Log.d(TAG, "onHandleIntent");
     }
 
     /**
@@ -106,6 +109,8 @@ public class GeofenceIntentService extends IntentService {
             // (stopping any running processes within that activity), and the map will be added
             // to the top of the history stack.
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            Log.d(TAG, getTriggeringGeofences(intent));
+
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
@@ -115,7 +120,7 @@ public class GeofenceIntentService extends IntentService {
                     .setContentTitle(notificationTitle)                             // Add Notification title
                     .setContentText(getTriggeringGeofences(intent))                 // Add Notification text
                     .setDefaults(Notification.DEFAULT_ALL)                          // Use system defaults for Notification
-                    .setContentIntent(pendingIntent);                               // Set the next PendingIntent to go back to the MainActivity
+                    .setContentIntent(pendingIntent);                               // Set the next PendingIntent to go back to the MapActivity
 
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());

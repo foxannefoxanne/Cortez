@@ -1,4 +1,4 @@
-package eecs581_582.cortez;
+package eecs581_582.cortez.backend;
 
 import java.util.ArrayList;
 

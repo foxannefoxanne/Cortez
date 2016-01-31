@@ -1,4 +1,4 @@
-package eecs581_582.cortez;
+package eecs581_582.cortez.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +24,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import eecs581_582.cortez.CortezGeofence;
+import eecs581_582.cortez.CortezMapData;
+import eecs581_582.cortez.backend.GeofenceMonitor;
+import eecs581_582.cortez.backend.GoogleApiChecker;
+import eecs581_582.cortez.R;
 
 public class MapActivity extends FragmentActivity {
 
@@ -65,7 +73,7 @@ public class MapActivity extends FragmentActivity {
         // TODO: Move this check to MainActivity.java when it is implemented
         GoogleApiChecker.checkPlayServices(this);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
         setUpMapIfNeeded();
     }
 
@@ -93,6 +101,28 @@ public class MapActivity extends FragmentActivity {
     protected void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -168,19 +198,26 @@ public class MapActivity extends FragmentActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.d(TAG, "Clicked Marker at " + marker.getPosition());
-                Intent poi_details = new Intent(MapActivity.this, InfoActivity.class);
+                // TODO: get an Intent coming from GeofenceIntentService with getIntent(), and get the triggering geofences from it.
+                // That will need to be implemented in either GeofenceIntentService.onHandleIntent()
+                // or GeofenceIntentService.sendNotification()... not sure which one, yet.
+//                Intent incomingIntent = getIntent();
 
-                String infoActivityMessage1 = cortezGeofences
-                        .get(marker.getPosition())
-                        .getInfoActivityMessage1();
-                String infoActivityMessage2 = cortezGeofences
-                        .get(marker.getPosition())
-                        .getInfoActivityMessage2();
+                Intent outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
 
-                poi_details.putExtra("title", marker.getTitle());
-                poi_details.putExtra("infoActivityMessage1", infoActivityMessage1);
-                poi_details.putExtra("infoActivityMessage2", infoActivityMessage2);
-                startActivity(poi_details);
+                CortezGeofence tmp = cortezGeofences.get(marker.getPosition());
+
+                String infoActivityMessage1 = tmp.getInfoActivityMessage1();
+                String infoActivityMessage2 = tmp.getInfoActivityMessage2();
+
+                outgoingIntent.putExtra("title", marker.getTitle());
+                outgoingIntent.putExtra("infoActivityMessage1", infoActivityMessage1);
+                outgoingIntent.putExtra("infoActivityMessage2", infoActivityMessage2);
+
+                // TODO: put any media extras into outgoingIntent that will appear in the InfoActivity when the user is in a geofence.
+                // We'll also need to implement handlers for the various media types inside InfoActivity.java.
+
+                startActivity(outgoingIntent);
                 return true;
             }
         });

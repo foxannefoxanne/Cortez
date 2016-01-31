@@ -7,4 +7,7 @@
     <!-- Thickness of the Geofence Circle displayed on the map -->
     <integer name="geofenceCircleStrokeWidthDefault">2</integer>
 
+    <!-- Elapsed time (in ms) required before a GEOFENCE_TRANSITION_DWELL event is triggered -->
+    <integer name="geofenceLoiteringDelayDefault">30000</integer>
+
 </resources>

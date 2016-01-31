@@ -1,9 +1,11 @@
-package eecs581_582.cortez;
+package eecs581_582.cortez.backend;
 
 import android.app.Activity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.youtube.player.YouTubeApiServiceUtil;
+import com.google.android.youtube.player.YouTubeInitializationResult;
 
 /**
  * This class acts as a sentinel against using Cortez on a system without the required Google API's.
@@ -34,5 +36,17 @@ public class GoogleApiChecker {
         }
 
         // Google Play Services is installed: we're golden.
+    }
+
+    public static void checkYouTubeAPI(Activity activity) {
+        YouTubeInitializationResult initializationResult = YouTubeApiServiceUtil.isYouTubeApiServiceAvailable(activity);
+        if (initializationResult != YouTubeInitializationResult.SUCCESS) {
+            if (initializationResult.isUserRecoverableError()) {
+                // YouTube not installed: provide a means for doing so
+                initializationResult.getErrorDialog(activity, 2).show();
+            }
+        }
+
+        // YouTube is installed: movie time!
     }
 }

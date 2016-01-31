@@ -1,6 +1,7 @@
 package eecs581_582.cortez;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -92,26 +93,67 @@ public class CortezMapData {
 
             HashMap<LatLng, CortezGeofence> cortezGeofences = new HashMap<LatLng, CortezGeofence>(array.length());
 
+            Resources resources = context.getResources();
+
             // Build each geofence and add them to the list.
             for (int i = 0; i < array.length(); i++) {
                 JSONObject geofenceJson = array.getJSONObject(i);
 
                 // Required parameters to set (MUST have been read in from JSON)
-                String markerTitle = getStringFromJsonObject(geofenceJson, "markerTitle", context.getString(R.string.geofenceMarkerTitleDefault));
-                String markerSnippet = getStringFromJsonObject(geofenceJson, "markerSnippet", context.getString(R.string.geofenceMarkerSnippetDefault));
                 JSONObject location = geofenceJson.getJSONObject("location");
                 double latitude = location.getDouble("lat");
                 double longitude = location.getDouble("lng");
                 LatLng latlng = new LatLng(latitude, longitude);
-                int loiteringDelay = Integer.parseInt(geofenceJson
-                        .getJSONObject("GEOFENCE_TRANSITION_DWELL").getString("loiteringDelay"));
-                String infoActivityMessage1 = geofenceJson.getString("infoActivityString1");
-                String infoActivityMessage2 = geofenceJson.getString("infoActivityString2");
 
                 // Optional parameters to set (may / may not exist in JSON)
-                int radius = getIntFromJsonObject(geofenceJson, "radius", context.getResources().getInteger(R.integer.geofenceRadiusDefault));
-                long expirationDuration = getLongFromJsonObject(geofenceJson, "expirationDuration", Geofence.NEVER_EXPIRE);
-                int notificationResponsiveness = getIntFromJsonObject(geofenceJson, "notificationResponsiveness", 0);
+                JSONObject
+                        enterTransition = geofenceJson.getJSONObject("GEOFENCE_TRANSITION_ENTER"),
+                        dwellTransition = geofenceJson.getJSONObject("GEOFENCE_TRANSITION_DWELL"),
+                        exitTransition = geofenceJson.getJSONObject("GEOFENCE_TRANSITION_EXIT");
+                String markerTitle = getStringFromJsonObject(
+                        geofenceJson,
+                        "markerTitle",
+                        resources.getString(R.string.geofenceMarkerTitleDefault));
+                String markerSnippet = getStringFromJsonObject(
+                        geofenceJson,
+                        "markerSnippet",
+                        resources.getString(R.string.geofenceMarkerSnippetDefault));
+                int radius = getIntFromJsonObject(
+                        geofenceJson,
+                        "radius",
+                        resources.getInteger(R.integer.geofenceRadiusDefault));
+                long expirationDuration = getLongFromJsonObject(
+                        geofenceJson,
+                        "expirationDuration",
+                        Geofence.NEVER_EXPIRE);
+                int notificationResponsiveness = getIntFromJsonObject(
+                        geofenceJson,
+                        "notificationResponsiveness",
+                        0);
+                int loiteringDelay = getIntFromJsonObject(
+                        dwellTransition,
+                        "loiteringDelay",
+                        resources.getInteger(R.integer.geofenceLoiteringDelayDefault));
+                String geofenceEnterNotificationText = getStringFromJsonObject(
+                        enterTransition,
+                        "notificationText",
+                        resources.getString(R.string.notifyGeofenceEnter));
+                String geofenceDwellNotificationText = getStringFromJsonObject(
+                        dwellTransition,
+                        "notificationText",
+                        resources.getString(R.string.notifyGeofenceDwell));
+                String geofenceExitNotificationText = getStringFromJsonObject(
+                        exitTransition,
+                        "notificationText",
+                        resources.getString(R.string.notifyGeofenceExit));
+                String infoActivityMessage1 = getStringFromJsonObject(
+                        geofenceJson,
+                        "infoActivityString1",
+                        resources.getString(R.string.infoActivityWebViewDefault));
+                String infoActivityMessage2 = getStringFromJsonObject(
+                        geofenceJson,
+                        "infoActivityString2",
+                        resources.getString(R.string.infoActivityTextViewDefault));
 
                 // TODO: modify the lines for MarkerOptions and CircleOptions when customization is supported
                 MarkerOptions markerOptions = new MarkerOptions()
@@ -129,7 +171,7 @@ public class CortezMapData {
                                 // Circles will assume our default settings if not specified from JSON
                         .fillColor(ContextCompat.getColor(context, R.color.geofenceCircleFillDefault))
                         .strokeColor(ContextCompat.getColor(context, R.color.geofenceCircleStrokeDefault))
-                        .strokeWidth(context.getResources().getInteger(R.integer.geofenceCircleStrokeWidthDefault));
+                        .strokeWidth(resources.getInteger(R.integer.geofenceCircleStrokeWidthDefault));
 
                 Geofence geofence = new Geofence.Builder()
                         .setRequestId(markerTitle)
@@ -149,6 +191,9 @@ public class CortezMapData {
                 cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
                         .markerOptions(markerOptions)
                         .circleOptions(circleOptions)
+                        .enterNotificationText(geofenceEnterNotificationText)
+                        .dwellNotificationText(geofenceDwellNotificationText)
+                        .exitNotificationText(geofenceExitNotificationText)
                         .infoActivityMessage1(infoActivityMessage1)
                         .infoActivityMessage2(infoActivityMessage2)
                         .build());
@@ -250,11 +295,11 @@ public class CortezMapData {
         return cortezJSONData;
     }
 
-    protected HashMap<LatLng, CortezGeofence> getCortezGeofences() {
+    public HashMap<LatLng, CortezGeofence> getCortezGeofences() {
         return cortezGeofences;
     }
 
-    protected String getCortezMapName() {
+    public String getCortezMapName() {
         return cortezMapName;
     }
 }

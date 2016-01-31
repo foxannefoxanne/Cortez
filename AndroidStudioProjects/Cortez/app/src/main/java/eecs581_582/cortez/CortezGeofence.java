@@ -16,6 +16,9 @@ public class CortezGeofence {
     private final LatLng geofenceCoordinates;
     private final MarkerOptions geofenceMarkerOptions;
     private final CircleOptions geofenceCircleOptions;
+    private final String geofenceEnterNotificationText;
+    private final String geofenceDwellNotificationText;
+    private final String geofenceExitNotificationText;
     private final String infoActivityMessage1;
     private final String infoActivityMessage2;
 
@@ -26,6 +29,9 @@ public class CortezGeofence {
             LatLng geofenceCoordinates,
             MarkerOptions geofenceMarkerOptions,
             CircleOptions geofenceCircleOptions,
+            String geofenceEnterNotificationText,
+            String geofenceDwellNotificationText,
+            String geofenceExitNotificationText,
             String infoActivityMessage1,
             String infoActivityMessage2
     ) {
@@ -33,6 +39,9 @@ public class CortezGeofence {
         this.geofenceCoordinates = geofenceCoordinates;
         this.geofenceMarkerOptions = geofenceMarkerOptions;
         this.geofenceCircleOptions = geofenceCircleOptions;
+        this.geofenceEnterNotificationText = geofenceEnterNotificationText;
+        this.geofenceDwellNotificationText = geofenceDwellNotificationText;
+        this.geofenceExitNotificationText = geofenceExitNotificationText;
         this.infoActivityMessage1 = infoActivityMessage1;
         this.infoActivityMessage2 = infoActivityMessage2;
     }
@@ -53,6 +62,18 @@ public class CortezGeofence {
 
     public CircleOptions getGeofenceCircleOptions() {
         return geofenceCircleOptions;
+    }
+
+    public String getGeofenceEnterNotificationText() {
+        return geofenceEnterNotificationText;
+    }
+
+    public String getGeofenceDwellNotificationText() {
+        return geofenceDwellNotificationText;
+    }
+
+    public String getGeofenceExitNotificationText() {
+        return geofenceExitNotificationText;
     }
 
     public String getInfoActivityMessage1() {
@@ -79,6 +100,9 @@ public class CortezGeofence {
         private LatLng geofenceCoordinates;
         private MarkerOptions geofenceMarkerOptions;
         private CircleOptions geofenceCircleOptions;
+        private String geofenceEnterNotificationText;
+        private String geofenceDwellNotificationText;
+        private String geofenceExitNotificationText;
         private String infoActivityMessage1;
         private String infoActivityMessage2;
 
@@ -98,6 +122,21 @@ public class CortezGeofence {
             return this;
         }
 
+        public Builder enterNotificationText(final String notificationText) {
+            this.geofenceEnterNotificationText = notificationText;
+            return this;
+        }
+
+        public Builder dwellNotificationText(final String notificationText) {
+            this.geofenceDwellNotificationText = notificationText;
+            return this;
+        }
+
+        public Builder exitNotificationText(final String notificationText) {
+            this.geofenceExitNotificationText = notificationText;
+            return this;
+        }
+
         public Builder infoActivityMessage1(final String infoActivityMessage1) {
             this.infoActivityMessage1 = infoActivityMessage1;
             return this;
@@ -114,6 +153,9 @@ public class CortezGeofence {
                     geofenceCoordinates,
                     geofenceMarkerOptions,
                     geofenceCircleOptions,
+                    geofenceEnterNotificationText,
+                    geofenceDwellNotificationText,
+                    geofenceExitNotificationText,
                     infoActivityMessage1,
                     infoActivityMessage2);
         }

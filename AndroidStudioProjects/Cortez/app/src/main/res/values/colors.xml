@@ -12,4 +12,6 @@
     <color name="geofenceCircleFillDefault">#4000ffff</color>
     <color name="geofenceCircleStrokeDefault">#4000ffff</color>
 
+    <!-- Fades out the background image in the WebView (for readability) -->
+    <color name="infoScreenBackgroundTransparency">#c3ffffff</color>
 </resources>
