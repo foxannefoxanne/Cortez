@@ -50,6 +50,7 @@ public class HelpActivity extends Activity {
 
         // Set content depending on where the user has come from:
         String whatitsays = "EVERYTHING IS BROKEN";
+        // TODO: Have these pull from strings, instead of hard-coding here
         switch (helpFrom) {
             case 555:
             {

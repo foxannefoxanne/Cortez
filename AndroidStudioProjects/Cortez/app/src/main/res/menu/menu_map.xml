@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".activity.MapActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_help" android:title="Help"
+    <item android:id="@+id/action_help" android:title="@string/action_help"
         android:orderInCategory="200" app:showAsAction="never" />
 </menu>
