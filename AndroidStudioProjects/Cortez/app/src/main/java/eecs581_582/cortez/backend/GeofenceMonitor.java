@@ -22,6 +22,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import eecs581_582.cortez.CortezGeofence;
+
 /**
  * Monitors all Geofence objects.
  * Credit: https://github.com/the-paulus/Android-Geofence
@@ -53,6 +55,14 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     private ArrayList<Geofence> mGeofences;
 
     /**
+     * List of CortezGeofences to monitor.
+     * We want the entire object (not just the Geofence)
+     * because it will be easiest to pass data to other Contexts
+     * using Intents that are generated from this class.
+     */
+    private ArrayList<CortezGeofence> mCortezGeofences;
+
+    /**
      * Geofence request.
      */
     private GeofencingRequest mGeofencingRequest;
@@ -66,11 +76,18 @@ public class GeofenceMonitor implements ConnectionCallbacks,
      * Constructs a new GeofenceStore.
      *
      * @param context The context to use.
-     * @param geofences List of geofences to monitor.
+     * @param cortezGeofences List of geofences to monitor.
      */
-    public GeofenceMonitor(Context context, ArrayList<Geofence> geofences) {
+    public GeofenceMonitor(Context context, ArrayList<CortezGeofence> cortezGeofences) {
 
         mContext = context;
+        mCortezGeofences = cortezGeofences;
+
+        // Set up the Cortez Geofences to be monitored
+        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
+        for (CortezGeofence c : cortezGeofences) {
+            geofences.add(c.getGeofence());
+        }
         mGeofences = geofences;
 
         mPendingIntent = null;
@@ -105,13 +122,13 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     @Override
     public void onResult(Status result) {
         if (result.isSuccess()) {
-            Log.d(TAG, "Success!");
+            Log.d(TAG, "Result Success!");
         } else if (result.hasResolution()) {
             // TODO Handle resolution
         } else if (result.isCanceled()) {
-            Log.d(TAG, "Canceled");
+            Log.d(TAG, "Result Canceled");
         } else if (result.isInterrupted()) {
-            Log.d(TAG, "Interrupted");
+            Log.d(TAG, "Result Interrupted");
         } else {
 
         }
@@ -162,6 +179,14 @@ public class GeofenceMonitor implements ConnectionCallbacks,
         if (mPendingIntent == null) {
             Log.d(TAG, "Creating PendingIntent");
             Intent intent = new Intent(mContext, GeofenceIntentService.class);
+
+            // TODO: Send the CortezGeofences to GeofenceIntentService, so it can determine which ones were triggered.
+            Intent extraIntent = new Intent();
+            extraIntent.putParcelableArrayListExtra("CORTEZGEOFENCES", mCortezGeofences);
+            ArrayList<CortezGeofence> test = extraIntent.getParcelableArrayListExtra("CORTEZGEOFENCES");
+            Log.d(TAG, "Test Parcel before sending " + (test == null ? "IS" : "IS NOT") + " null.");
+            Log.d(TAG, "Test Parcel before sending " + (test.equals(mCortezGeofences) ? "MATCHES" : "DOES NOT MATCH") + " mCortezGeofences.");
+            intent.putExtra(Intent.EXTRA_INTENT, extraIntent);
             mPendingIntent = PendingIntent.getService(mContext, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }

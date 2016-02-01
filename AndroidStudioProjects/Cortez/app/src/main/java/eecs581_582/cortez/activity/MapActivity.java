@@ -3,7 +3,6 @@ package eecs581_582.cortez.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -295,10 +294,10 @@ public class MapActivity extends FragmentActivity {
         // Get Cortez Geofences
         cortezGeofences = cortezMapData.getCortezGeofences();
 
-        // Set up the Cortez Geofences to be monitored
-        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
+        // Send the Cortez Geofences as an ArrayList to GeofenceMonitor
+        ArrayList<CortezGeofence> geofences = new ArrayList<CortezGeofence>(cortezGeofences.size());
         for (CortezGeofence c : cortezGeofences.values()) {
-            geofences.add(c.getGeofence());
+            geofences.add(c);
         }
         mGeofenceMonitor = new GeofenceMonitor(this, geofences);
     }

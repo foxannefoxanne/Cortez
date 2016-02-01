@@ -1,5 +1,6 @@
 package eecs581_582.cortez.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.location.Geofence;
@@ -10,12 +11,14 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.activity.MapActivity;
 
@@ -63,9 +66,19 @@ public class GeofenceIntentService extends IntentService {
          *
          * 4. Let's try not to annoy / spam the user with content, mkay?
          */
-
         Log.d(TAG, "onHandleIntent");
         // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
+
+        // FIXME: Class not found when unmarshalling: eecs581_582.cortez.CortezGeofence
+//        Log.d(TAG, "BZZZZZZZZZZZZ, BUNDLE B COMIN'! BZZZZZZZZZZZZ..."); // It was worth it!
+//
+//        Bundle b = intent.getExtras();
+//        Intent i = b.getParcelable(Intent.EXTRA_INTENT);
+//        Log.d(TAG, ""+(i.getParcelableArrayListExtra("CORTEZGEOFENCES") == null));
+//        ArrayList<CortezGeofence> allCortezGeofences = i.getParcelableArrayListExtra("CORTEZGEOFENCES");
+//
+//        Log.d(TAG, "Test Parcel after receipt " + (allCortezGeofences == null ? "IS" : "IS NOT") + " null.");
+
         sendNotification(this, intent);
     }
 
@@ -103,13 +116,14 @@ public class GeofenceIntentService extends IntentService {
                     Log.d(TAG, "Geofence Unknown");
             }
 
+            Log.d(TAG, getTriggeringGeofences(intent));
+
             // Enable the Notification to take the user back to the map (MainActivity)
             Intent notificationIntent = new Intent(context, MapActivity.class);
             // If an activity other than the map (MapActivity) is running in Cortez, it will be closed
             // (stopping any running processes within that activity), and the map will be added
             // to the top of the history stack.
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            Log.d(TAG, getTriggeringGeofences(intent));
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 

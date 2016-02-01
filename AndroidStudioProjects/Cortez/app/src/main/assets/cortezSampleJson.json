@@ -40,7 +40,7 @@
 
       "location": {
         "lat": 0.0,
-        "lng": 0.0
+        "lng": 10.0
       },
 
       "//": "The radius of effect for the geofence to trigger (in meters).",
