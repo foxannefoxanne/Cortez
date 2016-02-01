@@ -25,7 +25,7 @@ android {
         main {
             // New subdirectories can be added here manually, but they must come before src/main/java.
             // See http://stackoverflow.com/a/22426467
-            java.srcDirs = ['src/main/java/activity', 'src/main/java']
+            java.srcDirs = ['src/main/java']
         }
     }
 }
