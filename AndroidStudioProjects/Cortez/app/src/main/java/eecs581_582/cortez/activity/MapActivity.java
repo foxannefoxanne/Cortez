@@ -28,6 +28,7 @@ import android.view.MenuItem;
 
 import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.CortezMapData;
+import eecs581_582.cortez.backend.Constants;
 import eecs581_582.cortez.backend.GeofenceMonitor;
 import eecs581_582.cortez.backend.GoogleApiChecker;
 import eecs581_582.cortez.R;
@@ -124,15 +125,18 @@ public class MapActivity extends FragmentActivity {
             case R.id.action_help: {
                 // This means you have selected the Help option
                 Intent intent = new Intent(this, HelpActivity.class);
-                intent.putExtra("helpfrom", 555);
+                intent.putExtra(getString(R.string.action_help), Constants.Caller.MAP_ACTIVITY);
                 startActivity(intent);
                 return true;
             }
             case R.id.action_settings : {
+                // TODO: Implement SettingsActivity before un-commenting these lines.
                 // This means you have selected the Settings option
+//                Intent intent = new Intent(this, SettingsActivity.class);
+//                intent.putExtra(getString(R.string.action_settings), Constants.Caller.MAP_ACTIVITY);
+//                startActivity(intent);
                 return true;
             }
-
         }
 
         return super.onOptionsItemSelected(item);

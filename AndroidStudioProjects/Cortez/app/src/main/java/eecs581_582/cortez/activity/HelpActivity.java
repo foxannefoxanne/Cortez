@@ -9,19 +9,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Constants;
 
 public class HelpActivity extends Activity {
 
     public static final String TAG = HelpActivity.class.getSimpleName();
-    public int helpFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        // Where did you come from?
-        helpFrom = getIntent().getIntExtra("helpfrom", 666);
-        Log.d(TAG, ""+helpFrom);
         setUpViewFromIntent(getIntent());
     }
 
@@ -49,30 +46,37 @@ public class HelpActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
 
         // Set content depending on where the user has come from:
-        String whatitsays = "EVERYTHING IS BROKEN";
-        // TODO: Have these pull from strings, instead of hard-coding here
+        String whatitsays = "You came from";
+        Constants.Caller helpFrom = (Constants.Caller) intent.getSerializableExtra(getString(R.string.action_help));
         switch (helpFrom) {
-            case 555:
-            {
-                // This came from the MapsActivity
-                whatitsays = "MAPS! BRING ME MAPS!";
+            case MAP_ACTIVITY: {
+                whatitsays += " the MapActivity";
                 break;
             }
-            case 777 :
-            {
-                // This came from the InfoActivity
-                whatitsays = "You came from the InfoActivity";
+            case INFO_ACTIVITY: {
+                whatitsays += " the InfoActivity";
                 break;
             }
-            case 666 :
-            {
+            case YOUTUBE_ACTIVITY: {
+                whatitsays += " the YouTubeActivity";
+                break;
+            }
+            case UNKNOWN: {
                 // We couldn't determine where this came from
-                whatitsays = "WTF, m8?";
+                whatitsays += "... somewhere...";
                 break;
             }
             default:{
                 // OH GOD, WHAT DID YOU DO?
-                whatitsays = "MOST THINGS ARE BROKEN";
+                whatitsays += "HELL!";
+
+                /* NOTE: getCallingActivity().getShortClassName() doesn't allow
+                 * as much flexibility as the above enum values do, which is why
+                 * I chose not to use it. It would also require us as programmers
+                 * to perfectly spell out the string representation for each class
+                 * for each case above. Enums are a type-safe, sensible choice here.
+                 */
+                Log.d(TAG, getCallingActivity().getShortClassName());
                 break;
             }
         }
