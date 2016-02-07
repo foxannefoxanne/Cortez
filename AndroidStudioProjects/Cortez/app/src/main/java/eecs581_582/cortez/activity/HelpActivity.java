@@ -17,6 +17,7 @@ public class HelpActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         setUpViewFromIntent(getIntent());
@@ -46,19 +47,23 @@ public class HelpActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
 
         // Set content depending on where the user has come from:
-        String whatitsays = "You came from";
+        String whatitsays = "Coming to Help from";
+        String LocalHelpContent = "Error: Caller undefined.";
         Constants.Caller helpFrom = (Constants.Caller) intent.getSerializableExtra(getString(R.string.action_help));
         switch (helpFrom) {
             case MAP_ACTIVITY: {
-                whatitsays += " the MapActivity";
+                whatitsays += " MapActivity";
+                LocalHelpContent = getString(R.string.HelpActivityContentForMapActivity);
                 break;
             }
             case INFO_ACTIVITY: {
-                whatitsays += " the InfoActivity";
+                whatitsays += " InfoActivity";
+                LocalHelpContent = getString(R.string.HelpActivityContentForInfoActivity);
                 break;
             }
             case YOUTUBE_ACTIVITY: {
-                whatitsays += " the YouTubeActivity";
+                whatitsays += " YouTubeActivity";
+                LocalHelpContent = getString(R.string.HelpActivityContentForYoutubeActivity);
                 break;
             }
             case UNKNOWN: {
@@ -80,10 +85,12 @@ public class HelpActivity extends Activity {
                 break;
             }
         }
+        Log.d(TAG, whatitsays);
 
         webView.loadData(
                 //getString(R.string.infoActivityWebViewDefault),
-                whatitsays,
+                //whatitsays,
+                LocalHelpContent,
                 "text/html",
                 "utf-8");
 

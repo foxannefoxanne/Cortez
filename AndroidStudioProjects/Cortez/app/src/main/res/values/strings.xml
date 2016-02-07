@@ -26,5 +26,8 @@
 
     <!-- Help Screen Strings -->
     <!-- TODO: Actually define these strings -->
+    <string name="HelpActivityContentForMapActivity">This is the Help Screen content for the Map Activity screen. TODO.</string>
+    <string name="HelpActivityContentForInfoActivity">This is the Help Screen content for the Info Activity screen. TODO.</string>
+    <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. TODO.</string>
 
 </resources>
