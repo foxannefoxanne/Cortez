@@ -26,8 +26,27 @@
 
     <!-- Help Screen Strings -->
     <!-- TODO: Actually define these strings -->
-    <string name="HelpActivityContentForMapActivity">This is the Help Screen content for the Map Activity screen. TODO.</string>
-    <string name="HelpActivityContentForInfoActivity">This is the Help Screen content for the Info Activity screen. TODO.</string>
-    <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. TODO.</string>
+    <string name="HelpActivityContentForMapActivity">&lt;h1&gt;Map Screen&lt;/h1&gt;
+        &lt;br /&gt;
+        The Map screen is where the Markers from your selected map will be displayed.&lt;br /&gt;
+        You should see a number of Markers defined by the map\'s creators. When you click on them, you will be brought to the Info screen for that Marker, where you will see information about that location.&lt;br /&gt;
+        &lt;br /&gt;
+        If you are too far away from a Marker, though, you may not be able to see pictures or videos. Try getting closer!&lt;br /&gt;
+        If you don\'t see any Markers nearby, try zooming out; The map\'s content may be centered elsewhere.&lt;br /&gt;
+        &lt;br /&gt;
+        To zoom to your current location, press the Target icon in the upper-right corner of the screen.&lt;br /&gt;
+        &lt;br /&gt;
+        Press your phone\'s Back button to return to the Map screen.
+    </string>
+    <string name="HelpActivityContentForInfoActivity">&lt;h1&gt;Map Screen&lt;/h1&gt;&lt;br /&gt;
+        The Info screen displays information about the Marker that you selected.&lt;br /&gt;
+        &lt;br /&gt;
+        If you are too far away from the Marker, you may not be able to see anything but the text information. Try getting closer to see videos or pictures!&lt;br /&gt;
+        &lt;br /&gt;
+        Not every Marker will have video or pictures. Only those enabled by the map\'s creators. If you want more, ask them!
+        &lt;br /&gt;
+        Press your phone\'s Back button to return to the Map screen.
+    </string>
+    <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;TODO.&lt;/b&gt;</string>
 
 </resources>
