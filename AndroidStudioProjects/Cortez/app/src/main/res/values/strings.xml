@@ -51,6 +51,7 @@
         Press your phone\'s Back button to return to the Map screen.
     </string>
     <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;TODO.&lt;/b&gt;</string>
-    <string name="HelpActivityContentForMapActivity">This is the Help Screen content for the Map Select screen. &lt;b&gt;TODO once there\'s stuff here to help with&lt;/b&gt;</string>
+    <string name="HelpActivityContentForMapSelectActivity">This is the Help Screen content for the Map Select screen. &lt;b&gt;TODO once there\'s stuff here to help with&lt;/b&gt;</string>
+    <string name="title_activity_launcher">LauncherActivity</string>
 
 </resources>

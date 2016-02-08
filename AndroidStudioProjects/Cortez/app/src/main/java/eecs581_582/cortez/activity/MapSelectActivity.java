@@ -1,4 +1,4 @@
-package eecs581_582.cortez;
+package eecs581_582.cortez.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import eecs581_582.cortez.activity.HelpActivity;
+import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
 /* ********************************************************************

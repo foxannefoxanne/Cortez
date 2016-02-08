@@ -62,7 +62,7 @@ public class HelpActivity extends Activity {
         switch (helpFrom) {
             case MAPSELECT_ACTIVITY:
                 whatitsays += " MapSelectActivity";
-                //LocalHelpContent = getString(R.string.HelpActivityContentForMapActivity);
+                LocalHelpContent = getString(R.string.HelpActivityContentForMapSelectActivity);
                 break;
             case MAP_ACTIVITY: {
                 whatitsays += " MapActivity";

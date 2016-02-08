@@ -82,8 +82,11 @@
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_help" />
         <activity
-            android:name=".MapSelectActivity"
-            android:label="@string/title_activity_map_select"></activity>
+            android:name=".activity.MapSelectActivity"
+            android:label="@string/title_activity_map_select" />
+        <activity
+            android:name=".activity.LauncherActivity"
+            android:label="@string/title_activity_launcher"></activity>
     </application>
 
 </manifest>
