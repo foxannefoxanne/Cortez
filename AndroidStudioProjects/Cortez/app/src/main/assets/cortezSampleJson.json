@@ -102,6 +102,34 @@
     },
 
 
+    {
+      "markerTitle": "Kansas Union at KU",
+      "markerSnippet": "Kansas Union",
+
+      "location": {
+        "lat": 38.959314,
+        "lng": -95.243584
+      },
+      "radius": 75,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "Welcome to the Union!"
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "Bored Yet?"
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Goodbye!"
+      },
+
+      "infoActivityString1": "The <b>Kansas Union</b> is the center of the student experience at KU! <br/><br/>It features the Student Involvement and Leadership Center, a hub for student organizations on campus, as well as the KU Info help desk, dining services, the KU Bookstore, and Jayhawk Ink. It's also conveniently located near the Spencer Museum of Art and Memorial Stadium.",
+      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies will go here when the app is complete!"
+    },
+
 
     {
       "markerTitle": "Home",
