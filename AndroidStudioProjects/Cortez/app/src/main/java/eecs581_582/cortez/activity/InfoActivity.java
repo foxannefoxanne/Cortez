@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -16,8 +17,11 @@ import eecs581_582.cortez.backend.Constants;
 
 public class InfoActivity extends FragmentActivity {
 
+    public static final String TAG = InfoActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         setUpViewFromIntent(getIntent());
@@ -40,6 +44,7 @@ public class InfoActivity extends FragmentActivity {
         switch (id) {
             case R.id.action_help: {
                 // This means you have selected the Help option
+                Log.d(TAG, "Help button selected");
                 Intent intent = new Intent(this, HelpActivity.class);
                 intent.putExtra(getString(R.string.action_help), Constants.Caller.INFO_ACTIVITY);
                 startActivity(intent);
@@ -48,6 +53,7 @@ public class InfoActivity extends FragmentActivity {
             case R.id.action_settings : {
                 // TODO: Implement SettingsActivity before un-commenting these lines.
                 // This means you have selected the Settings option
+                Log.d(TAG, "Settings button selected");
 //                Intent intent = new Intent(this, SettingsActivity.class);
 //                intent.putExtra(getString(R.string.action_settings), Constants.Caller.INFO_ACTIVITY);
 //                startActivity(intent);
@@ -60,6 +66,7 @@ public class InfoActivity extends FragmentActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        Log.d(TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
     }
 
