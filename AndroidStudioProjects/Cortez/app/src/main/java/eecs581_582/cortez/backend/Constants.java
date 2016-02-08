@@ -9,6 +9,7 @@ public class Constants {
      * These make it easy to determine which Activity is a caller.
      */
     public enum Caller {
+        MAPSELECT_ACTIVITY,
         MAP_ACTIVITY,
         INFO_ACTIVITY,
         YOUTUBE_ACTIVITY,
@@ -19,6 +20,7 @@ public class Constants {
      * These make it easy to determine which Activity is a callee.
      */
     public enum Callee {
+        MAPSELECT_ACTIVITY,
         MAP_ACTIVITY,
         INFO_ACTIVITY,
         YOUTUBE_ACTIVITY,

@@ -60,6 +60,10 @@ public class HelpActivity extends Activity {
         String LocalHelpContent = "Error: Caller undefined.";
         Constants.Caller helpFrom = (Constants.Caller) intent.getSerializableExtra(getString(R.string.action_help));
         switch (helpFrom) {
+            case MAPSELECT_ACTIVITY:
+                whatitsays += " MapSelectActivity";
+                //LocalHelpContent = getString(R.string.HelpActivityContentForMapActivity);
+                break;
             case MAP_ACTIVITY: {
                 whatitsays += " MapActivity";
                 LocalHelpContent = getString(R.string.HelpActivityContentForMapActivity);
@@ -82,7 +86,7 @@ public class HelpActivity extends Activity {
             }
             default:{
                 // OH GOD, WHAT DID YOU DO?
-                whatitsays += "HELL!";
+                whatitsays += " HELL!";
 
                 /* NOTE: getCallingActivity().getShortClassName() doesn't allow
                  * as much flexibility as the above enum values do, which is why

@@ -52,13 +52,13 @@
         <activity
             android:name=".activity.InfoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_info"></activity>
+            android:label="@string/title_activity_info" />
 
         <!-- The Youtube Viewer Activity -->
         <activity
             android:name=".activity.YouTubeViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_youtubeviewer"></activity>
+            android:label="@string/title_activity_youtubeviewer" />
 
         <!-- The service we're using for monitoring Geofences -->
         <service android:name=".backend.GeofenceIntentService" />
@@ -80,7 +80,10 @@
 
         <activity
             android:name=".activity.HelpActivity"
-            android:label="@string/title_activity_help"></activity>
+            android:label="@string/title_activity_help" />
+        <activity
+            android:name=".MapSelectActivity"
+            android:label="@string/title_activity_map_select"></activity>
     </application>
 
 </manifest>
