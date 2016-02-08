@@ -18,6 +18,9 @@
     <!-- Map Select title -->
     <string name="title_activity_map_select">MapSelectActivity</string>
 
+    <!-- Launcher title -->
+    <string name="title_activity_launcher">Cortez is loading...</string>
+
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
     <string name="notifyGeofenceDwell">Geofence Dwell</string>
@@ -52,6 +55,6 @@
     </string>
     <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;TODO.&lt;/b&gt;</string>
     <string name="HelpActivityContentForMapSelectActivity">This is the Help Screen content for the Map Select screen. &lt;b&gt;TODO once there\'s stuff here to help with&lt;/b&gt;</string>
-    <string name="title_activity_launcher">LauncherActivity</string>
+
 
 </resources>
