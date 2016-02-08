@@ -33,6 +33,17 @@ import eecs581_582.cortez.backend.GeofenceMonitor;
 import eecs581_582.cortez.backend.GoogleApiChecker;
 import eecs581_582.cortez.R;
 
+/* ********************************************************************
+ *  MapActivity is the screen that integrates with the Google Maps API
+ *  detects the user's location, pulls Map data from the database, and
+ *  plots it on the GMaps interface as Markers.
+ *
+ *  - Selection of those Markers should take the user to the
+ *  InfoActivity
+ *  - Selection of the Help button in the context menu should take the
+ *  user to the HelpActivity
+ */
+
 public class MapActivity extends FragmentActivity {
 
     public static final String TAG = MapActivity.class.getSimpleName();

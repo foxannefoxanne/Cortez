@@ -15,6 +15,16 @@ import android.widget.TextView;
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
+/* ********************************************************************
+ * InfoActivity is the screen that displays data for a particular
+ * Marker chosen in MapActivity. It should pull this data from the
+ * database, parse it, place text into a webview, and feature links to
+ * media content view screens (if enabled by MapActivity call).
+ *
+ * - Selection of the Help button in the context menu should take the
+ *  user to the HelpActivity
+ */
+
 public class InfoActivity extends FragmentActivity {
 
     public static final String TAG = InfoActivity.class.getSimpleName();

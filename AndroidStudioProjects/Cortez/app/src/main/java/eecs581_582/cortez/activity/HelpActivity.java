@@ -11,6 +11,15 @@ import android.webkit.WebViewClient;
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
+/* ********************************************************************
+ * HelpActivity is the screen that displays helpful information for
+ * the user concerning the page from which they just came. It will pull
+ * the display content from '/app/res/values/strings.xml'
+ *
+ * - The only user-accessible action should be the phone's Back button,
+ * which will return them to the previous screen.
+ */
+
 public class HelpActivity extends Activity {
 
     public static final String TAG = HelpActivity.class.getSimpleName();
