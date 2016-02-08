@@ -135,6 +135,7 @@ public class MapActivity extends FragmentActivity {
         switch (id) {
             case R.id.action_help: {
                 // This means you have selected the Help option
+                Log.d(TAG, "Help button selected");
                 Intent intent = new Intent(this, HelpActivity.class);
                 intent.putExtra(getString(R.string.action_help), Constants.Caller.MAP_ACTIVITY);
                 startActivity(intent);
@@ -143,6 +144,7 @@ public class MapActivity extends FragmentActivity {
             case R.id.action_settings : {
                 // TODO: Implement SettingsActivity before un-commenting these lines.
                 // This means you have selected the Settings option
+                Log.d(TAG, "Settings button selected");
 //                Intent intent = new Intent(this, SettingsActivity.class);
 //                intent.putExtra(getString(R.string.action_settings), Constants.Caller.MAP_ACTIVITY);
 //                startActivity(intent);
