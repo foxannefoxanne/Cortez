@@ -2,7 +2,7 @@
   "//": "Cortez Map data will be handled as a JSON file / stream.",
   "//": "Each Cortez Map must have 'mapName' (String) and 'geofences' (array of JSON objects) defined.",
   "//": "I'm not sure if 'fileName' is necessary yet (from a design perspective), so it's there for now.",
-  "//": "Whitespace and carriage returns aren't important, but are formatted here to make everything all pretty for you to read."
+  "//": "Whitespace and carriage returns aren't important, but are formatted here to make everything all pretty for you to read.",
 
   "filename": "JsonTemplateFile.json",
 
