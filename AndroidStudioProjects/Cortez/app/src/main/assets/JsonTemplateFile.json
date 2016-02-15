@@ -1,0 +1,212 @@
+{
+  "//": "Cortez Map data will be handled as a JSON file / stream.",
+  "//": "Each Cortez Map must have 'mapName' (String) and 'geofences' (array of JSON objects) defined.",
+  "//": "I'm not sure if 'fileName' is necessary yet (from a design perspective), so it's there for now.",
+  "//": "Whitespace and carriage returns aren't important, but are formatted here to make everything all pretty for you to read."
+
+  "filename": "JsonTemplateFile.json",
+
+  "mapName": "This is the Map name as displayed in the app",
+
+  "geofences": [
+    {
+      "//": "This object contains the minimum required elements for geofence functionality (excluding these comments).",
+      "//": "All other supported elements are filled in with default constants.",
+
+      "//": "Geofence coordinates must be wrapped in the 'location' object.",
+      "//": "Coordinates must be defined for each geofence as 'lat' and 'lng'.",
+      "location": {
+        "lat": 0.0,
+        "lng": 0.0
+      },
+
+      "//": "All three geofence transition states must be defined as follows, but may be left empty.",
+      "GEOFENCE_TRANSITION_ENTER": {},
+      "GEOFENCE_TRANSITION_DWELL": {},
+      "GEOFENCE_TRANSITION_EXIT": {}
+    },
+
+
+
+    {
+      "//": "This object contains all CURRENTLY-supported elements for geofencing.",
+      "//": "To use one of these elements in Cortez, it must be formatted exactly as below.",
+      "//": "Empty Strings will be filled in with default constants.",
+
+      "//": "The title for the geofence.",
+      "markerTitle": "",
+
+      "//": "A small description below the geofence title.",
+      "markerSnippet": "",
+
+      "location": {
+        "lat": 0.0,
+        "lng": 10.0
+      },
+
+      "//": "The radius of effect for the geofence to trigger (in meters).",
+      "radius": 100,
+
+      "//": "How long the geofence will remain active (monitored). Default is -1 (always)",
+      "expirationDuration": -1,
+
+      "//": "How quickly we would like the geofence to trigger, if possible. Default is 0 (immediately)",
+      "notificationResponsiveness": 0,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": ""
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "//": "The 'loiteringDelay' element MUST be nested here in order to use it.",
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": ""
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": ""
+      },
+
+      "infoActivityString1": "",
+      "infoActivityString2": ""
+    },
+
+
+    {
+      "//": "This object contains all elements for geofencing we have promised to implement.",
+      "//": "To use one of these elements in Cortez, it should probably be formatted exactly as below.",
+      "//": "Empty Strings will be filled in with default constants.",
+
+      "//": "The title for the geofence.",
+      "markerTitle": "",
+
+      "//": "A small description below the geofence title.",
+      "markerSnippet": "",
+
+      "location": {
+        "lat": 0.0,
+        "lng": 10.0
+      },
+
+      "//": "The radius of effect for the geofence to trigger (in meters).",
+      "radius": 100,
+
+      "//": "How long the geofence will remain active (monitored). Default is -1 (always)",
+      "expirationDuration": -1,
+
+      "//": "How quickly we would like the geofence to trigger, if possible. Default is 0 (immediately)",
+      "notificationResponsiveness": 0,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": ""
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "//": "The 'loiteringDelay' element MUST be nested here in order to use it.",
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": ""
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": ""
+      },
+
+      "infoActivityString1": "",
+      "infoActivityString2": "",
+
+      "//": "These placeholder values are typical of what will be the format of expected values"
+      "media": {
+        "YoutubePlaylistValue": "852v32",
+        "PictureGalleryURL": "http://www.zombo.com",
+        "AudioGalleryURL": "http://www.ytmnd.com"
+      }
+    },
+
+
+    {
+      "markerTitle": "Tai Chi Statue",
+      "markerSnippet": "",
+
+      "location": {
+        "lat": 38.956880,
+        "lng": -95.253530
+      },
+      "radius": 100,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "Welcome!"
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "Bored Yet?"
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Goodbye!"
+      },
+
+      "infoActivityString1": "This bronze statue came to KU in 1985. It was bought by the Barbara Benton Wescoe Fund to honor the memory of Judge Willard M. Benton (KU School of Law alumnus, 1920). It technically belongs to the Spencer Museum of Art!",
+      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies might go here, but this is only a mock-up!"
+    },
+
+
+    {
+      "markerTitle": "Kansas Union at KU",
+      "markerSnippet": "Kansas Union",
+
+      "location": {
+        "lat": 38.959314,
+        "lng": -95.243584
+      },
+      "radius": 75,
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "Welcome to the Union!"
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "loiteringDelay": 30000,
+        "sendNotification": true,
+        "notificationText": "Bored Yet?"
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Goodbye!"
+      },
+
+      "infoActivityString1": "The <b>Kansas Union</b> is the center of the student experience at KU! <br/><br/>It features the Student Involvement and Leadership Center, a hub for student organizations on campus, as well as the KU Info help desk, dining services, the KU Bookstore, and Jayhawk Ink. It's also conveniently located near the Spencer Museum of Art and Memorial Stadium.",
+      "infoActivityString2": "Links, Pictures, Videos, and other assorted goodies will go here when the app is complete!"
+    },
+
+
+    {
+      "markerTitle": "Home",
+      "markerSnippet": "",
+
+      "location": {
+        "lat": 38.7590022,
+        "lng": -95.019012
+      },
+
+      "GEOFENCE_TRANSITION_ENTER": {
+        "sendNotification": true,
+        "notificationText": "It's good to be back."
+      },
+      "GEOFENCE_TRANSITION_DWELL": {
+        "sendNotification": true,
+        "notificationText": "You've been cooped up for too long here."
+      },
+      "GEOFENCE_TRANSITION_EXIT": {
+        "sendNotification": true,
+        "notificationText": "Leaving so soon?"
+      },
+
+      "infoActivityString1": "No place like it.",
+      "infoActivityString2": ""
+    }
+  ]
+}
