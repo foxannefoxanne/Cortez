@@ -10,8 +10,14 @@ import android.view.View;
 import eecs581_582.cortez.R;
 
 /* ********************************************************************
- * TODO: MAKE THIS COMMENT LOOK PRETTY
- * TODO: MAKE CORTEZ LOGO SHOW UP, LOOK PRETTY, IMPRESS LADIES/INVE$TOR$
+ * LauncherActivity should be the first thing the user sees. It should
+ * display the app's logo during initialization, as well as holding for
+ * at least a couple of seconds, just to look pretty. Following this,
+ * it should direct the user automatically to the MapSelectActivity to
+ * begin their experience.
+ *
+ * - There should be no user-accessible action
+ *
  * Credit to http://www.coderefer.com/android-splash-screen-example-tutorial/
  * for initial design
  */
@@ -27,7 +33,6 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        // Begin status bar hiding snippet
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -36,7 +41,6 @@ public class LauncherActivity extends Activity {
         // status bar is hidden, so hide that too if necessary.
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-        // End status bar hiding snippet
 
         Thread timerThread = new Thread(){
             public void run(){

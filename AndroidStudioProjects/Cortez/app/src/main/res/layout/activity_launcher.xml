@@ -11,4 +11,11 @@
         android:src="@mipmap/logo"
         android:layout_gravity="center" />
 
+    <ProgressBar
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_gravity="center" />
+
+
 </LinearLayout>

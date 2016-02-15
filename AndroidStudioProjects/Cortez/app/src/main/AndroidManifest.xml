@@ -86,7 +86,8 @@
             android:label="@string/title_activity_map_select" />
         <activity
             android:name=".activity.LauncherActivity"
-            android:label="@string/title_activity_launcher"></activity>
+            android:label="@string/title_activity_launcher">
+        </activity>
     </application>
 
 </manifest>

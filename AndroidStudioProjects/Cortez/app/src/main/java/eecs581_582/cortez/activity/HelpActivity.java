@@ -59,6 +59,7 @@ public class HelpActivity extends Activity {
         String whatitsays = "Coming to Help from";
         String LocalHelpContent = "Error: Caller undefined.";
         Constants.Caller helpFrom = (Constants.Caller) intent.getSerializableExtra(getString(R.string.action_help));
+        // helpFrom should now contain a value from eecs581_582.cortez.backend.Constants
         switch (helpFrom) {
             case MAPSELECT_ACTIVITY:
                 whatitsays += " MapSelectActivity";
