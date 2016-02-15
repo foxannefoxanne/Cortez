@@ -35,9 +35,11 @@
     <string name="HelpActivityContentForMapActivity">&lt;h1&gt;Map Screen&lt;/h1&gt;
         &lt;br /&gt;
         The Map screen is where the Markers from your selected map will be displayed.&lt;br /&gt;
+        &lt;br /&gt;
         You should see a number of Markers defined by the map\'s creators. When you click on them, you will be brought to the Info screen for that Marker, where you will see information about that location.&lt;br /&gt;
         &lt;br /&gt;
         If you are too far away from a Marker, though, you may not be able to see pictures or videos. Try getting closer!&lt;br /&gt;
+        &lt;br /&gt;
         If you don\'t see any Markers nearby, try zooming out; The map\'s content may be centered elsewhere.&lt;br /&gt;
         &lt;br /&gt;
         To zoom to your current location, press the Target icon in the upper-right corner of the screen.&lt;br /&gt;
@@ -53,8 +55,16 @@
         &lt;br /&gt;
         Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map screen.
     </string>
-    <string name="HelpActivityContentForYoutubeActivity">This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;TODO.&lt;/b&gt;</string>
-    <string name="HelpActivityContentForMapSelectActivity">This is the Help Screen content for the Map Select screen. &lt;b&gt;TODO once there\'s stuff here to help with&lt;/b&gt;</string>
+    <string name="HelpActivityContentForYoutubeActivity">&lt;h1&gt;Youtube Screen&lt;/h1&gt;
+        &lt;br /&gt;
+        This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;
+        TODO.&lt;/b&gt;
+    </string>
+    <string name="HelpActivityContentForMapSelectActivity">&lt;h1&gt;Map Select Screen&lt;/h1&gt;
+        &lt;br /&gt;
+        This is the Help Screen content for the Map Select screen. &lt;b&gt;
+        TODO once there\'s stuff here to help with&lt;/b&gt;
+    </string>
 
 
 </resources>
