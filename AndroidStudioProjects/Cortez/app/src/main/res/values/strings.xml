@@ -19,7 +19,7 @@
     <string name="title_activity_map_select">MapSelectActivity</string>
 
     <!-- Launcher title -->
-    <string name="title_activity_launcher">Cortez is loading...</string>
+    <string name="title_activity_launcher">Cortez</string>
 
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
