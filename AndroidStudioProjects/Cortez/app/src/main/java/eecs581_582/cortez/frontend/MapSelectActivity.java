@@ -1,4 +1,4 @@
-package eecs581_582.cortez.activity;
+package eecs581_582.cortez.frontend;
 
 import android.content.Intent;
 import android.os.Bundle;

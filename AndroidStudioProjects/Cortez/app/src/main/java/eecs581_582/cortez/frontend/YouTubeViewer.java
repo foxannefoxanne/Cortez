@@ -1,4 +1,4 @@
-package eecs581_582.cortez.activity;
+package eecs581_582.cortez.frontend;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;

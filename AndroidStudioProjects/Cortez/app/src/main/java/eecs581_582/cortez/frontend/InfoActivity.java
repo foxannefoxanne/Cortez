@@ -1,4 +1,4 @@
-package eecs581_582.cortez.activity;
+package eecs581_582.cortez.frontend;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
@@ -25,7 +25,7 @@ import eecs581_582.cortez.backend.Constants;
  *  user to the HelpActivity
  */
 
-public class InfoActivity extends FragmentActivity {
+public class InfoActivity extends FragmentActivity implements View.OnClickListener {
 
     public static final String TAG = InfoActivity.class.getSimpleName();
 
@@ -116,5 +116,10 @@ public class InfoActivity extends FragmentActivity {
 //        TextView textViewToChange = (TextView) findViewById(R.id.infoActivityTextView);
 //        String links = intent.getStringExtra("infoActivityMessage2");
 //        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextViewDefault));
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

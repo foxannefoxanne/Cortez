@@ -1,6 +1,5 @@
 package eecs581_582.cortez.backend;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.location.Geofence;
@@ -11,16 +10,14 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.R;
-import eecs581_582.cortez.activity.MapActivity;
+import eecs581_582.cortez.frontend.MapActivity;
 
 /**
  * Credit: https://github.com/the-paulus/Android-Geofence

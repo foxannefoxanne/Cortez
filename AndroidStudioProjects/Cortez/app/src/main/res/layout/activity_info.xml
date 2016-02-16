@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.InfoActivity">
+    tools:context=".frontend.InfoActivity">
 
     <!--Background Photo Credit: http://www.alegriphotos.com/Medieval_map-lphoto-783d2d9be853220c13c336f9056fd5f9.html
                    Photo License: http://creativecommons.org/licenses/by/3.0/-->
@@ -14,7 +14,8 @@
         android:id="@+id/infoActivityWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/infoActivityTextView" />
 
 
     <TextView

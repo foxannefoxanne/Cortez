@@ -1,4 +1,4 @@
-package eecs581_582.cortez.activity;
+package eecs581_582.cortez.frontend;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -44,11 +44,13 @@ public class LauncherActivity extends Activity {
 
         Thread timerThread = new Thread(){
             public void run(){
-                try{
+                try {
                     sleep(3000);
-                }catch(InterruptedException e){
+                }
+                catch(InterruptedException e) {
                     e.printStackTrace();
-                }finally{
+                }
+                finally {
                     Intent intent = new Intent(LauncherActivity.this,MapSelectActivity.class);
                     startActivity(intent);
                 }

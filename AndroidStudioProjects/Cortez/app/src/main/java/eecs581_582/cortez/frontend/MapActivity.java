@@ -1,4 +1,4 @@
-package eecs581_582.cortez.activity;
+package eecs581_582.cortez.frontend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -217,12 +217,12 @@ public class MapActivity extends FragmentActivity {
         // Display the map from the user's initial location upon starting the app.
         locate();
 
-//        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-//            @Override
-//            public void onCameraChange(CameraPosition position) {
-//                displayGeofences();
-//            }
-//        });
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition position) {
+                displayGeofences();
+            }
+        });
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -252,13 +252,13 @@ public class MapActivity extends FragmentActivity {
             }
         });
 
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-
-                return false;
-            }
-        });
+//        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+//            @Override
+//            public boolean onMyLocationButtonClick() {
+//
+//                return false;
+//            }
+//        });
     }
 
     /**
@@ -329,8 +329,8 @@ public class MapActivity extends FragmentActivity {
         ArrayList<CortezGeofence> geofences = new ArrayList<CortezGeofence>(cortezGeofences.size());
         for (CortezGeofence c : cortezGeofences.values()) {
             geofences.add(c);
-            mMap.addMarker(c.getGeofenceMarkerOptions());
-            mMap.addCircle(c.getGeofenceCircleOptions());
+//            mMap.addMarker(c.getGeofenceMarkerOptions());
+//            mMap.addCircle(c.getGeofenceCircleOptions());
         }
         mGeofenceMonitor = new GeofenceMonitor(this, geofences);
     }
@@ -341,42 +341,42 @@ public class MapActivity extends FragmentActivity {
      *
      * Credit: https://discgolfsoftware.wordpress.com
      */
-//    private void displayGeofences() {
-//        if (this.mMap != null) {
-//            //This is the current user-viewable region of the map
-//            LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
-//
-//            //Loop through all the items that are available to be placed on the map
-//            for (LatLng key : cortezGeofences.keySet()) {
-//
-//                CortezGeofence c = cortezGeofences.get(key);
-//
-//                //If the item is within the the bounds of the screen
-//                if (bounds.contains(c.getGeofenceCoordinates())) {
-//                    //If the item isn't already being displayed
-//                    if (!mGeofenceVisibleMarkers.containsKey(key)) {
-//                        //Add the Marker / Circle to the Map and keep track of it with the HashMap
-//                        Marker marker = mMap.addMarker(c.getGeofenceMarkerOptions());
-//                        mGeofenceVisibleMarkers.put(key, marker);
-//                        marker.showInfoWindow();
-//                        mGeofenceVisibleCircles.put(key, mMap.addCircle(c.getGeofenceCircleOptions()));
-//                    }
-//                }
-//
-//                //If the marker / circle is off screen
-//                else {
-//                    //If the location was previously on screen
-//                    if (mGeofenceVisibleMarkers.containsKey(key)) {
-//                        //1. Remove the Marker / Circle from the GoogleMap
-//                        mGeofenceVisibleMarkers.get(key).remove();
-//                        mGeofenceVisibleCircles.get(key).remove();
-//
-//                        //2. Remove the reference to the Marker / Circle from the HashMap
-//                        mGeofenceVisibleMarkers.remove(key);
-//                        mGeofenceVisibleCircles.remove(key);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private void displayGeofences() {
+        if (this.mMap != null) {
+            //This is the current user-viewable region of the map
+            LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+
+            //Loop through all the items that are available to be placed on the map
+            for (LatLng key : cortezGeofences.keySet()) {
+
+                CortezGeofence c = cortezGeofences.get(key);
+
+                //If the item is within the the bounds of the screen
+                if (bounds.contains(c.getGeofenceCoordinates())) {
+                    //If the item isn't already being displayed
+                    if (!mGeofenceVisibleMarkers.containsKey(key)) {
+                        //Add the Marker / Circle to the Map and keep track of it with the HashMap
+                        Marker marker = mMap.addMarker(c.getGeofenceMarkerOptions());
+                        mGeofenceVisibleMarkers.put(key, marker);
+                        marker.showInfoWindow();
+                        mGeofenceVisibleCircles.put(key, mMap.addCircle(c.getGeofenceCircleOptions()));
+                    }
+                }
+
+                //If the marker / circle is off screen
+                else {
+                    //If the location was previously on screen
+                    if (mGeofenceVisibleMarkers.containsKey(key)) {
+                        //1. Remove the Marker / Circle from the GoogleMap
+                        mGeofenceVisibleMarkers.get(key).remove();
+                        mGeofenceVisibleCircles.get(key).remove();
+
+                        //2. Remove the reference to the Marker / Circle from the HashMap
+                        mGeofenceVisibleMarkers.remove(key);
+                        mGeofenceVisibleCircles.remove(key);
+                    }
+                }
+            }
+        }
+    }
 }
