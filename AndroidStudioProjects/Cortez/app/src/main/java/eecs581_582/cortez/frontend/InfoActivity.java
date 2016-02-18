@@ -7,14 +7,9 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
-
-import com.sothree.slidinguppanel.ScrollableViewHelper;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;

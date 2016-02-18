@@ -29,8 +29,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.CortezMapData;

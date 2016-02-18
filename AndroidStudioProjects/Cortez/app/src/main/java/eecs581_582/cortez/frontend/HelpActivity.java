@@ -102,17 +102,9 @@ public class HelpActivity extends Activity {
         Log.d(TAG, whatitsays);
 
         webView.loadData(
-                //getString(R.string.infoActivityWebViewDefault),
-                //whatitsays,
                 LocalHelpContent,
                 "text/html",
                 "utf-8");
-
-
-        // Set the TextView
-//        TextView textViewToChange = (TextView) findViewById(R.id.infoActivityTextView);
-//        String links = intent.getStringExtra("infoActivityMessage2");
-//        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextViewDefault));
     }
 
 }
