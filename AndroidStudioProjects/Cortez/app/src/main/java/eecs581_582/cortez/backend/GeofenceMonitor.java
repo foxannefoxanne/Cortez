@@ -73,7 +73,7 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     private LocationRequest mLocationRequest;
 
     /**
-     * Constructs a new GeofenceStore.
+     * Constructs a new GeofenceMonitor.
      *
      * @param context The context to use.
      * @param cortezGeofences List of geofences to monitor.
@@ -179,14 +179,6 @@ public class GeofenceMonitor implements ConnectionCallbacks,
         if (mPendingIntent == null) {
             Log.d(TAG, "Creating PendingIntent");
             Intent intent = new Intent(mContext, GeofenceIntentService.class);
-
-            // TODO: Send the CortezGeofences to GeofenceIntentService, so it can determine which ones were triggered.
-            Intent extraIntent = new Intent();
-            extraIntent.putParcelableArrayListExtra("CORTEZGEOFENCES", mCortezGeofences);
-            ArrayList<CortezGeofence> test = extraIntent.getParcelableArrayListExtra("CORTEZGEOFENCES");
-            Log.d(TAG, "Test Parcel before sending " + (test == null ? "IS" : "IS NOT") + " null.");
-            Log.d(TAG, "Test Parcel before sending " + (test.equals(mCortezGeofences) ? "MATCHES" : "DOES NOT MATCH") + " mCortezGeofences.");
-            intent.putExtra(Intent.EXTRA_INTENT, extraIntent);
             mPendingIntent = PendingIntent.getService(mContext, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }

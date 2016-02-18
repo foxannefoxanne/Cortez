@@ -11,6 +11,10 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
+
+import com.sothree.slidinguppanel.ScrollableViewHelper;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
@@ -25,8 +29,7 @@ import eecs581_582.cortez.backend.Constants;
  *  user to the HelpActivity
  */
 
-public class InfoActivity extends FragmentActivity implements View.OnClickListener {
-
+public class InfoActivity extends FragmentActivity {
     public static final String TAG = InfoActivity.class.getSimpleName();
 
     @Override
@@ -110,16 +113,5 @@ public class InfoActivity extends FragmentActivity implements View.OnClickListen
                         : getString(R.string.infoActivityWebViewDefault),
                 "text/html",
                 "utf-8");
-
-
-        // Set the TextView
-//        TextView textViewToChange = (TextView) findViewById(R.id.infoActivityTextView);
-//        String links = intent.getStringExtra("infoActivityMessage2");
-//        textViewToChange.setText(!links.isEmpty() ? links : getString(R.string.infoActivityTextViewDefault));
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

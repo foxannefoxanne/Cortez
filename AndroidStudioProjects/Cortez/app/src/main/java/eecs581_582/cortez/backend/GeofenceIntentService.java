@@ -1,5 +1,6 @@
 package eecs581_582.cortez.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.location.Geofence;
@@ -64,17 +65,13 @@ public class GeofenceIntentService extends IntentService {
          * 4. Let's try not to annoy / spam the user with content, mkay?
          */
         Log.d(TAG, "onHandleIntent");
-        // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
 
-        // FIXME: Class not found when unmarshalling: eecs581_582.cortez.CortezGeofence
-//        Log.d(TAG, "BZZZZZZZZZZZZ, BUNDLE B COMIN'! BZZZZZZZZZZZZ..."); // It was worth it!
-//
-//        Bundle b = intent.getExtras();
-//        Intent i = b.getParcelable(Intent.EXTRA_INTENT);
-//        Log.d(TAG, ""+(i.getParcelableArrayListExtra("CORTEZGEOFENCES") == null));
-//        ArrayList<CortezGeofence> allCortezGeofences = i.getParcelableArrayListExtra("CORTEZGEOFENCES");
-//
-//        Log.d(TAG, "Test Parcel after receipt " + (allCortezGeofences == null ? "IS" : "IS NOT") + " null.");
+        // Tell MapActivity which Geofences were triggered
+        Intent broadcastIntent = new Intent("TRIGGERING GEOFENCES");
+        broadcastIntent.putExtra("Triggering Geofences", new ArrayList<>(GeofencingEvent.fromIntent(intent).getTriggeringGeofences()));
+        sendBroadcast(broadcastIntent);
+
+        // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
 
         sendNotification(this, intent);
     }
@@ -135,7 +132,6 @@ public class GeofenceIntentService extends IntentService {
 
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-            notificationManager.getEnabledListenerPackages(context);
 
             Log.d(TAG, "Sending Notification");
             notificationManager.notify(0, notificationBuilder.build());

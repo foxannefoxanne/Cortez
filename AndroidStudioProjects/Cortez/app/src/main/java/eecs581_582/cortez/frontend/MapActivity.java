@@ -3,6 +3,7 @@ package eecs581_582.cortez.frontend;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -13,7 +14,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Criteria;
@@ -25,6 +29,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.CortezMapData;
@@ -52,6 +58,16 @@ public class MapActivity extends FragmentActivity {
      * Google Map object
      */
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
+    /**
+     * BroadcastReceiver listens for any Intents that are sent from any IntentService
+     * that match an action in its corresponding IntentFilter.
+     *
+     * Currently, this is only set to receive an Intent with the action "TRIGGERING GEOFENCES."
+     * These Intents only come from GeofenceIntentService, and they will contain an ArrayList of
+     * all Geofences that the user has just triggered a transition for (enter / dwell / exit).
+     */
+    private BroadcastReceiver broadcastReceiver;
 
     /**
      * Visible Markers and Circles on the Google Map at the current CameraPosition
@@ -85,7 +101,32 @@ public class MapActivity extends FragmentActivity {
         GoogleApiChecker.checkPlayServices(this);
 
         setContentView(R.layout.activity_map);
+
+        // Set the BroadcastReceiver to listen for any Intent with "TRIGGERING GEOFENCES" as its action
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("TRIGGERING GEOFENCES");
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ArrayList<Geofence> triggeringGeofences = (ArrayList) intent.getParcelableArrayListExtra("Triggering Geofences");
+                String s = "";
+                for (Geofence g : triggeringGeofences) {
+                    s += g.toString() + "\n";
+                }
+                Log.d(TAG, "Received Triggering Geofences:\n"
+                        + "==============================\n"
+                        + s);
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
+
         setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -128,10 +169,6 @@ public class MapActivity extends FragmentActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
         switch (id) {
             case R.id.action_help: {
                 // This means you have selected the Help option
@@ -228,10 +265,6 @@ public class MapActivity extends FragmentActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.d(TAG, "Clicked Marker at " + marker.getPosition());
-                // TODO: get an Intent coming from GeofenceIntentService with getIntent(), and get the triggering geofences from it.
-                // That will need to be implemented in either GeofenceIntentService.onHandleIntent()
-                // or GeofenceIntentService.sendNotification()... not sure which one, yet.
-//                Intent incomingIntent = getIntent();
 
                 Intent outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
 

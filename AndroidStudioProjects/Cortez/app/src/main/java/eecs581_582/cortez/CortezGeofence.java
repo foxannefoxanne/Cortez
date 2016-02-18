@@ -1,8 +1,5 @@
 package eecs581_582.cortez;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,7 +11,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  *
  * Created by Joseph on 1/23/16.
  */
-public class CortezGeofence implements Parcelable {
+public class CortezGeofence {
     private final Geofence geofence;
     private final LatLng geofenceCoordinates;
     private final MarkerOptions geofenceMarkerOptions;
@@ -163,82 +160,5 @@ public class CortezGeofence implements Parcelable {
                     infoActivityMessage2);
         }
     } // end Builder class
-
-    /**
-     * We want to be able to pass data from CortezGeofence objects to other Contexts / Activities
-     * (for example, InfoActivity), when their geofence is triggered. This is typicall by putting
-     * type "extras" into the Intent you're sending from Context A to Context B.
-     *
-     * HOWEVER, the CortezGeofence object is too complex to send on its own (i.e., it's not a
-     * primitive type). Therefore, we have to explicitly describe how to pack / unpack a stream of
-     * data representing the CortezGeofence object. The object we create for doing that is called
-     * a Parcel; hence the reason CortezGeofence implements Parcelable.
-     */
-
-    // Begin Parcelable interface definitions
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        // TODO: any member variables introduced to the CortezGeofence class and constructor
-        // must also be written to the Parcel.
-
-        // Write the Geofence object to the Parcel
-        dest.writeParcelable((Parcelable) geofence, flags);
-
-        // Write the LatLng object to the Parcel
-        dest.writeParcelable(geofenceCoordinates, flags);
-
-        // Write the MarkerOptions object to the Parcel
-        dest.writeParcelable(geofenceMarkerOptions, flags);
-
-        // Write the CircleOptions object to the Parcel
-        dest.writeParcelable(geofenceCircleOptions, flags);
-
-        // Write all String objects to the Parcel
-        dest.writeString(geofenceEnterNotificationText);
-        dest.writeString(geofenceDwellNotificationText);
-        dest.writeString(geofenceExitNotificationText);
-        dest.writeString(infoActivityMessage1);
-        dest.writeString(infoActivityMessage2);
-    }
-
-    /**
-     * The Parcel creator.
-     */
-    public static final Parcelable.Creator<CortezGeofence> CREATOR
-            = new Parcelable.Creator<CortezGeofence>() {
-        public CortezGeofence createFromParcel(Parcel in) {
-            return new CortezGeofence(in);
-        }
-
-        public CortezGeofence[] newArray(int size) {
-            return new CortezGeofence[size];
-        }
-    };
-
-    /**
-     * Reconstructs a CortezGeofence from the specified Parcel.
-     * @param in the Parcel assumed to contain data for a CortezGeofence object.
-     */
-    private CortezGeofence(Parcel in) {
-        // TODO: any member variables introduced to the CortezGeofence class and constructor
-        // must also be reflected in this constructor.
-        geofence = in.readParcelable(Geofence.class.getClassLoader());
-        geofenceCoordinates = in.readParcelable(LatLng.class.getClassLoader());
-        geofenceMarkerOptions = in.readParcelable(MarkerOptions.class.getClassLoader());
-        geofenceCircleOptions = in.readParcelable(CircleOptions.class.getClassLoader());
-        geofenceEnterNotificationText = in.readString();
-        geofenceDwellNotificationText = in.readString();
-        geofenceExitNotificationText = in.readString();
-        infoActivityMessage1 = in.readString();
-        infoActivityMessage2 = in.readString();
-    }
-
-    // end Parcelable interface definitions
 }
 
