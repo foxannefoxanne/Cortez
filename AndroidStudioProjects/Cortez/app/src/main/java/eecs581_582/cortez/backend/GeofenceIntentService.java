@@ -95,22 +95,20 @@ public class GeofenceIntentService extends IntentService {
             switch (transition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = getString(R.string.notifyGeofenceEnter);
-                    Log.d(TAG, "Geofence Entered");
+                    Log.d(TAG, "Geofence(s) Entered: " + getTriggeringGeofences(intent));
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = getString(R.string.notifyGeofenceDwell);
-                    Log.d(TAG, "Dwelling in Geofence");
+                    Log.d(TAG, "Dwelling in Geofence(s): " + getTriggeringGeofences(intent));
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = getString(R.string.notifyGeofenceExit);
-                    Log.d(TAG, "Geofence Exited");
+                    Log.d(TAG, "Geofence(s) Exited: " + getTriggeringGeofences(intent));
                     break;
                 default:
-                    notificationTitle = "Geofence Unknown";
-                    Log.d(TAG, "Geofence Unknown");
+                    notificationTitle = "Geofence(s) Unknown";
+                    Log.d(TAG, "Geofence(s) Unknown");
             }
-
-            Log.d(TAG, getTriggeringGeofences(intent));
 
             // Enable the Notification to take the user back to the map (MainActivity)
             Intent notificationIntent = new Intent(context, MapActivity.class);

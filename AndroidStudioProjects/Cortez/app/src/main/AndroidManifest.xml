@@ -60,6 +60,22 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_youtubeviewer" />
 
+        <!-- The Help screen Activity -->
+        <activity
+            android:name=".frontend.HelpActivity"
+            android:label="@string/title_activity_help" />
+
+        <!-- The Map Select Activity -->
+        <activity
+            android:name=".frontend.MapSelectActivity"
+            android:label="@string/title_activity_map_select" />
+
+        <!-- The Launcher (splash screen) Activity -->
+        <activity
+            android:name=".frontend.LauncherActivity"
+            android:label="@string/title_activity_launcher">
+        </activity>
+
         <!-- The service we're using for monitoring Geofences -->
         <service android:name=".backend.GeofenceIntentService" />
 
@@ -78,16 +94,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".frontend.HelpActivity"
-            android:label="@string/title_activity_help" />
-        <activity
-            android:name=".frontend.MapSelectActivity"
-            android:label="@string/title_activity_map_select" />
-        <activity
-            android:name=".frontend.LauncherActivity"
-            android:label="@string/title_activity_launcher">
-        </activity>
     </application>
 
 </manifest>
