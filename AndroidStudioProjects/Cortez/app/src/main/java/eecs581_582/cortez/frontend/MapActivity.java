@@ -357,9 +357,9 @@ public class MapActivity extends FragmentActivity {
         cortezGeofences = cortezMapData.getCortezGeofences();
 
         // Send the Cortez Geofences as an ArrayList to GeofenceMonitor
-        ArrayList<CortezGeofence> geofences = new ArrayList<CortezGeofence>(cortezGeofences.size());
+        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
         for (CortezGeofence c : cortezGeofences.values()) {
-            geofences.add(c);
+            geofences.add(c.getGeofence());
 //            mMap.addMarker(c.getGeofenceMarkerOptions());
 //            mMap.addCircle(c.getGeofenceCircleOptions());
         }

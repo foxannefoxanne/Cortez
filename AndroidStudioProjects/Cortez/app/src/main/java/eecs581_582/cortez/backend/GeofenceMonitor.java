@@ -55,14 +55,6 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     private ArrayList<Geofence> mGeofences;
 
     /**
-     * List of CortezGeofences to monitor.
-     * We want the entire object (not just the Geofence)
-     * because it will be easiest to pass data to other Contexts
-     * using Intents that are generated from this class.
-     */
-    private ArrayList<CortezGeofence> mCortezGeofences;
-
-    /**
      * Geofence request.
      */
     private GeofencingRequest mGeofencingRequest;
@@ -76,18 +68,12 @@ public class GeofenceMonitor implements ConnectionCallbacks,
      * Constructs a new GeofenceMonitor.
      *
      * @param context The context to use.
-     * @param cortezGeofences List of geofences to monitor.
+     * @param geofences List of geofences to monitor.
      */
-    public GeofenceMonitor(Context context, ArrayList<CortezGeofence> cortezGeofences) {
+    public GeofenceMonitor(Context context, ArrayList<Geofence> geofences) {
 
         mContext = context;
-        mCortezGeofences = cortezGeofences;
 
-        // Set up the Cortez Geofences to be monitored
-        ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
-        for (CortezGeofence c : cortezGeofences) {
-            geofences.add(c.getGeofence());
-        }
         mGeofences = geofences;
 
         mPendingIntent = null;
