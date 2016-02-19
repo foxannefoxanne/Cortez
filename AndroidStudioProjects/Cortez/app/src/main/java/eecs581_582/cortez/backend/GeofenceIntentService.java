@@ -110,7 +110,7 @@ public class GeofenceIntentService extends IntentService {
                     Log.d(TAG, "Geofence(s) Unknown");
             }
 
-            // Enable the Notification to take the user back to the map (MainActivity)
+            // Enable the Notification to take the user back to the map (MapActivity)
             Intent notificationIntent = new Intent(context, MapActivity.class);
             // If an activity other than the map (MapActivity) is running in Cortez, it will be closed
             // (stopping any running processes within that activity), and the map will be added

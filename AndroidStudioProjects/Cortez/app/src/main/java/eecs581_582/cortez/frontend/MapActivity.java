@@ -85,8 +85,6 @@ public class MapActivity extends FragmentActivity {
 
     /**
      * Cortez Geofences
-     *
-     * TODO: Might change this to ArrayList<CortezGeofence> later
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
