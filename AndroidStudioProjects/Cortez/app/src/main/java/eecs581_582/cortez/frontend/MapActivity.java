@@ -358,8 +358,6 @@ public class MapActivity extends FragmentActivity {
         ArrayList<Geofence> geofences = new ArrayList<Geofence>(cortezGeofences.size());
         for (CortezGeofence c : cortezGeofences.values()) {
             geofences.add(c.getGeofence());
-//            mMap.addMarker(c.getGeofenceMarkerOptions());
-//            mMap.addCircle(c.getGeofenceCircleOptions());
         }
         mGeofenceMonitor = new GeofenceMonitor(this, geofences);
     }

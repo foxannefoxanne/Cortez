@@ -50,6 +50,13 @@
         ]]>
     </string>
 
+    <string name="loremipsum1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ante sem,
+        imperdiet vitae odio quis, ultrices rutrum libero. Aliquam fringilla a nisi a
+        cursus. Vestibulum semper ex nunc, eget vehicula massa vulputate id. Fusce
+        sollicitudin lectus lectus. Sed posuere metus id nisl dapibus, et finibus erat tempus.
+    </string>
+
     <!-- TextView inside Info Activity-->
     <string name="infoActivityTextViewDefault">Links, Media Go Here</string>
 

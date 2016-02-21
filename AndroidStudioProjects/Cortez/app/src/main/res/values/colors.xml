@@ -13,5 +13,13 @@
     <color name="geofenceCircleStrokeDefault">#4000ffff</color>
 
     <!-- Fades out the background image in the WebView (for readability) -->
-    <color name="infoScreenBackgroundTransparency">#c3ffffff</color>
+    <color name="backgroundTransparency">#7fffffff</color>
+
+
+    <!-- CardView colors -->
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="accent">#ff9e80</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="bkg_card">#009688</color>
 </resources>

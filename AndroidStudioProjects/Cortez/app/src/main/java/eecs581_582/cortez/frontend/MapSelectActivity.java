@@ -3,8 +3,13 @@ package eecs581_582.cortez.frontend;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
@@ -24,6 +29,22 @@ public class MapSelectActivity extends Activity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_select);
+
+        // Set up and display all available Cortez maps in a card layout menu.
+        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+
+        // TODO: Populate the list with the number of Cortez maps
+        MapSelectCardAdapter ca = new MapSelectCardAdapter(createList(10));
+        recList.setAdapter(ca);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
     }
 
     @Override
@@ -33,10 +54,6 @@ public class MapSelectActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
         switch (id) {
             case R.id.action_help: {
                 // This means you have selected the Help option
@@ -51,7 +68,7 @@ public class MapSelectActivity extends Activity {
                 // This means you have selected the Settings option
                 Log.d(TAG, "Settings button selected");
 //                Intent intent = new Intent(this, SettingsActivity.class);
-//                intent.putExtra(getString(R.string.action_settings), Constants.Caller.MAP_ACTIVITY);
+//                intent.putExtra(getString(R.string.action_settings), Constants.Caller.MAPSELECT_ACTIVITY);
 //                startActivity(intent);
                 return true;
             }
@@ -60,4 +77,25 @@ public class MapSelectActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Populates the list of available Cortez maps, which will be displayed in the RecyclerView.
+     * @param size the number of available Cortez maps
+     * @return the list of available Cortez maps
+     */
+    private List<MapSelectCard> createList(int size) {
+
+        //TODO: Dynamically set the name and description for each Cortez map
+
+        List<MapSelectCard> result = new ArrayList<MapSelectCard>();
+        for (int i = 1; i <= size; i++) {
+            MapSelectCard ci = new MapSelectCard();
+            ci.name = MapSelectCard.NAME_PREFIX + i;
+            ci.description = MapSelectCard.DESCRIPTION_PREFIX;
+
+            result.add(ci);
+
+        }
+
+        return result;
+    }
 }

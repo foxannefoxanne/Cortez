@@ -16,7 +16,7 @@
     <string name="title_activity_help">HelpActivity</string>
 
     <!-- Map Select title -->
-    <string name="title_activity_map_select">MapSelectActivity</string>
+    <string name="title_activity_map_select">Select Map</string>
 
     <!-- Launcher title -->
     <string name="title_activity_launcher">Cortez</string>

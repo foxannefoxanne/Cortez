@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_select_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@color/backgroundTransparency"
+    card_view:theme="@style/AppTheme.MainActivity"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/map_select_card_title"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/bkg_card"
+            android:text="@string/cortezMapNameDefault"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/map_select_card_mapicon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:src="@mipmap/logo"
+            android:layout_below="@+id/map_select_card_txtDescription"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/map_select_card_txtDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description: "
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:layout_below="@id/map_select_card_title"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/map_select_card_txtAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loremipsum1"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@id/map_select_card_txtDescription"
+            android:layout_toEndOf="@+id/map_select_card_txtDescription"
+            android:layout_below="@+id/map_select_card_title"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
