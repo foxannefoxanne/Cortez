@@ -45,6 +45,7 @@ public class LauncherActivity extends Activity {
         Thread timerThread = new Thread(){
             public void run(){
                 try {
+                    Log.d(TAG, "timerThread");
                     sleep(3000);
                 }
                 catch(InterruptedException e) {

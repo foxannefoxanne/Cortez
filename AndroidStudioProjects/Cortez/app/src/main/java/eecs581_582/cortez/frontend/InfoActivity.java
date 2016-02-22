@@ -39,6 +39,7 @@ public class InfoActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_info, menu);
+        Log.d(TAG, "onCreateOptionsMenu");
         return true;
     }
 
@@ -88,6 +89,7 @@ public class InfoActivity extends FragmentActivity {
      * @param intent
      */
     private void setUpViewFromIntent(Intent intent) {
+        Log.d(TAG, "setUpViewFromIntent");
         setTitle(intent.getStringExtra("title"));
 
         // Set the WebView

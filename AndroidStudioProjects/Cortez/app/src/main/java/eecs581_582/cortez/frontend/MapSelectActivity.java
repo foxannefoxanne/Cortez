@@ -52,6 +52,7 @@ public class MapSelectActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_map_select, menu);
+        Log.d(TAG, "onCreateOptionsMenu");
         return true;
     }
 
