@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -45,6 +46,13 @@ public class MapSelectActivity extends Activity {
     @Override
     public void onBackPressed() {
         // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_map_select, menu);
+        return true;
     }
 
     @Override
