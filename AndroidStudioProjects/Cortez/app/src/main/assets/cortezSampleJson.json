@@ -81,7 +81,7 @@
         "lat": 38.956880,
         "lng": -95.253530
       },
-      "radius": 100,
+      "radius": 150,
 
       "GEOFENCE_TRANSITION_ENTER": {
         "sendNotification": true,

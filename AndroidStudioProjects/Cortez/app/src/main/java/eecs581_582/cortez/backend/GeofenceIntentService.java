@@ -68,7 +68,9 @@ public class GeofenceIntentService extends IntentService {
 
         // Tell MapActivity which Geofences were triggered
         Intent broadcastIntent = new Intent("TRIGGERING GEOFENCES");
-        broadcastIntent.putExtra("Triggering Geofences", new ArrayList<>(GeofencingEvent.fromIntent(intent).getTriggeringGeofences()));
+        GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
+        broadcastIntent.putExtra("Triggering Geofences", new ArrayList<>(geofencingEvent.getTriggeringGeofences()));
+        broadcastIntent.putExtra("Geofence Transition", geofencingEvent.getGeofenceTransition());
         sendBroadcast(broadcastIntent);
 
         // TODO: send notifications only when Cortez is running and (screen is off or Cortez is in background)
