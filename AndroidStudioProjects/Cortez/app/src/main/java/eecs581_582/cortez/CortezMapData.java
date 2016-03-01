@@ -20,13 +20,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.HashMap;
+
+import eecs581_582.cortez.backend.Downloader;
 
 /**
  * A container class for Cortez Map Data.
  * Created by Joseph on 1/29/16.
  */
-public class CortezMapData {
+public class CortezMapData implements Serializable {
     public static final String TAG = CortezMapData.class.getSimpleName();
 
     /**
@@ -41,13 +44,11 @@ public class CortezMapData {
 
     /**
      * Cortez Geofences
-     *
-     * TODO: Might change this to ArrayList<CortezGeofence> later
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
     public CortezMapData(Context context) {
-        cortezJSONData = setCortezJSONData(context);
+        cortezJSONData = new Downloader("https://thawing-dusk-70157.herokuapp.com/dump").getJsonObject(); //setCortezJSONData(context);
         cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
         cortezGeofences = setCortezGeofences(context, cortezJSONData);
     }
@@ -162,7 +163,7 @@ public class CortezMapData {
                                 // Markers will assume our default settings if not specified from JSON
                         .title(markerTitle)
                         .snippet(markerSnippet)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)); // FIXME
 
                 CircleOptions circleOptions = new CircleOptions()
                         .visible(true)
@@ -189,7 +190,7 @@ public class CortezMapData {
                 // TODO: set any new parameters for CortezGeofence here when they are supported / implemented in CortezGeofence.java
                 // Add CortezGeofence
                 cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
-                        .markerOptions(markerOptions)
+//                        .markerOptions(markerOptions)
                         .circleOptions(circleOptions)
                         .enterNotificationText(geofenceEnterNotificationText)
                         .dwellNotificationText(geofenceDwellNotificationText)
@@ -222,10 +223,12 @@ public class CortezMapData {
      */
     private int getIntFromJsonObject(JSONObject jsonObject, String jsonKey, int defaultValue) {
         try {
-            return jsonObject.getInt(jsonKey);
+            int i = jsonObject.getInt(jsonKey);
+            Log.d(TAG, "Got " + jsonKey);
+            return i;
         }
         catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage());
+            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
             return defaultValue;
         }
     }
@@ -240,10 +243,12 @@ public class CortezMapData {
      */
     private long getLongFromJsonObject(JSONObject jsonObject, String jsonKey, long defaultValue) {
         try {
-            return jsonObject.getInt(jsonKey);
+            long l = jsonObject.getInt(jsonKey);
+            Log.d(TAG, "Got " + jsonKey);
+            return l;
         }
         catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage());
+            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
             return defaultValue;
         }
     }
@@ -258,10 +263,12 @@ public class CortezMapData {
      */
     private String getStringFromJsonObject(JSONObject jsonObject, String jsonKey, String defaultValue) {
         try {
-            return jsonObject.getString(jsonKey);
+            String s = jsonObject.getString(jsonKey);
+            Log.d(TAG, "Got " + jsonKey);
+            return s;
         }
         catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage());
+            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
             return defaultValue;
         }
     }

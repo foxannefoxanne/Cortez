@@ -348,7 +348,7 @@ public class MapActivity extends FragmentActivity {
         mGeofenceVisibleCircles = new HashMap<LatLng, Circle>();
 
         // TODO: Eventually the CortezMapData constructor will require a URI from the database, to download JSON
-        cortezMapData = new CortezMapData(this);
+        cortezMapData = (CortezMapData) getIntent().getSerializableExtra("CortezMapData");
 
         // Set the Google Map title to match the title from Cortez map data
         setTitle(cortezMapData.getCortezMapName());

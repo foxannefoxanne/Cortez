@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import eecs581_582.cortez.CortezMapData;
 import eecs581_582.cortez.R;
 
 public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapFileChoiceHolder> {
@@ -72,7 +73,10 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
             vIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    view.getContext().startActivity(new Intent(view.getContext(), MapActivity.class));
+                    CortezMapData selectedMap = new CortezMapData(view.getContext());
+                    Intent intent = new Intent(view.getContext(), MapActivity.class);
+                    intent.putExtra("CortezMapData", selectedMap);
+                    view.getContext().startActivity(intent);
                 }
             });
         }
