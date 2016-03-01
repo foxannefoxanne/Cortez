@@ -111,7 +111,8 @@ public class MapActivity extends FragmentActivity {
                 }
                 Log.d(TAG, "Received Triggering Geofences:\n"
                         + "==============================\n"
-                        + s);
+                        + s
+                        + " " + intent.getIntExtra("Geofence Transition", -1));
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
