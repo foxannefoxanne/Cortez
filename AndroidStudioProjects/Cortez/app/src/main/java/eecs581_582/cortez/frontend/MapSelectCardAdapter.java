@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import eecs581_582.cortez.CortezMapData;
 import eecs581_582.cortez.R;
 
 public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapFileChoiceHolder> {
@@ -72,7 +73,17 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
             vIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    view.getContext().startActivity(new Intent(view.getContext(), MapActivity.class));
+                    /* FIXME: Instead of creating a CortezMapData object here,
+                     * we can just pass the name of the File that we want to open (or the File itself).
+                     * We'll need to have the File already exist in internal storage to do this.
+                     */
+//                    CortezMapData selectedMap = new CortezMapData(view.getContext());
+
+                    Intent intent = new Intent(view.getContext(), MapActivity.class);
+
+//                    intent.putExtra("CortezMapData", selectedMap);
+
+                    view.getContext().startActivity(intent);
                 }
             });
         }
