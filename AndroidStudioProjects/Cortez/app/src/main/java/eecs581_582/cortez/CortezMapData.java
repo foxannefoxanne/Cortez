@@ -16,7 +16,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -64,7 +67,7 @@ public class CortezMapData {
     }
 
     /**
-     * Gets Cortez JSON data.
+     * Sets Cortez JSON data.
      * @return a traversable JSON object containing all textual data for Cortez
      */
     private JSONObject setCortezJSONData(Context context) {
@@ -173,7 +176,7 @@ public class CortezMapData {
                                 // Markers will assume our default settings if not specified from JSON
                         .title(markerTitle)
                         .snippet(markerSnippet)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)); // FIXME
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
                 CircleOptions circleOptions = new CircleOptions()
                         .visible(true)
@@ -289,8 +292,10 @@ public class CortezMapData {
      * without redundant database calls.
      */
     protected void saveMapData(Context context) {
-        FileOutputStream outputStream;
+        FileOutputStream outputStream = null;
         try {
+
+            // TODO: This filename will need to come from somewhere external to the JSON data itself
             String filename = cortezJSONData.getString("filename");
 
             /*
@@ -300,11 +305,59 @@ public class CortezMapData {
              */
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
 
+            String fullPath = context.getFilesDir().getPath() + "/" + filename;
+
             Log.i(TAG, "Saving Cortez Map Data...");
+            Log.d(TAG, "File path to save: " + fullPath);
             outputStream.write(cortezJSONData.toString().getBytes());
-            outputStream.close();
         } catch (Exception e) {
             Log.e(TAG, e.getLocalizedMessage());
+        } finally {
+            try {
+                outputStream.close();
+                Log.i(TAG, "Successfully saved Cortez Map Data.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Opens Cortez JSON data from internal storage.
+     * @param fullPath the absolute file path to the Cortez JSON data file (Including file name and extension)
+     */
+    protected void openMapData(String fullPath) {
+        Log.i(TAG, "Opening Cortez Map Data...");
+        Log.d(TAG, "Opening from: " + fullPath);
+
+        File file = new File(fullPath);
+        StringBuilder text = new StringBuilder();
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+
+            cortezJSONData = new JSONObject(text.toString());
+
+        } catch (IOException e) {
+            // TODO: Handle the bad JSON file in some way
+            e.printStackTrace();
+        } catch (JSONException e) {
+            // TODO: Handle the bad JSON file in some way
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                Log.i(TAG, "Successfully opened Cortez Map Data.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
