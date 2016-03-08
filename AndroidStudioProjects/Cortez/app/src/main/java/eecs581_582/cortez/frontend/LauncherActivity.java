@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.GoogleApiChecker;
 
 /* ********************************************************************
  * LauncherActivity should be the first thing the user sees. It should
@@ -28,10 +29,13 @@ public class LauncherActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
+        // TODO: If this check fails, we should not go to MapSelectActivity.
+        // Require Google Play Services to be installed to enable Cortez.
+        GoogleApiChecker.checkPlayServices(this);
 
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
@@ -62,7 +66,6 @@ public class LauncherActivity extends Activity {
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         Log.d(TAG, "onPause");
         super.onPause();
         finish();

@@ -33,8 +33,8 @@ import android.view.MenuItem;
 import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.CortezMapData;
 import eecs581_582.cortez.backend.Constants;
+import eecs581_582.cortez.backend.Downloader;
 import eecs581_582.cortez.backend.GeofenceMonitor;
-import eecs581_582.cortez.backend.GoogleApiChecker;
 import eecs581_582.cortez.R;
 
 /* ********************************************************************
@@ -92,9 +92,6 @@ public class MapActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-
-        // TODO: Move this check to MainActivity.java when it is implemented
-        GoogleApiChecker.checkPlayServices(this);
 
         setContentView(R.layout.activity_map);
 
@@ -347,7 +344,9 @@ public class MapActivity extends FragmentActivity {
         mGeofenceVisibleMarkers = new HashMap<LatLng, Marker>();
         mGeofenceVisibleCircles = new HashMap<LatLng, Circle>();
 
-        cortezMapData = new CortezMapData(this);
+        // TODO: Eventually, we'll only open local files containing CortezMapData here.
+        cortezMapData = new CortezMapData(this, new Downloader(this, Constants.URL2).getJsonObject());
+//        cortezMapData = new CortezMapData(this, "JsonTemplateFile.json");
 
         // Set the Google Map title to match the title from Cortez map data
         setTitle(cortezMapData.getCortezMapName());

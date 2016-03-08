@@ -17,15 +17,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-
-import eecs581_582.cortez.backend.Downloader;
 
 /**
  * A container class for Cortez Map Data.
@@ -49,21 +46,40 @@ public class CortezMapData {
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
+    /**
+     * Constructor for debugging.
+     * @param context
+     */
     public CortezMapData(Context context) {
+        this.cortezJSONData = setCortezJSONData(context);
+        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
+        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
+    }
 
-        // URLs where Cortez sample JSON can be found
-        String url1 = "http://people.eecs.ku.edu/~jchampio/JsonTemplateFile.json";      // Static webpage (if the database goes down)
-        String url2 = "https://thawing-dusk-70157.herokuapp.com/dump";                  // Database (eventually non-static)
+    /**
+     * Constructor for maps that are being downloaded from a stream.
+     * @param context
+     * @param cortezJSONData
+     */
+    public CortezMapData(Context context, JSONObject cortezJSONData) {
+        this.cortezJSONData = cortezJSONData;
 
-        // TODO: for debugging, use the assignment below. Otherwise, leave as is.
-//        cortezJSONData = setCortezJSONData(context);
-
-        // TODO: Eventually, the assignment for cortezJSONData will need to be done from reading a local JSON file.
-        // TODO: Downloader() should have already gotten this JSON file in MapSelectActivity, and stored it locally.
-        cortezJSONData = new Downloader(context, url2).getJsonObject();
+        // Always save a downloaded map.
         saveMapData(context);
-        cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
-        cortezGeofences = setCortezGeofences(context, cortezJSONData);
+
+        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
+        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
+    }
+
+    /**
+     * Constructor for maps that are being read from local storage.
+     * @param context
+     * @param filename
+     */
+    public CortezMapData(Context context, String filename) {
+        this.cortezJSONData = openMapData(context.getFilesDir().getPath() + "/" + filename);
+        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
+        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
     }
 
     /**
@@ -71,7 +87,6 @@ public class CortezMapData {
      * @return a traversable JSON object containing all textual data for Cortez
      */
     private JSONObject setCortezJSONData(Context context) {
-        // TODO: implement in a way that downloads JSON from the database
         try {
             InputStream is = context.getAssets().open("cortezSampleJson.json");
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
@@ -326,7 +341,7 @@ public class CortezMapData {
      * Opens Cortez JSON data from internal storage.
      * @param fullPath the absolute file path to the Cortez JSON data file (Including file name and extension)
      */
-    protected void openMapData(String fullPath) {
+    protected JSONObject openMapData(String fullPath) {
         Log.i(TAG, "Opening Cortez Map Data...");
         Log.d(TAG, "Opening from: " + fullPath);
 
@@ -343,12 +358,7 @@ public class CortezMapData {
                 text.append('\n');
             }
 
-            cortezJSONData = new JSONObject(text.toString());
-
         } catch (IOException e) {
-            // TODO: Handle the bad JSON file in some way
-            e.printStackTrace();
-        } catch (JSONException e) {
             // TODO: Handle the bad JSON file in some way
             e.printStackTrace();
         } finally {
@@ -359,6 +369,15 @@ public class CortezMapData {
                 e.printStackTrace();
             }
         }
+
+        try {
+            return new JSONObject(text.toString());
+        } catch (JSONException e) {
+            // TODO: Handle the bad JSON file in some way
+            e.printStackTrace();
+        }
+
+        return new JSONObject(); // returned on error
     }
 
     protected JSONObject getCortezJSONData() {
