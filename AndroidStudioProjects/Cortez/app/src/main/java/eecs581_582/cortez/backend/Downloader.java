@@ -1,5 +1,7 @@
 package eecs581_582.cortez.backend;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -23,13 +25,16 @@ public class Downloader {
 
     public static final String TAG = Downloader.class.getSimpleName();
 
-    JSONObject jsonObject;
+    private JSONObject jsonObject;
 
-    public Downloader(String urlString) {
+    private Context context;
+
+    public Downloader(Context context, String urlString) {
+        this.context = context;
         ProcessJSON p = new ProcessJSON();
         p.execute(urlString);
         try {
-            jsonObject = p.get();
+            this.jsonObject = p.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -69,6 +74,8 @@ public class Downloader {
                     BufferedReader r = new BufferedReader(new InputStreamReader(in));
                     StringBuilder sb = new StringBuilder();
                     String line;
+
+                    // Clean up the stream if necessary
                     while ((line = r.readLine()) != null) {
                         line = line.replace("&quot;", "\"")
                                 .replace("&#39;", "\'")
@@ -81,10 +88,6 @@ public class Downloader {
                         Log.d(TAG, line);
                     }
 
-                    // TODO: We KNOW the stream is OK, and cortezMapData can be created successfully from the stream.
-                    // The ISSUE is that the Google Map from MapActivity is trying to draw itself using cortezMapData, BEFORE it's finished downloading and being created.
-                    // We need to get the MapActivity to wait until the JSONObject is finished downloading.
-                    // When that is done, THEN we can go to MapActivity and draw the Google Map.
                     stream = sb.toString();
                     stream = stream.substring(stream.indexOf("{"), stream.lastIndexOf("}") + 1);
                     // End reading...............
@@ -115,6 +118,14 @@ public class Downloader {
      */
     class ProcessJSON extends AsyncTask<String, Void, JSONObject> {
 
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(context, "Just a sec", "Downloading Map...");
+        }
+
         protected JSONObject doInBackground(String... strings){
             Log.d(TAG, "Downloading...");
             String stream = null;
@@ -136,6 +147,7 @@ public class Downloader {
         @Override
         protected void onPostExecute(JSONObject result){
             Log.d(TAG, "Finished downloading!");
+            progressDialog.dismiss();
         }
     } // ProcessJSON class end
 }

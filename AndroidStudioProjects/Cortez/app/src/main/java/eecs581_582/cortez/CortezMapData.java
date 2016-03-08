@@ -57,7 +57,7 @@ public class CortezMapData {
 
         // TODO: Eventually, the assignment for cortezJSONData will need to be done from reading a local JSON file.
         // TODO: Downloader() should have already gotten this JSON file in MapSelectActivity, and stored it locally.
-        cortezJSONData = new Downloader(url2).getJsonObject();
+        cortezJSONData = new Downloader(context, url2).getJsonObject();
         saveMapData(context);
         cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
         cortezGeofences = setCortezGeofences(context, cortezJSONData);
