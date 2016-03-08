@@ -20,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.HashMap;
 
 import eecs581_582.cortez.backend.Downloader;
@@ -29,7 +28,7 @@ import eecs581_582.cortez.backend.Downloader;
  * A container class for Cortez Map Data.
  * Created by Joseph on 1/29/16.
  */
-public class CortezMapData implements Serializable {
+public class CortezMapData {
     public static final String TAG = CortezMapData.class.getSimpleName();
 
     /**
@@ -48,7 +47,18 @@ public class CortezMapData implements Serializable {
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
     public CortezMapData(Context context) {
-        cortezJSONData = new Downloader("https://thawing-dusk-70157.herokuapp.com/dump").getJsonObject(); //setCortezJSONData(context);
+
+        // URLs where Cortez sample JSON can be found
+        String url1 = "http://people.eecs.ku.edu/~jchampio/JsonTemplateFile.json";      // Static webpage (if the database goes down)
+        String url2 = "https://thawing-dusk-70157.herokuapp.com/dump";                  // Database (eventually non-static)
+
+        // TODO: for debugging, use the assignment below. Otherwise, leave as is.
+//        cortezJSONData = setCortezJSONData(context);
+
+        // TODO: Eventually, the assignment for cortezJSONData will need to be done from reading a local JSON file.
+        // TODO: Downloader() should have already gotten this JSON file in MapSelectActivity, and stored it locally.
+        cortezJSONData = new Downloader(url2).getJsonObject();
+        saveMapData(context);
         cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
         cortezGeofences = setCortezGeofences(context, cortezJSONData);
     }
@@ -190,7 +200,7 @@ public class CortezMapData implements Serializable {
                 // TODO: set any new parameters for CortezGeofence here when they are supported / implemented in CortezGeofence.java
                 // Add CortezGeofence
                 cortezGeofences.put(latlng, new CortezGeofence.Builder(geofence, latlng)
-//                        .markerOptions(markerOptions)
+                        .markerOptions(markerOptions)
                         .circleOptions(circleOptions)
                         .enterNotificationText(geofenceEnterNotificationText)
                         .dwellNotificationText(geofenceDwellNotificationText)

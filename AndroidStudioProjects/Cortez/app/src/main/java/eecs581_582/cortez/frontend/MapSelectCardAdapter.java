@@ -73,9 +73,16 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
             vIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CortezMapData selectedMap = new CortezMapData(view.getContext());
+                    /* FIXME: Instead of creating a CortezMapData object here,
+                     * we can just pass the name of the File that we want to open (or the File itself).
+                     * We'll need to have the File already exist in internal storage to do this.
+                     */
+//                    CortezMapData selectedMap = new CortezMapData(view.getContext());
+
                     Intent intent = new Intent(view.getContext(), MapActivity.class);
-                    intent.putExtra("CortezMapData", selectedMap);
+
+//                    intent.putExtra("CortezMapData", selectedMap);
+
                     view.getContext().startActivity(intent);
                 }
             });
