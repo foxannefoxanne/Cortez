@@ -1,6 +1,5 @@
 package eecs581_582.cortez.backend;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -118,12 +117,9 @@ public class Downloader {
      */
     class ProcessJSON extends AsyncTask<String, Void, JSONObject> {
 
-        private ProgressDialog progressDialog;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(context, "Just a sec", "Downloading Map...");
         }
 
         protected JSONObject doInBackground(String... strings){
@@ -147,7 +143,6 @@ public class Downloader {
         @Override
         protected void onPostExecute(JSONObject result){
             Log.d(TAG, "Finished downloading!");
-            progressDialog.dismiss();
         }
     } // ProcessJSON class end
 }
