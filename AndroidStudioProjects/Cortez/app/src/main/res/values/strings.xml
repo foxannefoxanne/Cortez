@@ -45,25 +45,33 @@
         &lt;br /&gt;
         Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map screen.
     </string>
-    <string name="HelpActivityContentForInfoActivity">&lt;h1&gt;Map Screen&lt;/h1&gt;&lt;br /&gt;
+    <string name="HelpActivityContentForInfoActivity">&lt;h1&gt;Info Screen&lt;/h1&gt;
+        &lt;br /&gt;
         The Info screen displays information about the Marker that you selected.&lt;br /&gt;
         &lt;br /&gt;
         If you are too far away from the Marker, you may not be able to see anything but the text information. Try getting closer to see videos or pictures!&lt;br /&gt;
         &lt;br /&gt;
         Not every Marker will have video or pictures. Only those enabled by the map\'s creators. If you want more, ask them!&lt;br /&gt;
         &lt;br /&gt;
-        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map screen.
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Info screen.
     </string>
     <!-- TODO -->
     <string name="HelpActivityContentForYoutubeActivity">&lt;h1&gt;Youtube Screen&lt;/h1&gt;
         &lt;br /&gt;
-        This is the Help Screen content for the Youtube Activity screen. &lt;b&gt;
-        TODO.&lt;/b&gt;
+        This is the Help Screen content for the Youtube Activity screen.&lt;br /&gt;
+        &lt;br /&gt;
+        This is where you will view Youtube playlists associated with a location. It should behave just like any other Youtube player!&lt;br /&gt;
+        &lt;br /&gt;
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Youtube screen.
     </string>
-    <!-- TODO -->
     <string name="HelpActivityContentForMapSelectActivity">&lt;h1&gt;Map Select Screen&lt;/h1&gt;
         &lt;br /&gt;
-        This is the Help Screen content for the Map Select screen. &lt;b&gt;
-        TODO once there\'s stuff here to help with&lt;/b&gt;
+        This is the Help Screen content for the Map Select screen. &lt;br /&gt;
+        &lt;br /&gt;
+        Here, you will find a list of the maps you have downloaded. Click on one to open its associated map and begin exploring! &lt;br /&gt;
+        &lt;br /&gt;
+        If you have not downloaded any maps, (TODO) &lt;br /&gt;
+        &lt;br /&gt;
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map Select screen.
     </string>
 </resources>

@@ -325,6 +325,8 @@ public class CortezMapData {
             Log.i(TAG, "Saving Cortez Map Data...");
             Log.d(TAG, "File path to save: " + fullPath);
             outputStream.write(cortezJSONData.toString().getBytes());
+            // TODO: This is where we should hand fullpath up to the calling function to associate with its MapSelectCard
+            // Then we can grab it from MapSelectCardAdapter and that should resolve that fix-me, right?
         } catch (Exception e) {
             Log.e(TAG, e.getLocalizedMessage());
         } finally {

@@ -49,6 +49,7 @@ public class LauncherActivity extends Activity {
         Thread timerThread = new Thread(){
             public void run(){
                 try {
+                    // TODO: Update maps that are already on the device
                     Log.d(TAG, "timerThread");
                     sleep(3000);
                 }
