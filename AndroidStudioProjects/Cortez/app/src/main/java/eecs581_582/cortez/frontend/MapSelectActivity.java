@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +43,7 @@ public class MapSelectActivity extends Activity {
         recList.setLayoutManager(llm);
 
         // TODO: Populate the list with the number of Cortez maps
-        MapSelectCardAdapter ca = new MapSelectCardAdapter(createList(10));
+        MapSelectCardAdapter ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Available Maps")));
         recList.setAdapter(ca);
     }
 
@@ -88,23 +92,54 @@ public class MapSelectActivity extends Activity {
 
     /**
      * Populates the list of available Cortez maps, which will be displayed in the RecyclerView.
-     * @param size the number of available Cortez maps
+     * @param list all available Cortez maps
      * @return the list of available Cortez maps
      */
-    private List<MapSelectCard> createList(int size) {
+    private List<MapSelectCard> createList(String list) {
+        try {
 
-        //TODO: Dynamically set the name and description for each Cortez map
+            JSONObject mapsArray = new JSONObject(list);
+            JSONArray jsonArray = mapsArray.getJSONArray("maps");
 
-        List<MapSelectCard> result = new ArrayList<MapSelectCard>();
-        for (int i = 1; i <= size; i++) {
-            MapSelectCard ci = new MapSelectCard();
-            ci.name = MapSelectCard.NAME_PREFIX + i;
-            ci.description = MapSelectCard.DESCRIPTION_PREFIX;
+            List<MapSelectCard> result = new ArrayList<MapSelectCard>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                MapSelectCard ci = new MapSelectCard();
 
-            result.add(ci);
+                JSONObject map = jsonArray.getJSONObject(i);
 
+                ci.name = getStringFromJsonObject(map, "mapName", (MapSelectCard.NAME_PREFIX + (i + 1)));
+                ci.description = MapSelectCard.DESCRIPTION_PREFIX + getStringFromJsonObject(map, "mapDescription", "None.");
+                ci.path = getStringFromJsonObject(map, "mapLink", Constants.AVAILABLE_MAPS_LINK);
+
+                result.add(ci);
+            }
+
+            return result;
         }
+        catch (JSONException e) {
+            // TODO: Handle the bad JSON in some way
+            Log.e(TAG, e.getLocalizedMessage());
+            return new ArrayList<MapSelectCard>();
+        }
+    }
 
-        return result;
+    /**
+     * Attempts to get a String value from a JSONObject key.
+     * @precondition Assumes the key is directly accessible.
+     * @param jsonObject the JSONObject containing the desired value
+     * @param jsonKey the JSON key at which the desired value is stored
+     * @param defaultValue a default value to return in case retrieval fails
+     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
+     */
+    private String getStringFromJsonObject(JSONObject jsonObject, String jsonKey, String defaultValue) {
+        try {
+            String s = jsonObject.getString(jsonKey);
+            Log.d(TAG, "Got " + jsonKey);
+            return s;
+        }
+        catch (JSONException e) {
+            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
+            return defaultValue;
+        }
     }
 }

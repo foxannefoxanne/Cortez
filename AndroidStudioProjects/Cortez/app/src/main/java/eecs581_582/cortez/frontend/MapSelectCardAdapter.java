@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import eecs581_582.cortez.CortezMapData;
 import eecs581_582.cortez.R;
 
 public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapFileChoiceHolder> {
@@ -46,6 +45,7 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
         MapSelectCard ci = mapSelectList.get(i);
         mapFileChoiceHolder.vDescription.setText(ci.description);
         mapFileChoiceHolder.vTitle.setText(ci.name);
+        mapFileChoiceHolder.path = ci.path;
     }
 
     @Override
@@ -62,26 +62,20 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
         protected TextView vTitle;              // Title for the Cortez map in this card
         protected TextView vDescription;        // Description for the Cortez map in this card
         protected ImageView vIcon;              // Icon for the Cortez map in this card
+        protected String path;                  // Fully-qualified file path (local or external) for the Cortez map in this card
 
         public MapFileChoiceHolder(View v) {
             super(v);
             vTitle = (TextView) v.findViewById(R.id.map_select_card_title);
             vDescription = (TextView)  v.findViewById(R.id.map_select_card_txtDescription);
             vIcon = (ImageView) v.findViewById(R.id.map_select_card_mapicon);
-
-            // TODO: Clicking the icon should take the user to the desired map
             vIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /* FIXME: Instead of creating a CortezMapData object here,
-                     * we can just pass the name of the File that we want to open (or the File itself).
-                     * We'll need to have the File already exist in internal storage to do this.
-                     */
-//                    CortezMapData selectedMap = new CortezMapData(view.getContext());
 
                     Intent intent = new Intent(view.getContext(), MapActivity.class);
 
-//                    intent.putExtra("CortezMapData", selectedMap);
+                    intent.putExtra("CortezMapData", path);
 
                     view.getContext().startActivity(intent);
                 }

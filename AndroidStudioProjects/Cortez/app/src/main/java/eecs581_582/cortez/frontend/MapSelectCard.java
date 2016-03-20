@@ -20,7 +20,8 @@ package eecs581_582.cortez.frontend;
 public class MapSelectCard {
     protected String name;
     protected String description;
+    protected String path;
 
     protected static final String NAME_PREFIX = "Map ";
-    protected static final String DESCRIPTION_PREFIX = "Description:";
+    protected static final String DESCRIPTION_PREFIX = "Description: ";
 }

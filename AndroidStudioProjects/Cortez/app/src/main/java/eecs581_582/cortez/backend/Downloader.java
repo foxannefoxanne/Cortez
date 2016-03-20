@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,6 +44,39 @@ public class Downloader {
 
     public JSONObject getJsonObject() {
         return jsonObject;
+    }
+
+    /**
+     * Saves a copy of the Cortez JSON data to internal storage.
+     * This copy can be used to load the Geofence data for the map at a later time,
+     * without redundant database calls.
+     */
+    public void saveMapData(String filename) {
+        FileOutputStream outputStream = null;
+        try {
+
+            /*
+             * Set the data to be saved in "private mode" (accessible only to Cortez).
+             * It's my opinion that we should do this, because we don't want the map data
+             * to be modified by any programs / persons external to the Cortez app.
+             */
+            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+
+            String fullPath = context.getFilesDir().getPath() + "/" + filename;
+
+            Log.i(TAG, "Saving Cortez Map Data...");
+            Log.d(TAG, "File path to save: " + fullPath);
+            outputStream.write(jsonObject.toString().getBytes());
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        } finally {
+            try {
+                outputStream.close();
+                Log.i(TAG, "Successfully saved Cortez Map Data.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

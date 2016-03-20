@@ -344,9 +344,8 @@ public class MapActivity extends FragmentActivity {
         mGeofenceVisibleMarkers = new HashMap<LatLng, Marker>();
         mGeofenceVisibleCircles = new HashMap<LatLng, Circle>();
 
-        // TODO: Eventually, we'll only open local files containing CortezMapData here.
-        cortezMapData = new CortezMapData(this, new Downloader(this, Constants.URL2).getJsonObject());
-//        cortezMapData = new CortezMapData(this, "JsonTemplateFile.json");
+        // Open Cortez map data from local storage
+        cortezMapData = new CortezMapData(this, getIntent().getStringExtra("CortezMapData"));
 
         // Set the Google Map title to match the title from Cortez map data
         setTitle(cortezMapData.getCortezMapName());
