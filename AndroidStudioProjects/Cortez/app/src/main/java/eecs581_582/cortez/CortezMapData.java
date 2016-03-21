@@ -56,20 +56,17 @@ public class CortezMapData {
 //        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
 //    }
 
-//    /**
-//     * Constructor for maps that are being downloaded from a stream.
-//     * @param context
-//     * @param cortezJSONData
-//     */
-//    public CortezMapData(Context context, JSONObject cortezJSONData) {
-//        this.cortezJSONData = cortezJSONData;
-//
-//        // Always save a downloaded map.
-//        saveMapData(context);
-//
-//        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
-//        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
-//    }
+    /**
+     * Constructor for maps that are being downloaded from a stream.
+     * @param context
+     * @param cortezJSONData
+     */
+    public CortezMapData(Context context, JSONObject cortezJSONData) {
+        this.cortezJSONData = cortezJSONData;
+
+        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
+        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
+    }
 
     /**
      * Constructor for maps that are being read from local storage.

@@ -22,12 +22,13 @@ import eecs581_582.cortez.backend.Constants;
 /* ********************************************************************
  * PICK YO MAPS
  * TODO: Actually fill in comment shit to look professional like an adult
- * TODO: MAKE YO MAPS PICKABLE
  */
 
 public class MapSelectActivity extends Activity {
 
     public static final String TAG = MapSelectActivity.class.getSimpleName();
+    RecyclerView recList;
+    MapSelectCardAdapter ca, cab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,16 @@ public class MapSelectActivity extends Activity {
         setContentView(R.layout.activity_map_select);
 
         // Set up and display all available Cortez maps in a card layout menu.
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
         // TODO: Populate the list with the number of Cortez maps
-        MapSelectCardAdapter ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Available Maps")));
-        recList.setAdapter(ca);
+        ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
+        cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
+        recList.setAdapter(cab);
     }
 
     @Override
@@ -83,6 +85,14 @@ public class MapSelectActivity extends Activity {
 //                Intent intent = new Intent(this, SettingsActivity.class);
 //                intent.putExtra(getString(R.string.action_settings), Constants.Caller.MAPSELECT_ACTIVITY);
 //                startActivity(intent);
+                return true;
+            }
+            case R.id.action_add_map: {
+                // This means you want to add a map from the database.
+                Log.d(TAG,"Adding a map");
+                // Switch to the Database Map adapter
+                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
+                recList.setAdapter(ca);
                 return true;
             }
         }

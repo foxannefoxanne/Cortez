@@ -77,6 +77,8 @@ public class LauncherActivity extends Activity {
                     JSONObject availableMaps = new Downloader(context, Constants.AVAILABLE_MAPS_LINK)
                             .getJsonObject();
 
+                    JSONObject localMaps = new JSONObject();
+
 
                     JSONArray mapsArray = availableMaps.getJSONArray("maps");
 
@@ -109,12 +111,15 @@ public class LauncherActivity extends Activity {
                              */
                             mapSelectCardInfo.put("mapLink", fullPath);
 
+                            localMaps = d.getJsonObject();
+
                             // TODO: We could add some data to mapCard here, indicating that the map exists in local storage.
                             // We can display that information to the user in MapSelectActivity. This is optional; not necessary.
                         }
                     }
 
-                    intent.putExtra("Available Maps", availableMaps.toString());
+                    intent.putExtra("Database Maps", availableMaps.toString());
+                    intent.putExtra("Local Maps", localMaps.toString());
 
                     // TODO: Only sleep the thread if the download took less than 3 seconds.
                     // That would keep the user from waiting any longer than necessary, in case there's a ridiculous delay in downloading.
