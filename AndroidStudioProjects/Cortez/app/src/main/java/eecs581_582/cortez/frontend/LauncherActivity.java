@@ -77,7 +77,7 @@ public class LauncherActivity extends Activity {
                     JSONObject availableMaps = new Downloader(context, Constants.AVAILABLE_MAPS_LINK)
                             .getJsonObject();
 
-                    JSONObject localMaps = new JSONObject();
+                    JSONArray localMaps = new JSONArray();
 
 
                     JSONArray mapsArray = availableMaps.getJSONArray("maps");
@@ -111,7 +111,7 @@ public class LauncherActivity extends Activity {
                              */
                             mapSelectCardInfo.put("mapLink", fullPath);
 
-                            localMaps = d.getJsonObject();
+                            localMaps.put(d.getJsonObject());
 
                             // TODO: We could add some data to mapCard here, indicating that the map exists in local storage.
                             // We can display that information to the user in MapSelectActivity. This is optional; not necessary.
