@@ -29,6 +29,7 @@ public class MapSelectActivity extends Activity {
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
     MapSelectCardAdapter ca, cab;
+    boolean viewingLocalMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,17 @@ public class MapSelectActivity extends Activity {
         ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
         cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
         recList.setAdapter(cab);
+        viewingLocalMaps = true;
     }
 
     @Override
     public void onBackPressed() {
         // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
+        if (!viewingLocalMaps) {
+            Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
+            recList.setAdapter(cab);
+            viewingLocalMaps = true;
+        }
     }
 
     @Override
@@ -93,6 +100,7 @@ public class MapSelectActivity extends Activity {
                 // Switch to the Database Map adapter
                 // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
                 recList.setAdapter(ca);
+                viewingLocalMaps = false;
                 return true;
             }
         }
