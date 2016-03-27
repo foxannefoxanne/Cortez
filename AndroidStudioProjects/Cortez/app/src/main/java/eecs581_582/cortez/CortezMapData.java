@@ -17,12 +17,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
+
+import static eecs581_582.cortez.backend.JSONHandler.*;
 
 /**
  * A container class for Cortez Map Data.
@@ -37,36 +36,9 @@ public class CortezMapData {
     private String cortezMapName;
 
     /**
-     * Cortez JSON Data
-     */
-    private JSONObject cortezJSONData;
-
-    /**
      * Cortez Geofences
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
-
-//    /**
-//     * Constructor for debugging.
-//     * @param context
-//     */
-//    public CortezMapData(Context context) {
-//        this.cortezJSONData = setCortezJSONData(context);
-//        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
-//        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
-//    }
-
-    /**
-     * Constructor for maps that are being downloaded from a stream.
-     * @param context
-     * @param cortezJSONData
-     */
-    public CortezMapData(Context context, JSONObject cortezJSONData) {
-        this.cortezJSONData = cortezJSONData;
-
-        this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
-        this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
-    }
 
     /**
      * Constructor for maps that are being read from local storage.
@@ -74,36 +46,10 @@ public class CortezMapData {
      * @param fullPath
      */
     public CortezMapData(Context context, String fullPath) {
-        this.cortezJSONData = openMapData(fullPath);
+        JSONObject cortezJSONData = openMapData(fullPath);
         this.cortezMapName = getStringFromJsonObject(cortezJSONData, "mapName", context.getString(R.string.cortezMapNameDefault));
         this.cortezGeofences = setCortezGeofences(context, cortezJSONData);
     }
-
-//    /**
-//     * Sets Cortez JSON data.
-//     * @return a traversable JSON object containing all textual data for Cortez
-//     */
-//    private JSONObject setCortezJSONData(Context context) {
-//        try {
-//            InputStream is = context.getAssets().open("cortezSampleJson.json");
-//            BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-//            StringBuilder stringBuilder = new StringBuilder();
-//
-//            String inputStr;
-//            while ((inputStr = streamReader.readLine()) != null)
-//                stringBuilder.append(inputStr);
-//
-//            return new JSONObject(stringBuilder.toString());
-//        }
-//        catch (IOException e) {
-//            Log.e(TAG, e.getLocalizedMessage());
-//        }
-//        catch (JSONException e) {
-//            Log.e(TAG, e.getLocalizedMessage());
-//        }
-//
-//        return new JSONObject(); // Returned on error
-//    }
 
     /**
      * Builds a GeofenceStore object from JSON data.
@@ -239,104 +185,6 @@ public class CortezMapData {
     }
 
     /**
-     * Attempts to get an integer value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private int getIntFromJsonObject(JSONObject jsonObject, String jsonKey, int defaultValue) {
-        try {
-            int i = jsonObject.getInt(jsonKey);
-            Log.d(TAG, "Got " + jsonKey);
-            return i;
-        }
-        catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Attempts to get a long value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private long getLongFromJsonObject(JSONObject jsonObject, String jsonKey, long defaultValue) {
-        try {
-            long l = jsonObject.getInt(jsonKey);
-            Log.d(TAG, "Got " + jsonKey);
-            return l;
-        }
-        catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Attempts to get a String value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private String getStringFromJsonObject(JSONObject jsonObject, String jsonKey, String defaultValue) {
-        try {
-            String s = jsonObject.getString(jsonKey);
-            Log.d(TAG, "Got " + jsonKey);
-            return s;
-        }
-        catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
-            return defaultValue;
-        }
-    }
-
-//    /**
-//     * Saves a copy of the Cortez JSON data to internal storage.
-//     * This copy can be used to load the Geofence data for the map at a later time,
-//     * without redundant database calls.
-//     */
-//    protected void saveMapData(Context context) {
-//        FileOutputStream outputStream = null;
-//        try {
-//
-//            // TODO: This filename will need to come from somewhere external to the JSON data itself
-//            String filename = cortezJSONData.getString("filename");
-//
-//            /*
-//             * Set the data to be saved in "private mode" (accessible only to Cortez).
-//             * It's my opinion that we should do this, because we don't want the map data
-//             * to be modified by any programs / persons external to the Cortez app.
-//             */
-//            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-//
-//            String fullPath = context.getFilesDir().getPath() + "/" + filename;
-//
-//            Log.i(TAG, "Saving Cortez Map Data...");
-//            Log.d(TAG, "File path to save: " + fullPath);
-//            outputStream.write(cortezJSONData.toString().getBytes());
-//            // TODO: This is where we should hand fullpath up to the calling function to associate with its MapSelectCard
-//            // Then we can grab it from MapSelectCardAdapter and that should resolve that fix-me, right?
-//        } catch (Exception e) {
-//            Log.e(TAG, e.getLocalizedMessage());
-//        } finally {
-//            try {
-//                outputStream.close();
-//                Log.i(TAG, "Successfully saved Cortez Map Data.");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-    /**
      * Opens Cortez JSON data from internal storage.
      * @param fullPath the absolute file path to the Cortez JSON data file (Including file name and extension)
      */
@@ -377,10 +225,6 @@ public class CortezMapData {
         }
 
         return new JSONObject(); // returned on error
-    }
-
-    protected JSONObject getCortezJSONData() {
-        return cortezJSONData;
     }
 
     public HashMap<LatLng, CortezGeofence> getCortezGeofences() {

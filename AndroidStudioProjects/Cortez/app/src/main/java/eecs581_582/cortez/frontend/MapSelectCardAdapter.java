@@ -22,10 +22,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Downloader;
 
 public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapFileChoiceHolder> {
 
@@ -73,11 +75,26 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(view.getContext(), MapActivity.class);
+                    Intent intent;
 
-                    intent.putExtra("CortezMapData", path);
+                    if (path.contains("http")) {
 
-                    view.getContext().startActivity(intent);
+                        // Download and store the map contained in this card.
+                        Downloader d = new Downloader(view.getContext(), path);
+                        d.saveMapData((String) vTitle.getText());
+
+                        // Let the user know the map was downloaded
+                        Toast.makeText(view.getContext(),
+                                ("\"" + vTitle.getText() + "\" downloaded."),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        intent = new Intent(view.getContext(), MapActivity.class);
+
+                        intent.putExtra("CortezMapData", path);
+
+                        view.getContext().startActivity(intent);
+                    }
                 }
             });
         }

@@ -19,6 +19,8 @@ import java.util.List;
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
+import static eecs581_582.cortez.backend.JSONHandler.getStringFromJsonObject;
+
 /* ********************************************************************
  * PICK YO MAPS
  * TODO: Actually fill in comment shit to look professional like an adult
@@ -28,8 +30,15 @@ public class MapSelectActivity extends Activity {
 
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
+<<<<<<< HEAD
+    MapSelectCardAdapter local, external;
+=======
     MapSelectCardAdapter ca, cab;
     boolean viewingLocalMaps;
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/Downloader
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +54,44 @@ public class MapSelectActivity extends Activity {
         recList.setLayoutManager(llm);
 
         // TODO: Populate the list with the number of Cortez maps
+<<<<<<< HEAD
+        try {
+            JSONObject availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
+            JSONObject localMaps = new JSONObject();
+            JSONArray localMapsArray = new JSONArray();
+            JSONObject externalMaps = new JSONObject();
+            JSONArray externalMapsArray = new JSONArray();
+
+            JSONArray availableMapsArray = availableMaps.getJSONArray("maps");
+            for (int i = 0; i < availableMapsArray.length(); i++) {
+                JSONObject mapSelectCardInfo = availableMapsArray.getJSONObject(i);
+                if (mapSelectCardInfo.getBoolean("isLocal")) {
+                    localMapsArray.put(mapSelectCardInfo);
+                }
+                else {
+                    externalMapsArray.put(mapSelectCardInfo);
+                }
+            }
+
+            localMaps.put("maps", localMapsArray);
+            externalMaps.put("maps", externalMapsArray);
+
+            local = new MapSelectCardAdapter(createList(localMaps.toString()));
+            external = new MapSelectCardAdapter(createList(externalMaps.toString()));
+
+            // Display the maps on local storage.
+            // User can check remaining maps available on the database from the "Add Maps" MenuOption.
+            recList.setAdapter(local);
+        } catch (JSONException e) {}
+=======
         ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
         cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
         recList.setAdapter(cab);
         viewingLocalMaps = true;
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/Downloader
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -98,9 +141,20 @@ public class MapSelectActivity extends Activity {
                 // This means you want to add a map from the database.
                 Log.d(TAG,"Adding a map");
                 // Switch to the Database Map adapter
+<<<<<<< Updated upstream
                 // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
                 recList.setAdapter(ca);
                 viewingLocalMaps = false;
+=======
+<<<<<<< HEAD
+                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
+                recList.setAdapter(external);
+=======
+                // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
+                recList.setAdapter(ca);
+                viewingLocalMaps = false;
+>>>>>>> origin/Downloader
+>>>>>>> Stashed changes
                 return true;
             }
         }
@@ -138,26 +192,6 @@ public class MapSelectActivity extends Activity {
             // TODO: Handle the bad JSON in some way
             Log.e(TAG, e.getLocalizedMessage());
             return new ArrayList<MapSelectCard>();
-        }
-    }
-
-    /**
-     * Attempts to get a String value from a JSONObject key.
-     * @precondition Assumes the key is directly accessible.
-     * @param jsonObject the JSONObject containing the desired value
-     * @param jsonKey the JSON key at which the desired value is stored
-     * @param defaultValue a default value to return in case retrieval fails
-     * @return the value at the specified key from a JSONObject if successful, otherwise, a default value.
-     */
-    private String getStringFromJsonObject(JSONObject jsonObject, String jsonKey, String defaultValue) {
-        try {
-            String s = jsonObject.getString(jsonKey);
-            Log.d(TAG, "Got " + jsonKey);
-            return s;
-        }
-        catch (JSONException e) {
-            Log.w(TAG, e.getLocalizedMessage() + ", so substituting " + defaultValue);
-            return defaultValue;
         }
     }
 }
