@@ -98,7 +98,7 @@ public class MapSelectActivity extends Activity {
                 // This means you want to add a map from the database.
                 Log.d(TAG,"Adding a map");
                 // Switch to the Database Map adapter
-                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
+                // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
                 recList.setAdapter(ca);
                 viewingLocalMaps = false;
                 return true;
