@@ -31,8 +31,6 @@ public class MapSelectActivity extends Activity {
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
     MapSelectCardAdapter local, external;
-//    MapSelectCardAdapter ca, cab;
-    boolean viewingLocalMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +45,7 @@ public class MapSelectActivity extends Activity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
-        // TODO: Populate the list with the number of Cortez maps
+        // Populate the list with the number of Cortez maps
         try {
             JSONObject availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
             JSONObject localMaps = new JSONObject();
@@ -76,18 +74,13 @@ public class MapSelectActivity extends Activity {
             // User can check remaining maps available on the database from the "Add Maps" MenuOption.
             recList.setAdapter(local);
         } catch (JSONException e) {}
-//        ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
-//        cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
-        viewingLocalMaps = true;
     }
 
     @Override
     public void onBackPressed() {
-        // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
-        if (!viewingLocalMaps) {
+        if (!isViewingLocalMaps()) {
             Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
             recList.setAdapter(local);
-            viewingLocalMaps = true;
         }
     }
 
@@ -128,10 +121,9 @@ public class MapSelectActivity extends Activity {
                 // This means you want to add a map from the database.
                 Log.d(TAG,"Adding a map");
                 // Switch to the Database Map adapter
-                // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
+                // TODO: Once a map is added, make sure it is added to local. Presently, local doesn't update when new maps are added.
                 recList.setAdapter(external);
-                viewingLocalMaps = false;
-                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
+                // TODO: Once downloaded, recList.setAdapter(local)
                 return true;
             }
         }
@@ -157,7 +149,7 @@ public class MapSelectActivity extends Activity {
                 JSONObject map = jsonArray.getJSONObject(i);
 
                 ci.name = getStringFromJsonObject(map, "mapName", (MapSelectCard.NAME_PREFIX + (i + 1)));
-                ci.description = MapSelectCard.DESCRIPTION_PREFIX + getStringFromJsonObject(map, "mapDescription", "None.");
+                ci.descriptionMessage = getStringFromJsonObject(map, "mapDescription", "None.");
                 ci.path = getStringFromJsonObject(map, "mapLink", Constants.AVAILABLE_MAPS_LINK);
 
                 result.add(ci);
@@ -170,5 +162,13 @@ public class MapSelectActivity extends Activity {
             Log.e(TAG, e.getLocalizedMessage());
             return new ArrayList<MapSelectCard>();
         }
+    }
+
+    /**
+     *
+     * @return whether the user is currently viewing maps from local storage.
+     */
+    private boolean isViewingLocalMaps() {
+        return recList.getAdapter().equals(local);
     }
 }

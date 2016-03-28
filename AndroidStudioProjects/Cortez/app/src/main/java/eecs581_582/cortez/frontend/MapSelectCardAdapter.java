@@ -45,7 +45,7 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
     @Override
     public void onBindViewHolder(MapFileChoiceHolder mapFileChoiceHolder, int i) {
         MapSelectCard ci = mapSelectList.get(i);
-        mapFileChoiceHolder.vDescription.setText(ci.description);
+        mapFileChoiceHolder.vDescriptionMessage.setText(ci.descriptionMessage);
         mapFileChoiceHolder.vTitle.setText(ci.name);
         mapFileChoiceHolder.path = ci.path;
     }
@@ -62,14 +62,14 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
     public static class MapFileChoiceHolder extends RecyclerView.ViewHolder {
 
         protected TextView vTitle;              // Title for the Cortez map in this card
-        protected TextView vDescription;        // Description for the Cortez map in this card
+        protected TextView vDescriptionMessage; // Description for the Cortez map in this card
         protected ImageView vIcon;              // Icon for the Cortez map in this card
         protected String path;                  // Fully-qualified file path (local or external) for the Cortez map in this card
 
         public MapFileChoiceHolder(View v) {
             super(v);
             vTitle = (TextView) v.findViewById(R.id.map_select_card_title);
-            vDescription = (TextView)  v.findViewById(R.id.map_select_card_txtDescription);
+            vDescriptionMessage = (TextView)  v.findViewById(R.id.map_select_card_txtDescriptionMessage);
             vIcon = (ImageView) v.findViewById(R.id.map_select_card_mapicon);
             vIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
