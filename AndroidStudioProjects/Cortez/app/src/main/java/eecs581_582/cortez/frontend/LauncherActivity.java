@@ -89,7 +89,6 @@ public class LauncherActivity extends Activity {
                          */
                         String mapLink = mapSelectCardInfo.getString("mapLink");
                         String mapName = mapSelectCardInfo.getString("mapName");
-//                        String fileName = mapLink.substring(mapLink.lastIndexOf("/") + 1, mapLink.length());
                         String fullPath = getFilesDir().getPath() + "/" + mapName;
                         File file = new File(fullPath);
                         if (file.exists()) {
