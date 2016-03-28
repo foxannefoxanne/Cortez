@@ -149,7 +149,7 @@ public class MapSelectActivity extends Activity {
                 JSONObject map = jsonArray.getJSONObject(i);
 
                 ci.name = getStringFromJsonObject(map, "mapName", (MapSelectCard.NAME_PREFIX + (i + 1)));
-                ci.description = MapSelectCard.DESCRIPTION_PREFIX + getStringFromJsonObject(map, "mapDescription", "None.");
+                ci.descriptionMessage = getStringFromJsonObject(map, "mapDescription", "None.");
                 ci.path = getStringFromJsonObject(map, "mapLink", Constants.AVAILABLE_MAPS_LINK);
 
                 result.add(ci);

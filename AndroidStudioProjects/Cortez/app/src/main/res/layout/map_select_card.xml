@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/map_select_card_txtAdd"
+            android:id="@+id/map_select_card_txtDescriptionMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loremipsum1"
@@ -61,13 +61,9 @@
             android:paddingBottom="16dip"
             android:textColor="@android:color/black"
             android:textSize="12sp"
-            android:layout_marginTop="10dip"
+            android:layout_alignTop="@+id/map_select_card_txtDescription"
             android:layout_alignParentEnd="true"
-            android:layout_alignEnd="@id/map_select_card_txtDescription"
-            android:layout_toEndOf="@+id/map_select_card_txtDescription"
-            android:layout_below="@+id/map_select_card_txtDescription"
-            android:layout_toRightOf="@id/map_select_card_mapicon"
-            />
+            android:layout_toEndOf="@+id/map_select_card_txtDescription" />
 
     </RelativeLayout>
 
