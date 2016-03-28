@@ -1,5 +1,6 @@
 package eecs581_582.cortez.backend;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,13 +25,16 @@ public class Downloader {
 
     public static final String TAG = Downloader.class.getSimpleName();
 
-    JSONObject jsonObject;
+    private JSONObject jsonObject;
 
-    public Downloader(String urlString) {
+    private Context context;
+
+    public Downloader(Context context, String urlString) {
+        this.context = context;
         ProcessJSON p = new ProcessJSON();
         p.execute(urlString);
         try {
-            jsonObject = p.get();
+            this.jsonObject = p.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -39,6 +44,39 @@ public class Downloader {
 
     public JSONObject getJsonObject() {
         return jsonObject;
+    }
+
+    /**
+     * Saves a copy of the Cortez JSON data to internal storage.
+     * This copy can be used to load the Geofence data for the map at a later time,
+     * without redundant database calls.
+     */
+    public void saveMapData(String filename) {
+        FileOutputStream outputStream = null;
+        try {
+
+            /*
+             * Set the data to be saved in "private mode" (accessible only to Cortez).
+             * It's my opinion that we should do this, because we don't want the map data
+             * to be modified by any programs / persons external to the Cortez app.
+             */
+            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+
+            String fullPath = context.getFilesDir().getPath() + "/" + filename;
+
+            Log.i(TAG, "Saving Cortez Map Data...");
+            Log.d(TAG, "File path to save: " + fullPath);
+            outputStream.write(jsonObject.toString().getBytes());
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        } finally {
+            try {
+                outputStream.close();
+                Log.i(TAG, "Successfully saved Cortez Map Data.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -69,6 +107,8 @@ public class Downloader {
                     BufferedReader r = new BufferedReader(new InputStreamReader(in));
                     StringBuilder sb = new StringBuilder();
                     String line;
+
+                    // Clean up the stream if necessary
                     while ((line = r.readLine()) != null) {
                         line = line.replace("&quot;", "\"")
                                 .replace("&#39;", "\'")
@@ -81,10 +121,6 @@ public class Downloader {
                         Log.d(TAG, line);
                     }
 
-                    // TODO: We KNOW the stream is OK, and cortezMapData can be created successfully from the stream.
-                    // The ISSUE is that the Google Map from MapActivity is trying to draw itself using cortezMapData, BEFORE it's finished downloading and being created.
-                    // We need to get the MapActivity to wait until the JSONObject is finished downloading.
-                    // When that is done, THEN we can go to MapActivity and draw the Google Map.
                     stream = sb.toString();
                     stream = stream.substring(stream.indexOf("{"), stream.lastIndexOf("}") + 1);
                     // End reading...............
@@ -114,6 +150,11 @@ public class Downloader {
      * Credit: http://android--examples.blogspot.com/2015/05/how-to-parse-json-data-in-android.html
      */
     class ProcessJSON extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
         protected JSONObject doInBackground(String... strings){
             Log.d(TAG, "Downloading...");

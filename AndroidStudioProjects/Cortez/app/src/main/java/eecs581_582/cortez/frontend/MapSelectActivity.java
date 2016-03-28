@@ -9,21 +9,30 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
+import static eecs581_582.cortez.backend.JSONHandler.getStringFromJsonObject;
+
 /* ********************************************************************
  * PICK YO MAPS
  * TODO: Actually fill in comment shit to look professional like an adult
- * TODO: MAKE YO MAPS PICKABLE
  */
 
 public class MapSelectActivity extends Activity {
 
     public static final String TAG = MapSelectActivity.class.getSimpleName();
+    RecyclerView recList;
+    MapSelectCardAdapter local, external;
+//    MapSelectCardAdapter ca, cab;
+    boolean viewingLocalMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +41,54 @@ public class MapSelectActivity extends Activity {
         setContentView(R.layout.activity_map_select);
 
         // Set up and display all available Cortez maps in a card layout menu.
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
         // TODO: Populate the list with the number of Cortez maps
-        MapSelectCardAdapter ca = new MapSelectCardAdapter(createList(10));
-        recList.setAdapter(ca);
+        try {
+            JSONObject availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
+            JSONObject localMaps = new JSONObject();
+            JSONArray localMapsArray = new JSONArray();
+            JSONObject externalMaps = new JSONObject();
+            JSONArray externalMapsArray = new JSONArray();
+
+            JSONArray availableMapsArray = availableMaps.getJSONArray("maps");
+            for (int i = 0; i < availableMapsArray.length(); i++) {
+                JSONObject mapSelectCardInfo = availableMapsArray.getJSONObject(i);
+                if (mapSelectCardInfo.getBoolean("isLocal")) {
+                    localMapsArray.put(mapSelectCardInfo);
+                }
+                else {
+                    externalMapsArray.put(mapSelectCardInfo);
+                }
+            }
+
+            localMaps.put("maps", localMapsArray);
+            externalMaps.put("maps", externalMapsArray);
+
+            local = new MapSelectCardAdapter(createList(localMaps.toString()));
+            external = new MapSelectCardAdapter(createList(externalMaps.toString()));
+
+            // Display the maps on local storage.
+            // User can check remaining maps available on the database from the "Add Maps" MenuOption.
+            recList.setAdapter(local);
+        } catch (JSONException e) {}
+//        ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
+//        cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
+        viewingLocalMaps = true;
     }
 
     @Override
     public void onBackPressed() {
         // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
+        if (!viewingLocalMaps) {
+            Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
+            recList.setAdapter(local);
+            viewingLocalMaps = true;
+        }
     }
 
     @Override
@@ -81,6 +124,16 @@ public class MapSelectActivity extends Activity {
 //                startActivity(intent);
                 return true;
             }
+            case R.id.action_add_map: {
+                // This means you want to add a map from the database.
+                Log.d(TAG,"Adding a map");
+                // Switch to the Database Map adapter
+                // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
+                recList.setAdapter(external);
+                viewingLocalMaps = false;
+                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -88,23 +141,34 @@ public class MapSelectActivity extends Activity {
 
     /**
      * Populates the list of available Cortez maps, which will be displayed in the RecyclerView.
-     * @param size the number of available Cortez maps
+     * @param list all available Cortez maps
      * @return the list of available Cortez maps
      */
-    private List<MapSelectCard> createList(int size) {
+    private List<MapSelectCard> createList(String list) {
+        try {
 
-        //TODO: Dynamically set the name and description for each Cortez map
+            JSONObject mapsArray = new JSONObject(list);
+            JSONArray jsonArray = mapsArray.getJSONArray("maps");
 
-        List<MapSelectCard> result = new ArrayList<MapSelectCard>();
-        for (int i = 1; i <= size; i++) {
-            MapSelectCard ci = new MapSelectCard();
-            ci.name = MapSelectCard.NAME_PREFIX + i;
-            ci.description = MapSelectCard.DESCRIPTION_PREFIX;
+            List<MapSelectCard> result = new ArrayList<MapSelectCard>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                MapSelectCard ci = new MapSelectCard();
 
-            result.add(ci);
+                JSONObject map = jsonArray.getJSONObject(i);
 
+                ci.name = getStringFromJsonObject(map, "mapName", (MapSelectCard.NAME_PREFIX + (i + 1)));
+                ci.description = MapSelectCard.DESCRIPTION_PREFIX + getStringFromJsonObject(map, "mapDescription", "None.");
+                ci.path = getStringFromJsonObject(map, "mapLink", Constants.AVAILABLE_MAPS_LINK);
+
+                result.add(ci);
+            }
+
+            return result;
         }
-
-        return result;
+        catch (JSONException e) {
+            // TODO: Handle the bad JSON in some way
+            Log.e(TAG, e.getLocalizedMessage());
+            return new ArrayList<MapSelectCard>();
+        }
     }
 }
