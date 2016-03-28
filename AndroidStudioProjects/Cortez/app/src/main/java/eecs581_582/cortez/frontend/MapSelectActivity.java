@@ -30,15 +30,9 @@ public class MapSelectActivity extends Activity {
 
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
-<<<<<<< HEAD
     MapSelectCardAdapter local, external;
-=======
-    MapSelectCardAdapter ca, cab;
+//    MapSelectCardAdapter ca, cab;
     boolean viewingLocalMaps;
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/Downloader
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +48,6 @@ public class MapSelectActivity extends Activity {
         recList.setLayoutManager(llm);
 
         // TODO: Populate the list with the number of Cortez maps
-<<<<<<< HEAD
         try {
             JSONObject availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
             JSONObject localMaps = new JSONObject();
@@ -83,15 +76,9 @@ public class MapSelectActivity extends Activity {
             // User can check remaining maps available on the database from the "Add Maps" MenuOption.
             recList.setAdapter(local);
         } catch (JSONException e) {}
-=======
-        ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
-        cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
-        recList.setAdapter(cab);
+//        ca = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Database Maps")));
+//        cab = new MapSelectCardAdapter(createList(getIntent().getStringExtra("Local Maps")));
         viewingLocalMaps = true;
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/Downloader
->>>>>>> Stashed changes
     }
 
     @Override
@@ -99,7 +86,7 @@ public class MapSelectActivity extends Activity {
         // Placeholder to disable the back button (and thus prevents the LauncherActivity from reappearing)
         if (!viewingLocalMaps) {
             Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
-            recList.setAdapter(cab);
+            recList.setAdapter(local);
             viewingLocalMaps = true;
         }
     }
@@ -141,20 +128,10 @@ public class MapSelectActivity extends Activity {
                 // This means you want to add a map from the database.
                 Log.d(TAG,"Adding a map");
                 // Switch to the Database Map adapter
-<<<<<<< Updated upstream
                 // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
-                recList.setAdapter(ca);
-                viewingLocalMaps = false;
-=======
-<<<<<<< HEAD
-                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
                 recList.setAdapter(external);
-=======
-                // TODO: Once a map is added, make sure it is added to cab. Presently, cab doesn't update when new maps are added.
-                recList.setAdapter(ca);
                 viewingLocalMaps = false;
->>>>>>> origin/Downloader
->>>>>>> Stashed changes
+                // TODO: Once downloaded, recList.setAdapter back to the Local Map adapter
                 return true;
             }
         }
