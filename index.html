@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Cortez by foxannefoxanne</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/foxannefoxanne/Cortez-Mobile">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/foxannefoxanne/Cortez-Mobile/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/foxannefoxanne/Cortez-Mobile/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Cortez</h1>
+          <p>An adventure-enhancement app. </p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/foxannefoxanne">foxannefoxanne</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>
+<a id="welcome-to-cortez" class="anchor" href="#welcome-to-cortez" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to Cortez</h3>
+
+<h2>
+<a id="what-is-cortez" class="anchor" href="#what-is-cortez" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is Cortez?</h2>
+
+<p>Cortez is a design suite for interactive adventures; it’s a web/mobile app that allows you to create/view location-based information for exploration. </p>
+
+<p>More specifically, Cortez is the Senior Design project for EECS 582 under construction by Joe Champion, Samuel Lamb, Sam Groth, Roxanne Calderon, Gehrig Keane, and Austin Sievert. </p>
+
+<p>Cortez has both a web and mobile component to help easily create and view custom maps, using a Google Maps interface to allow map creators to place pins with information and media, which can then be viewed by mobile users physically at that location.</p>
+
+<h2>
+<a id="what-does-cortez-do" class="anchor" href="#what-does-cortez-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What does Cortez do?</h2>
+
+<p>Cortez has come a long way since its conception last semester. We now have fully fleshed mobile and web applications which  are able to communicate with each other.</p>
+
+<p>The web application first implemented a map and pin system. The map uses Google map so  the user can explore different locations across the globe. The on-click pin system allows map creators to mark points of interest on the map with a description and add accompanying media (pictured, audio, video, or text). Combined, these two systems provide an interface for curators to build custom maps suited to their needs and interests. The web interface also creates JSON interfaces to export to the mobile console. </p>
+
+<p>On the mobile app, we have designed a system for displaying the maps created from the web frontend. A Google map displays the pins, which can be selected to display their associated information. This map ties into the device’s GPS functionality, allowing the user to navigate the map in real time, walking from pin to pin. The pins will pop in and out as the user views relevant portions of the map. The pins themselves are pulled from a local JSON file. This means that the user will be able to choose which map to use (which will tie into the map and pin system being developed on the web application).</p>
+
+<h2>
+<a id="what-problems-did-we-have" class="anchor" href="#what-problems-did-we-have" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What problems did we have?</h2>
+
+<p>The latest hurdle to web app creation was the implementation of S3 into the Heroku component. Heroku would not save the long term media elements (images, video, audio) that we required with our current Rails gem, Paperclip. As such, we had to implement an AWS S3 component to store these items. </p>
+
+<p>The mobile app hasn’t been without its share of difficulties, either. Android documentation is sometimes confusing or out of date, requiring our developers to be especially wary of using deprecated function calls. Throughout development, we have continued to experience temperamental behavior of Android Studio (the official IDE) across differing platforms.</p>
+
+<p>The app has called for an ever-increasing list of concepts and Java boilerplate:</p>
+
+<ul>
+<li>Android application lifecycle (onCreate, onStart, onPause, onStop), and order of execution that resembles programming for embedded systems</li>
+<li>Network handling, and asynchronous downloading tasks in RESTful fashion</li>
+<li>Context switching using Android Intent and BroadcastReceiver, and data / parameter passing across those contexts for a dynamic user experience</li>
+<li>Android and Google Play Services to monitor user location and serve map media</li>
+</ul>
+
+<p>Despite the formidable challenges mentioned above, our mobile component is well on its way to being feature-complete!</p>
+
+<h2>
+<a id="cortez-in-action" class="anchor" href="#cortez-in-action" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cortez in Action</h2>
+
+<p>Cortez is currently hosted at:
+<a href="https://thawing-dusk-70157.herokuapp.com">https://thawing-dusk-70157.herokuapp.com</a></p>
+
+<p>If you’re not in a playful mood, here are some screenshots of Cortez in action.</p>
+
+<p>Start Your Adventure:
+Here’s an example of a sample map:
+<img src="http://i.imgur.com/hMFb2qv.png" alt="Home">
+And the map selection page: 
+<img src="http://i.imgur.com/4EqkVb9.png" alt="MapSelect">
+Which yields:
+<img src="http://i.imgur.com/605Lg1v.png" alt="">
+<img src="http://i.imgur.com/ZEdmKuC.png" alt=""></p>
+
+<p>For the mobile component: 
+<img src="http://i.imgur.com/qIB4jPE.png" alt="">
+<img src="http://i.imgur.com/UyEVY08.png" alt="">
+<img src="http://i.imgur.com/Fz39DWj.png" alt=""></p>
+
+<h2>
+<a id="next-steps" class="anchor" href="#next-steps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Next Steps</h2>
+
+<p>We have a lot ahead of us regarding the development of Cortez. Both the web and mobile applications have come a long way, but there is so much more we can do.</p>
+
+<p>Our next web goal is to fully integrate the users component to allow private and public maps. We also hope to implement a scavenger hunt mode in the next few weeks. At that point, the web component will have completed its feasible goals for the semester. </p>
+
+<p>Current mobile goals include synchronizing lists between the app and the database, streamlining our download process, and supporting more media types as they are added to the database. Our stretch goals include a user credentials system for private maps, and possibly map creation or modification from the mobile app.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
