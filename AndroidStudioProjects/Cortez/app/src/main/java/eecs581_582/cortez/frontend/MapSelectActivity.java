@@ -31,7 +31,6 @@ public class MapSelectActivity extends Activity {
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
     MapSelectCardAdapter local, external;
-    boolean viewingLocalMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +74,13 @@ public class MapSelectActivity extends Activity {
             // User can check remaining maps available on the database from the "Add Maps" MenuOption.
             recList.setAdapter(local);
         } catch (JSONException e) {}
-        viewingLocalMaps = true;
     }
 
     @Override
     public void onBackPressed() {
-        if (!viewingLocalMaps) {
+        if (!isViewingLocalMaps()) {
             Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
             recList.setAdapter(local);
-            viewingLocalMaps = true;
         }
     }
 
@@ -126,7 +123,6 @@ public class MapSelectActivity extends Activity {
                 // Switch to the Database Map adapter
                 // TODO: Once a map is added, make sure it is added to local. Presently, local doesn't update when new maps are added.
                 recList.setAdapter(external);
-                viewingLocalMaps = false;
                 // TODO: Once downloaded, recList.setAdapter(local)
                 return true;
             }
@@ -166,5 +162,13 @@ public class MapSelectActivity extends Activity {
             Log.e(TAG, e.getLocalizedMessage());
             return new ArrayList<MapSelectCard>();
         }
+    }
+
+    /**
+     *
+     * @return whether the user is currently viewing maps from local storage.
+     */
+    private boolean isViewingLocalMaps() {
+        return recList.getAdapter().equals(local);
     }
 }
