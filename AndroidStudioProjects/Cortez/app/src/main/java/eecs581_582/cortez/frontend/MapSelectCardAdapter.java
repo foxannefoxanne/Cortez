@@ -71,7 +71,7 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
             vTitle = (TextView) v.findViewById(R.id.map_select_card_title);
             vDescriptionMessage = (TextView)  v.findViewById(R.id.map_select_card_txtDescriptionMessage);
             vIcon = (ImageView) v.findViewById(R.id.map_select_card_mapicon);
-            vIcon.setOnClickListener(new View.OnClickListener() {
+            v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
