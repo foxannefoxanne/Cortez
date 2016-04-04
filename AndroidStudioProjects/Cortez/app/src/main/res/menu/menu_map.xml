@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".frontend.MapActivity">
+
+    <!--
+        NOTE: Ensure that any new items added to the menu have orderInCategory >= 200.
+              That will make sure the menu items are below the Activity title bar.
+    -->
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="200" app:showAsAction="never" />
     <item android:id="@+id/action_help" android:title="@string/action_help"
