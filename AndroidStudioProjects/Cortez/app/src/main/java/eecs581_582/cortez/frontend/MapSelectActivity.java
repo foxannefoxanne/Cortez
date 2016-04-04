@@ -79,7 +79,7 @@ public class MapSelectActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (!isViewingLocalMaps()) {
-            Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
+            Log.d(TAG, "Back button pressed while viewing external maps. Resetting view to Local maps.");
             recList.setAdapter(local);
         }
     }
