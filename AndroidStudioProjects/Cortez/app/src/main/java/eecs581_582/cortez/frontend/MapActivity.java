@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import eecs581_582.cortez.CortezGeofence;
 import eecs581_582.cortez.CortezMapData;
 import eecs581_582.cortez.backend.Constants;
-import eecs581_582.cortez.backend.Downloader;
 import eecs581_582.cortez.backend.GeofenceMonitor;
 import eecs581_582.cortez.R;
 
@@ -119,8 +118,11 @@ public class MapActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
+        Log.d(TAG, "onDestroy");
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
+
+        // TODO: Pretty sure this is where we need to tell GeofenceMonitor to do LocationServices.GeofencingApi.removeGeofences()
     }
 
     @Override
