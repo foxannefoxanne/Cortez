@@ -29,7 +29,7 @@ import java.util.List;
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Downloader;
 
-public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapFileChoiceHolder> {
+public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdapter.MapSelectViewHolder> {
 
     private List<MapSelectCard> mapSelectList;
 
@@ -43,30 +43,30 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
     }
 
     @Override
-    public void onBindViewHolder(MapFileChoiceHolder mapFileChoiceHolder, int i) {
+    public void onBindViewHolder(MapSelectViewHolder mapSelectViewHolder, int i) {
         MapSelectCard ci = mapSelectList.get(i);
-        mapFileChoiceHolder.vDescriptionMessage.setText(ci.descriptionMessage);
-        mapFileChoiceHolder.vTitle.setText(ci.name);
-        mapFileChoiceHolder.path = ci.path;
+        mapSelectViewHolder.vDescriptionMessage.setText(ci.descriptionMessage);
+        mapSelectViewHolder.vTitle.setText(ci.name);
+        mapSelectViewHolder.path = ci.path;
     }
 
     @Override
-    public MapFileChoiceHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public MapSelectViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.map_select_card, viewGroup, false);
 
-        return new MapFileChoiceHolder(itemView);
+        return new MapSelectViewHolder(itemView);
     }
 
-    public static class MapFileChoiceHolder extends RecyclerView.ViewHolder {
+    public static class MapSelectViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView vTitle;              // Title for the Cortez map in this card
         protected TextView vDescriptionMessage; // Description for the Cortez map in this card
         protected ImageView vIcon;              // Icon for the Cortez map in this card
         protected String path;                  // Fully-qualified file path (local or external) for the Cortez map in this card
 
-        public MapFileChoiceHolder(View v) {
+        public MapSelectViewHolder(View v) {
             super(v);
             vTitle = (TextView) v.findViewById(R.id.map_select_card_title);
             vDescriptionMessage = (TextView)  v.findViewById(R.id.map_select_card_txtDescriptionMessage);
