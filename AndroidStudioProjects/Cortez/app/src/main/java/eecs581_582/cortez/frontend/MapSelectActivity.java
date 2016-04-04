@@ -22,8 +22,18 @@ import eecs581_582.cortez.backend.Constants;
 import static eecs581_582.cortez.backend.JSONHandler.getStringFromJsonObject;
 
 /* ********************************************************************
- * PICK YO MAPS
- * TODO: Actually fill in comment shit to look professional like an adult
+ * MapSelectActivity is a screen that allows the user to decide which
+ * set of pins to display and interact with in MapActivity. It will
+ * default to showing the maps already stored on the device, and allows
+ * for the user to download more maps from the database.
+ *
+ * - Selection of a map from the local list should take the user to
+ *   MapActivity
+ * - Selection of the Help button in the context menu should take the
+ *   user to the HelpActivity
+ * - Selection of the Add New Map button in the context menu should
+ *   swap the MapSelectCardAdapter to show the user available maps on
+ *   the database
  */
 
 public class MapSelectActivity extends Activity {
@@ -79,7 +89,7 @@ public class MapSelectActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (!isViewingLocalMaps()) {
-            Log.d(TAG, "Back button pressed. Resetting view to Local maps.");
+            Log.d(TAG, "Back button pressed while viewing external maps. Resetting view to Local maps.");
             recList.setAdapter(local);
         }
     }

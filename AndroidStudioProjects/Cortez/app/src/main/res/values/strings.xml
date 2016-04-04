@@ -55,7 +55,6 @@
         &lt;br /&gt;
         Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Info screen.
     </string>
-    <!-- TODO -->
     <string name="HelpActivityContentForYoutubeActivity">&lt;h1&gt;Youtube Screen&lt;/h1&gt;
         &lt;br /&gt;
         This is the Help Screen content for the Youtube Activity screen.&lt;br /&gt;

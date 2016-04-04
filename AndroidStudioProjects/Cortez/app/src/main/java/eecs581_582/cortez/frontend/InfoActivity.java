@@ -60,8 +60,8 @@ public class InfoActivity extends FragmentActivity {
                 return true;
             }
             case R.id.action_settings : {
-                // TODO: Implement SettingsActivity before un-commenting these lines.
-                // This means you have selected the Settings option
+                // This means you have selected the Settings option.
+                // Since activity_info.xml has that option removed, you've screwed something up. What did you do?
                 Log.d(TAG, "Settings button selected");
 //                Intent intent = new Intent(this, SettingsActivity.class);
 //                intent.putExtra(getString(R.string.action_settings), Constants.Caller.INFO_ACTIVITY);
