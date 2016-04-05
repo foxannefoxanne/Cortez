@@ -18,6 +18,7 @@ import java.util.List;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
+import eecs581_582.cortez.backend.MapSelectListWorker;
 
 import static eecs581_582.cortez.backend.JSONHandler.getStringFromJsonObject;
 
@@ -41,6 +42,7 @@ public class MapSelectActivity extends Activity {
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
     MapSelectCardAdapter local, external;
+    JSONObject availableMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,41 +58,14 @@ public class MapSelectActivity extends Activity {
         recList.setLayoutManager(llm);
 
         // Populate the list with the number of Cortez maps
-        try {
-            JSONObject availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
-            JSONObject localMaps = new JSONObject();
-            JSONArray localMapsArray = new JSONArray();
-            JSONObject externalMaps = new JSONObject();
-            JSONArray externalMapsArray = new JSONArray();
-
-            JSONArray availableMapsArray = availableMaps.getJSONArray("maps");
-            for (int i = 0; i < availableMapsArray.length(); i++) {
-                JSONObject mapSelectCardInfo = availableMapsArray.getJSONObject(i);
-                if (mapSelectCardInfo.getBoolean("isLocal")) {
-                    localMapsArray.put(mapSelectCardInfo);
-                }
-                else {
-                    externalMapsArray.put(mapSelectCardInfo);
-                }
-            }
-
-            localMaps.put("maps", localMapsArray);
-            externalMaps.put("maps", externalMapsArray);
-
-            local = new MapSelectCardAdapter(createList(localMaps.toString()));
-            external = new MapSelectCardAdapter(createList(externalMaps.toString()));
-
-            // Display the maps on local storage.
-            // User can check remaining maps available on the database from the "Add Maps" MenuOption.
-            recList.setAdapter(local);
-        } catch (JSONException e) {}
+        populateList();
     }
 
     @Override
     public void onBackPressed() {
         if (!isViewingLocalMaps()) {
             Log.d(TAG, "Back button pressed while viewing external maps. Resetting view to Local maps.");
-            recList.setAdapter(local);
+            populateList(); // Automatically switches back to view the local map list.
         }
     }
 
@@ -129,11 +104,9 @@ public class MapSelectActivity extends Activity {
             }
             case R.id.action_add_map: {
                 // This means you want to add a map from the database.
-                Log.d(TAG,"Adding a map");
+                Log.d(TAG, "Adding a map");
                 // Switch to the Database Map adapter
-                // TODO: Once a map is added, make sure it is added to local. Presently, local doesn't update when new maps are added.
                 recList.setAdapter(external);
-                // TODO: Once downloaded, recList.setAdapter(local)
                 return true;
             }
         }
@@ -172,6 +145,45 @@ public class MapSelectActivity extends Activity {
             Log.e(TAG, e.getLocalizedMessage());
             return new ArrayList<MapSelectCard>();
         }
+    }
+
+    /**
+     *
+     */
+    private void populateList() {
+        try {
+            if (availableMaps == null) {
+                availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
+            }
+            else {
+                MapSelectListWorker.updateMapList(getBaseContext(), availableMaps);
+            }
+            JSONObject localMaps = new JSONObject();
+            JSONArray localMapsArray = new JSONArray();
+            JSONObject externalMaps = new JSONObject();
+            JSONArray externalMapsArray = new JSONArray();
+
+            JSONArray availableMapsArray = availableMaps.getJSONArray("maps");
+            for (int i = 0; i < availableMapsArray.length(); i++) {
+                JSONObject mapSelectCardInfo = availableMapsArray.getJSONObject(i);
+                if (mapSelectCardInfo.getBoolean("isLocal")) {
+                    localMapsArray.put(mapSelectCardInfo);
+                }
+                else {
+                    externalMapsArray.put(mapSelectCardInfo);
+                }
+            }
+
+            localMaps.put("maps", localMapsArray);
+            externalMaps.put("maps", externalMapsArray);
+
+            local = new MapSelectCardAdapter(createList(localMaps.toString()));
+            external = new MapSelectCardAdapter(createList(externalMaps.toString()));
+
+            // Display the maps on local storage.
+            // User can check remaining maps available on the database from the "Add Maps" MenuOption.
+            recList.setAdapter(local);
+        } catch (JSONException e) {}
     }
 
     /**

@@ -8,15 +8,13 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.File;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 import eecs581_582.cortez.backend.Downloader;
 import eecs581_582.cortez.backend.GoogleApiChecker;
+import eecs581_582.cortez.backend.MapSelectListWorker;
 
 /* ********************************************************************
  * LauncherActivity should be the first thing the user sees. It should
@@ -58,7 +56,15 @@ public class LauncherActivity extends Activity {
 
         Thread timerThread = new Thread(){
             public void run(){
+
+                /*
+                 * I think the Intent to transition to MapSelectActivity should be placed
+                 * outside the try-catch block, so we don't end up crashing or hanging
+                 * in the event that we experience some error in contacting the database
+                 * or have trouble handling the downloaded content.
+                 */
                 Intent intent = new Intent(LauncherActivity.this, MapSelectActivity.class);
+
                 try {
                     Log.d(TAG, "Doing background work...");
 
@@ -77,46 +83,13 @@ public class LauncherActivity extends Activity {
                     JSONObject availableMaps = new Downloader(context, Constants.AVAILABLE_MAPS_LINK)
                             .getJsonObject();
 
-                    JSONArray availableMapsArray = availableMaps.getJSONArray("maps");
-
-                    for (int i = 0; i < availableMapsArray.length(); i++) {
-                        JSONObject mapSelectCardInfo = availableMapsArray.getJSONObject(i);
-
-                        /*
-                         * Check whether the map is on the device already.
-                         * If it is, download an updated copy from the server
-                         * and save the changes.
-                         */
-                        String mapLink = mapSelectCardInfo.getString("mapLink");
-                        String mapName = mapSelectCardInfo.getString("mapName");
-                        String fullPath = getFilesDir().getPath() + "/" + mapName;
-                        File file = new File(fullPath);
-                        if (file.exists()) {
-                            Log.i(TAG, mapName + " exists in local storage, and will now be updated.");
-
-                            // Download the file from the server
-                            // and overwrite the existing local file
-                            Downloader d = new Downloader(getBaseContext(), mapLink);
-                            d.saveMapData(mapName);
-
-                            /*
-                             * Since this map is already locally stored,
-                             * we want to link the MapSelectCard to the local file.
-                             * By doing so, we'll manage to open from local storage
-                             * in the event that the user chooses to open *this* map.
-                             */
-                            mapSelectCardInfo.put("mapLink", fullPath);
-                            mapSelectCardInfo.put("isLocal", true);
-
-                            // TODO: We could add some data to mapCard here, indicating that the map exists in local storage.
-                            // We can display that information to the user in MapSelectActivity. This is optional; not necessary.
-                        }
-                        else {
-                            // The map was not found on local storage,
-                            // so don't show it in the "local" list.
-                            mapSelectCardInfo.put("isLocal", false);
-                        }
-                    }
+                    /*
+                     * Update any maps in the list from local storage.
+                     * For each local map, we're going to change its respective path in availableMaps
+                     * (e.g., its "mapLink" JSONObject from within availableMaps)
+                     * to the local file. That way, Cortez will open the map from local storage.
+                     */
+                    MapSelectListWorker.updateMapList(getBaseContext(), availableMaps);
 
                     intent.putExtra("Available Maps", availableMaps.toString());
 
@@ -127,7 +100,8 @@ public class LauncherActivity extends Activity {
                 }
                 catch (Exception e) {
                     Log.e(TAG, e.getLocalizedMessage());
-                } finally {
+                }
+                finally {
                     startActivity(intent);
                 }
             }

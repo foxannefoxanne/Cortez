@@ -75,8 +75,6 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent;
-
                     if (path.contains("http")) {
 
                         // Download and store the map contained in this card.
@@ -89,7 +87,7 @@ public class MapSelectCardAdapter extends RecyclerView.Adapter<MapSelectCardAdap
                                 Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        intent = new Intent(view.getContext(), MapActivity.class);
+                        Intent intent = new Intent(view.getContext(), MapActivity.class);
 
                         intent.putExtra("CortezMapData", path);
 
