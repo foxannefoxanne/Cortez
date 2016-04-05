@@ -42,6 +42,13 @@ public class MapSelectActivity extends Activity {
     public static final String TAG = MapSelectActivity.class.getSimpleName();
     RecyclerView recList;
     MapSelectCardAdapter local, external;
+
+    /*
+     * Since we have to manipulate the JSONObject representing available maps
+     * at various points in the code
+     * in order to display updates to the local map file list,
+     * this local variable is necessary.
+     */
     JSONObject availableMaps;
 
     @Override
@@ -152,6 +159,14 @@ public class MapSelectActivity extends Activity {
      */
     private void populateList() {
         try {
+            /*
+             * The only time availableMaps will == null is during onCreate().
+             * At that time, we can grab the available maps from the Intent extra that was passed in
+             * from LauncherActivity, and store it into a local JSONObject called 'availableMaps'.
+             *
+             * When populateList() is used after onCreate(), we want to work with the local JSONObject.
+             * This will allow us to display updates to the list of maps that are on the device.
+             */
             if (availableMaps == null) {
                 availableMaps = new JSONObject(getIntent().getStringExtra("Available Maps"));
             }
