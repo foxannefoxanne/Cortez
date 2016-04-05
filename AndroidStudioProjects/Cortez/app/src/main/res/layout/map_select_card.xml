@@ -55,7 +55,7 @@
             android:id="@+id/map_select_card_txtDescriptionMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loremipsum1"
+            android:text="@string/mapSelectCardDescriptionDefault"
             android:paddingStart="16dip"
             android:paddingEnd="16dip"
             android:paddingBottom="16dip"
