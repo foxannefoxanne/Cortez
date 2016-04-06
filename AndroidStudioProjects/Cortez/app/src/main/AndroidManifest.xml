@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eecs581_582.cortez"
-    android:versionCode="1"
-    android:versionName="1.0">
-    <!--
-            Android Versions supported by Cortez:
-            17 (4.3 Jelly Bean) thru 23 (6.0 Marshmallow)
-    -->
-    <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="21" />
+    package="eecs581_582.cortez">
 
     <!-- System permissions required for Cortez to work -->
     <uses-permission android:name="android.permission.INTERNET" />
