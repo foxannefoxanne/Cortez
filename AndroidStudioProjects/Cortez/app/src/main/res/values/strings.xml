@@ -9,6 +9,9 @@
     <!-- Info Activity title -->
     <string name="title_activity_info">InfoActivity</string>
 
+    <!-- Cortez Video Viewer title -->
+    <string name="title_activity_videoviewer">VideoViewer</string>
+
     <!-- Cortez YouTube Viewer title -->
     <string name="title_activity_youtubeviewer">YouTubeViewer</string>
 

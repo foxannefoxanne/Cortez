@@ -64,10 +64,18 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_info" />
 
+        <!-- The Video Viewer Activity -->
+        <activity
+            android:name=".frontend.VideoViewer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:label="@string/title_activity_videoviewer" />
+
         <!-- The Youtube Viewer Activity -->
         <activity
             android:name=".frontend.YouTubeViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:label="@string/title_activity_youtubeviewer" />
 
         <!-- The Help screen Activity -->
