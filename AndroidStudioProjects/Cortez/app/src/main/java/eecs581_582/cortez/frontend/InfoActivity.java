@@ -94,7 +94,7 @@ public class InfoActivity extends FragmentActivity {
 
         // Set the WebView
         WebView webView = (WebView) findViewById(R.id.infoActivityWebView);
-        String message = intent.getStringExtra("infoActivityMessage1");
+        String message = intent.getStringExtra("geofenceInfoText");
 
         webView.setWebViewClient(new WebViewClient() {
             @Override

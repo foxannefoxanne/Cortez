@@ -267,12 +267,10 @@ public class MapActivity extends FragmentActivity {
 
                 CortezGeofence tmp = cortezGeofences.get(marker.getPosition());
 
-                String infoActivityMessage1 = tmp.getInfoActivityMessage1();
-                String infoActivityMessage2 = tmp.getInfoActivityMessage2();
+                String geofenceInfoText = tmp.getGeofenceInfoText();
 
                 outgoingIntent.putExtra("title", marker.getTitle());
-                outgoingIntent.putExtra("infoActivityMessage1", infoActivityMessage1);
-                outgoingIntent.putExtra("infoActivityMessage2", infoActivityMessage2);
+                outgoingIntent.putExtra("geofenceInfoText", geofenceInfoText);
 
                 // TODO: put any media extras into outgoingIntent that will appear in the InfoActivity when the user is in a geofence.
                 // We'll also need to implement handlers for the various media types inside InfoActivity.java.

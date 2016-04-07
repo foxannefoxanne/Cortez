@@ -19,7 +19,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import eecs581_582.cortez.backend.Downloader;
 
 import static eecs581_582.cortez.backend.JSONHandler.*;
 
@@ -118,32 +121,49 @@ public class CortezMapData {
                         exitTransition,
                         "notificationText",
                         resources.getString(R.string.notifyGeofenceExit));
-                String infoActivityMessage1 = getStringFromJsonObject(
-                        geofenceJson,
-                        "infoActivityString1",
-                        resources.getString(R.string.infoActivityWebViewDefault));
-                String infoActivityMessage2 = getStringFromJsonObject(
-                        geofenceJson,
-                        "infoActivityString2",
-                        resources.getString(R.string.infoActivityTextViewDefault));
-
-                // TODO: modify the lines for MarkerOptions and CircleOptions when customization is supported
                 MarkerOptions markerOptions = new MarkerOptions()
                         .visible(true)
                         .position(latlng)
-                                // Markers will assume our default settings if not specified from JSON
                         .title(markerTitle)
                         .snippet(markerSnippet)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-
                 CircleOptions circleOptions = new CircleOptions()
                         .visible(true)
                         .center(latlng)
                         .radius(radius)
-                                // Circles will assume our default settings if not specified from JSON
                         .fillColor(ContextCompat.getColor(context, R.color.geofenceCircleFillDefault))
                         .strokeColor(ContextCompat.getColor(context, R.color.geofenceCircleStrokeDefault))
                         .strokeWidth(resources.getInteger(R.integer.geofenceCircleStrokeWidthDefault));
+
+                // Media for the geofence
+                JSONObject pinLink = new Downloader(context, geofenceJson.getString("pinLink")).getJsonObject();
+                String geofenceInfoText = getStringFromJsonObject(
+                        pinLink,
+                        "pinInfo",
+                        resources.getString(R.string.infoActivityWebViewDefault));
+
+                JSONArray mediaJsonArray = pinLink.getJSONArray("media");
+                ArrayList<String> pics = new ArrayList<>(), auds = new ArrayList<>(), vids = new ArrayList<>();
+                for (int j = 0; j < mediaJsonArray.length(); j++) {
+                    JSONObject mediaElement = mediaJsonArray.getJSONObject(j);
+                    String mediaType = mediaElement.getString("mediaType");
+
+                    if (mediaType.equals("pic")) {
+                        pics.add(mediaElement.getString("picLink"));
+                    }
+                    else if (mediaType.equals("aud")) {
+                        auds.add(mediaElement.getString("audLink"));
+                    }
+                    else if (mediaType.equals("vid")) {
+                        vids.add(mediaElement.getString("vidLink"));
+                    }
+                    else {
+                        // unsupported mediaType
+                    }
+                }
+
+                Log.d(TAG, pics.size() + ", " + auds.size() + ", " + vids.size());
+
 
                 Geofence geofence = new Geofence.Builder()
                         .setRequestId(markerTitle)
@@ -166,8 +186,10 @@ public class CortezMapData {
                         .enterNotificationText(geofenceEnterNotificationText)
                         .dwellNotificationText(geofenceDwellNotificationText)
                         .exitNotificationText(geofenceExitNotificationText)
-                        .infoActivityMessage1(infoActivityMessage1)
-                        .infoActivityMessage2(infoActivityMessage2)
+                        .geofenceInfoText(geofenceInfoText)
+                        .picLinks(pics)
+                        .audLinks(auds)
+                        .vidLinks(vids)
                         .build());
             }
 

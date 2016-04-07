@@ -5,6 +5,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 /**
  * A wrapper class containing all data relevant to a Geofence in Cortez.
  * Construction and parameters are set by the nested Builder class.
@@ -19,8 +21,10 @@ public class CortezGeofence {
     private final String geofenceEnterNotificationText;
     private final String geofenceDwellNotificationText;
     private final String geofenceExitNotificationText;
-    private final String infoActivityMessage1;
-    private final String infoActivityMessage2;
+    private final String geofenceInfoText;
+    private final ArrayList<String> geofencePicLinks;
+    private final ArrayList<String> geofenceAudioLinks;
+    private final ArrayList<String> geofenceVideoLinks;
 
     // TODO: be sure to initialize each member variable for CortezGeofence in this constructor.
     // Since this constructor will remain private, there's no way to set the variables later.
@@ -32,8 +36,10 @@ public class CortezGeofence {
             String geofenceEnterNotificationText,
             String geofenceDwellNotificationText,
             String geofenceExitNotificationText,
-            String infoActivityMessage1,
-            String infoActivityMessage2
+            String geofenceInfoText,
+            ArrayList<String> geofencePicLinks,
+            ArrayList<String> geofenceAudioLinks,
+            ArrayList<String> geofenceVideoLinks
     ) {
         this.geofence = geofence;
         this.geofenceCoordinates = geofenceCoordinates;
@@ -42,8 +48,10 @@ public class CortezGeofence {
         this.geofenceEnterNotificationText = geofenceEnterNotificationText;
         this.geofenceDwellNotificationText = geofenceDwellNotificationText;
         this.geofenceExitNotificationText = geofenceExitNotificationText;
-        this.infoActivityMessage1 = infoActivityMessage1;
-        this.infoActivityMessage2 = infoActivityMessage2;
+        this.geofenceInfoText = geofenceInfoText;
+        this.geofencePicLinks = geofencePicLinks;
+        this.geofenceAudioLinks = geofenceAudioLinks;
+        this.geofenceVideoLinks = geofenceVideoLinks;
     }
 
     // Getters for CortezGeofence
@@ -76,12 +84,20 @@ public class CortezGeofence {
         return geofenceExitNotificationText;
     }
 
-    public String getInfoActivityMessage1() {
-        return infoActivityMessage1;
+    public String getGeofenceInfoText() {
+        return geofenceInfoText;
     }
 
-    public String getInfoActivityMessage2() {
-        return infoActivityMessage2;
+    public ArrayList<String> getGeofencePicLinks() {
+        return geofencePicLinks;
+    }
+
+    public ArrayList<String> getGeofenceAudioLinks() {
+        return geofenceAudioLinks;
+    }
+
+    public ArrayList<String> getGeofenceVideoLinks() {
+        return geofenceVideoLinks;
     }
 
     // end getters
@@ -103,8 +119,10 @@ public class CortezGeofence {
         private String geofenceEnterNotificationText;
         private String geofenceDwellNotificationText;
         private String geofenceExitNotificationText;
-        private String infoActivityMessage1;
-        private String infoActivityMessage2;
+        private String geofenceInfoText;
+        private ArrayList<String> geofencePicLinks;
+        private ArrayList<String> geofenceAudioLinks;
+        private ArrayList<String> geofenceVideoLinks;
 
         // We're going to require Geofence and LatLng objects to build CortezGeofence
         public Builder(final Geofence geofence, final LatLng geofenceCoordinates) {
@@ -137,13 +155,23 @@ public class CortezGeofence {
             return this;
         }
 
-        public Builder infoActivityMessage1(final String infoActivityMessage1) {
-            this.infoActivityMessage1 = infoActivityMessage1;
+        public Builder geofenceInfoText(final String geofenceInfoText) {
+            this.geofenceInfoText = geofenceInfoText;
             return this;
         }
 
-        public Builder infoActivityMessage2(final String infoActivityMessage2) {
-            this.infoActivityMessage2 = infoActivityMessage2;
+        public Builder picLinks(final ArrayList<String> geofencePicLinks) {
+            this.geofencePicLinks = geofencePicLinks;
+            return this;
+        }
+
+        public Builder audLinks(final ArrayList<String> geofenceAudioLinks) {
+            this.geofenceAudioLinks = geofenceAudioLinks;
+            return this;
+        }
+
+        public Builder vidLinks(final ArrayList<String> geofenceVideoLinks) {
+            this.geofenceVideoLinks = geofenceVideoLinks;
             return this;
         }
 
@@ -156,8 +184,10 @@ public class CortezGeofence {
                     geofenceEnterNotificationText,
                     geofenceDwellNotificationText,
                     geofenceExitNotificationText,
-                    infoActivityMessage1,
-                    infoActivityMessage2);
+                    geofenceInfoText,
+                    geofencePicLinks,
+                    geofenceAudioLinks,
+                    geofenceVideoLinks);
         }
     } // end Builder class
 }
