@@ -297,10 +297,16 @@ public class MapActivity extends FragmentActivity {
                     switch(lastTriggeredGeofenceTransition) {
                         case Geofence.GEOFENCE_TRANSITION_ENTER: {
                             logMessage += ", and the user HAS RECENTLY ENTERED the geofence.";
+                            outgoingIntent.putExtra("picLinks", tmp.getGeofencePicLinks());
+                            outgoingIntent.putExtra("audLinks", tmp.getGeofenceAudioLinks());
+                            outgoingIntent.putExtra("vidLinks", tmp.getGeofenceVideoLinks());
                             break;
                         }
                         case Geofence.GEOFENCE_TRANSITION_DWELL: {
                             logMessage += ", and the user IS DWELLING IN the geofence.";
+                            outgoingIntent.putExtra("picLinks", tmp.getGeofencePicLinks());
+                            outgoingIntent.putExtra("audLinks", tmp.getGeofenceAudioLinks());
+                            outgoingIntent.putExtra("vidLinks", tmp.getGeofenceVideoLinks());
                             break;
                         }
                         case Geofence.GEOFENCE_TRANSITION_EXIT: {
@@ -317,9 +323,6 @@ public class MapActivity extends FragmentActivity {
                 }
 
                 Log.d(TAG, logMessage);
-
-                // TODO: put any media extras into outgoingIntent that will appear in the InfoActivity when the user is in a geofence.
-                // We'll also need to implement handlers for the various media types inside InfoActivity.java.
 
                 startActivity(outgoingIntent);
                 return true;
