@@ -55,6 +55,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_info" />
 
+        <!-- The Image Viewer Activity -->
+        <activity
+            android:name=".frontend.ImageViewer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_imageviewer" />
+
         <!-- The Audio Player Activity -->
         <activity
             android:name=".frontend.AudioPlayer"

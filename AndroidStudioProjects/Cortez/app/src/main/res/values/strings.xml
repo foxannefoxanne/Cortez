@@ -10,6 +10,9 @@
     <string name="title_activity_info">InfoActivity</string>
 
     <!-- Cortez Audio Player title -->
+    <string name="title_activity_imageviewer">ImageViewer</string>
+
+    <!-- Cortez Audio Player title -->
     <string name="title_activity_audioplayer">AudioPlayer</string>
 
     <!-- Cortez Video Viewer title -->
