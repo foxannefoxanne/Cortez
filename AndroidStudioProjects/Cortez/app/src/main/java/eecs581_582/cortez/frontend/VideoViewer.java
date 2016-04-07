@@ -14,17 +14,20 @@ import eecs581_582.cortez.R;
  */
 public class VideoViewer extends Activity {
     public static final String TAG = VideoViewer.class.getSimpleName();
-    private static final String path ="https://prod-cortez-asset-storage.s3.amazonaws.com/app/public/video/4/Weaver.mp4?1459184875";
+    private String videoFile;
     private VideoView videoView;
     private MediaController mediaController;
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         setContentView(R.layout.activity_videoviewer);
 
+        videoFile = getIntent().getStringExtra("vidLink");
+
         videoView = (VideoView) findViewById(R.id.video_view);
-        videoView.setVideoPath(path);
+        videoView.setVideoPath(videoFile);
 
         mediaController = new MediaController(this);
         mediaController.setMediaPlayer(videoView);

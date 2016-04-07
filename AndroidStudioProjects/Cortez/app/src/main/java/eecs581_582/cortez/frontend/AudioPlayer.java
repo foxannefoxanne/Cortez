@@ -21,8 +21,7 @@ import eecs581_582.cortez.R;
 public class AudioPlayer extends Activity
         implements OnPreparedListener, MediaController.MediaPlayerControl {
 
-    private static final String TAG = AudioPlayer.class.getSimpleName();
-
+    public static final String TAG = AudioPlayer.class.getSimpleName();
     private MediaPlayer mediaPlayer;
     private MediaController mediaController;
     private String audioFile;
@@ -33,8 +32,9 @@ public class AudioPlayer extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audioplayer);
 
-        audioFile = "https://prod-cortez-asset-storage.s3.amazonaws.com/app/public/audio/6/Bird_in_Rain-Mike_Koenig-441535833.mp3?1459184873";
         ((TextView)findViewById(R.id.now_playing_text)).setText(audioFile);
+
+        audioFile = getIntent().getStringExtra("audLink");
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnPreparedListener(this);

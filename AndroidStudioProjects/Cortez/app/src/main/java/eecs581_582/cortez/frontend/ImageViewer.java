@@ -14,7 +14,6 @@ import eecs581_582.cortez.R;
  */
 public class ImageViewer extends Activity {
     public static final String TAG = ImageViewer.class.getSimpleName();
-
     private ImageView imageView;
     private String imageFile;
 
@@ -23,7 +22,7 @@ public class ImageViewer extends Activity {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_imageviewer);
 
-        imageFile = "https://prod-cortez-asset-storage.s3.amazonaws.com/app/public/images/20/8576533889_fa7c57fc34_o.jpg?1459184869";
+        imageFile = getIntent().getStringExtra("picLink");
 
         imageView = (ImageView) findViewById(R.id.image_view);
         Ion.with(imageView)
