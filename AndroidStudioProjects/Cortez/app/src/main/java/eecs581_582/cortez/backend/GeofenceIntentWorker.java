@@ -23,6 +23,8 @@ import eecs581_582.cortez.frontend.MapActivity;
  */
 public class GeofenceIntentWorker {
 
+    public static String TAG = GeofenceIntentWorker.class.getSimpleName();
+
     /**
      * Sends a Notification to the user's Notification Bar when 1+ Geofences are triggered.
      * @param context the GeofenceIntentService Context
@@ -65,7 +67,7 @@ public class GeofenceIntentWorker {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
 
-        Log.d("GeofenceIntentWorker", "Sending Notification");
+        Log.d(TAG, "Sending Notification");
         notificationManager.notify(0, notificationBuilder.build());
     }
 
@@ -75,19 +77,19 @@ public class GeofenceIntentWorker {
         switch (transition) {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
                 notificationTitle = context.getString(R.string.notifyGeofenceEnter);
-                Log.d("GeofenceIntentWorker", "Geofence(s) Entered: " + getTriggeringGeofences(geofencingEvent));
+                Log.d(TAG, "Geofence(s) Entered: " + getTriggeringGeofences(geofencingEvent));
                 break;
             case Geofence.GEOFENCE_TRANSITION_DWELL:
                 notificationTitle = context.getString(R.string.notifyGeofenceDwell);
-                Log.d("GeofenceIntentWorker", "Dwelling in Geofence(s): " + getTriggeringGeofences(geofencingEvent));
+                Log.d(TAG, "Dwelling in Geofence(s): " + getTriggeringGeofences(geofencingEvent));
                 break;
             case Geofence.GEOFENCE_TRANSITION_EXIT:
                 notificationTitle = context.getString(R.string.notifyGeofenceExit);
-                Log.d("GeofenceIntentWorker", "Geofence(s) Exited: " + getTriggeringGeofences(geofencingEvent));
+                Log.d(TAG, "Geofence(s) Exited: " + getTriggeringGeofences(geofencingEvent));
                 break;
             default:
                 notificationTitle = "Geofence(s) Unknown";
-                Log.d("GeofenceIntentWorker", "Geofence(s) Unknown");
+                Log.d(TAG, "Geofence(s) Unknown");
         }
 
         return notificationTitle;

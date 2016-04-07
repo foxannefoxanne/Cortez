@@ -87,6 +87,16 @@ public class MapActivity extends FragmentActivity {
      */
     private HashMap<LatLng, CortezGeofence> cortezGeofences;
 
+    /**
+     * Cortez Geofences that are currently being triggered
+     */
+    private ArrayList<Geofence> triggeringGeofences;
+
+    /**
+     * The most recent geofence transition type that was received
+     */
+    private int lastTriggeredGeofenceTransition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -100,7 +110,13 @@ public class MapActivity extends FragmentActivity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                ArrayList<Geofence> triggeringGeofences = (ArrayList) intent.getParcelableArrayListExtra("Triggering Geofences");
+                /*
+                 * Hold onto pertinent info about the most recently triggered geofences,
+                 * so we can decide whether to display relevant media in InfoActivity.
+                 */
+                triggeringGeofences = (ArrayList) intent.getParcelableArrayListExtra("Triggering Geofences");
+                lastTriggeredGeofenceTransition = intent.getIntExtra("Geofence Transition", -1);
+
                 String s = "";
                 for (Geofence g : triggeringGeofences) {
                     s += g.toString() + "\n";
@@ -108,7 +124,7 @@ public class MapActivity extends FragmentActivity {
                 Log.d(TAG, "Received Triggering Geofences:\n"
                         + "==============================\n"
                         + s
-                        + " " + intent.getIntExtra("Geofence Transition", -1));
+                        + " " + lastTriggeredGeofenceTransition);
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
@@ -261,7 +277,9 @@ public class MapActivity extends FragmentActivity {
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Log.d(TAG, "Clicked Marker at " + marker.getPosition());
+
+                String logMessage = "Clicked Marker entitled \"" + marker.getTitle()
+                        + "\" at " + marker.getPosition();
 
                 Intent outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
 
@@ -271,6 +289,34 @@ public class MapActivity extends FragmentActivity {
 
                 outgoingIntent.putExtra("title", marker.getTitle());
                 outgoingIntent.putExtra("geofenceInfoText", geofenceInfoText);
+
+                if (triggeringGeofences == null) {
+                    logMessage += ", but no geofences have been triggered yet.";
+                }
+                else if (triggeringGeofences.contains(tmp.getGeofence())) {
+                    switch(lastTriggeredGeofenceTransition) {
+                        case Geofence.GEOFENCE_TRANSITION_ENTER: {
+                            logMessage += ", and the user HAS RECENTLY ENTERED the geofence.";
+                            break;
+                        }
+                        case Geofence.GEOFENCE_TRANSITION_DWELL: {
+                            logMessage += ", and the user IS DWELLING IN the geofence.";
+                            break;
+                        }
+                        case Geofence.GEOFENCE_TRANSITION_EXIT: {
+                            logMessage += ", but the user HAS JUST LEFT the geofence.";
+                            break;
+                        }
+                        default: {
+                            logMessage += ", but we have no idea what's going on... derp.";
+                        }
+                    }
+                }
+                else {
+                    logMessage += ", but the user IS NOT in the geofence.";
+                }
+
+                Log.d(TAG, logMessage);
 
                 // TODO: put any media extras into outgoingIntent that will appear in the InfoActivity when the user is in a geofence.
                 // We'll also need to implement handlers for the various media types inside InfoActivity.java.

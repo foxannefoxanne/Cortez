@@ -143,7 +143,10 @@ public class CortezMapData {
                         resources.getString(R.string.infoActivityWebViewDefault));
 
                 JSONArray mediaJsonArray = pinLink.getJSONArray("media");
-                ArrayList<String> pics = new ArrayList<>(), auds = new ArrayList<>(), vids = new ArrayList<>();
+                ArrayList<String>
+                        pics = new ArrayList<>(),
+                        auds = new ArrayList<>(),
+                        vids = new ArrayList<>();
                 for (int j = 0; j < mediaJsonArray.length(); j++) {
                     JSONObject mediaElement = mediaJsonArray.getJSONObject(j);
                     String mediaType = mediaElement.getString("mediaType");
@@ -162,7 +165,9 @@ public class CortezMapData {
                     }
                 }
 
-                Log.d(TAG, pics.size() + ", " + auds.size() + ", " + vids.size());
+                Log.d(TAG, "Pics: " +pics.size()
+                        + ", Audios: " + auds.size()
+                        + ", Videos: " + vids.size());
 
 
                 Geofence geofence = new Geofence.Builder()
