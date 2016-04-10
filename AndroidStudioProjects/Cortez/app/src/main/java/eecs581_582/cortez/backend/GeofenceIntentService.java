@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class GeofenceIntentService extends IntentService {
 
-    private final String TAG = this.getClass().getCanonicalName();
+    private final String TAG = this.getClass().getSimpleName();
 
     public GeofenceIntentService() {
         super("GeofenceIntentService");
