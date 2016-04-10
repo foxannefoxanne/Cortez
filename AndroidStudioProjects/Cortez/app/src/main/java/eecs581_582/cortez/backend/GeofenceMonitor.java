@@ -102,8 +102,32 @@ public class GeofenceMonitor implements ConnectionCallbacks,
         mGoogleApiClient.connect();
     }
 
+    /**
+     * Connects the Google API client.
+     */
+    public void connect() {
+        Log.d(TAG, "Connected the Google API client");
+        mGoogleApiClient.connect();
+    }
+
+    /**
+     * Disconnects the Google API client.
+     */
     public void disconnect() {
+        Log.d(TAG, "Disconnected the Google API client");
         mGoogleApiClient.disconnect();
+    }
+
+    /**
+     * Removes all geofences that the monitor is keeping track of.
+     */
+    public void stop() {
+        Log.d(TAG, "Stopped monitoring geofences");
+        LocationServices.GeofencingApi.removeGeofences(
+                mGoogleApiClient,
+                // This is the same pending intent that was used in addGeofences().
+                mPendingIntent
+        ).setResultCallback(this); // Result processed in onResult().
     }
 
     @Override
@@ -131,6 +155,7 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     public void onConnected(Bundle connectionHint) {
         // We're connected, now we need to create a GeofencingRequest with
         // the geofences we have stored.
+        Log.d(TAG, "Connected");
 
         /*
          *  If, for some reason, there are no geofences associated with this map,

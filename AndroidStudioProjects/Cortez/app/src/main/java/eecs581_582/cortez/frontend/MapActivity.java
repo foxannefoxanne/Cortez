@@ -26,6 +26,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -123,8 +124,7 @@ public class MapActivity extends FragmentActivity {
                 }
                 Log.d(TAG, "Received Triggering Geofences:\n"
                         + "==============================\n"
-                        + s
-                        + " " + lastTriggeredGeofenceTransition);
+                        + s);
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
@@ -135,10 +135,9 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
+        // TODO: Pretty sure this is where we need to do mGeofenceMonitor.stop(), but it's not removing the geofences as expected
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
-
-        // TODO: Pretty sure this is where we need to tell GeofenceMonitor to do LocationServices.GeofencingApi.removeGeofences()
     }
 
     @Override
@@ -150,7 +149,6 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause");
-        mGeofenceMonitor.disconnect();
         super.onPause();
     }
 
@@ -158,12 +156,15 @@ public class MapActivity extends FragmentActivity {
     protected void onStop() {
         Log.d(TAG, "onStop");
         mGeofenceMonitor.disconnect();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+        notificationManager.cancel(0);
         super.onStop();
     }
 
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume");
+        mGeofenceMonitor.connect();
         super.onResume();
     }
 
