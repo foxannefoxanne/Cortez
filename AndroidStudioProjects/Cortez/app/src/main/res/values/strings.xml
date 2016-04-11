@@ -30,6 +30,9 @@
     <!-- Launcher title -->
     <string name="title_activity_launcher">Cortez</string>
 
+    <!-- Launcher 'Helpful Hint' text -->
+    <string name="launcher_text">Cortez is a design suite for interactive adventures. It\’s a web/mobile app that allows you to create/view location-based info for exploring!</string>
+
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
     <string name="notifyGeofenceDwell">Geofence Dwell</string>
