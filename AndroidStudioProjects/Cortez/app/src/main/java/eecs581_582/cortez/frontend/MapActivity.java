@@ -164,7 +164,6 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume");
-        mGeofenceMonitor.connect();
         super.onResume();
     }
 
