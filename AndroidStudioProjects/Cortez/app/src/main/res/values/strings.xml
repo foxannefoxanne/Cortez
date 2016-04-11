@@ -30,8 +30,14 @@
     <!-- Launcher title -->
     <string name="title_activity_launcher">Cortez</string>
 
-    <!-- Launcher 'Helpful Hint' text -->
+    <!-- Launcher 'tip' texts -->
+    <!-- To add more, create them here, add your new string to tipStrings in LauncherActivity, and increase the nextInt argument in LauncherActivity -->
     <string name="launcher_text">Cortez is a design suite for interactive adventures. It\’s a web/mobile app that allows you to create/view location-based info for exploring!</string>
+    <string name="launcher_text1">Cortez downloads information from the Internet. Data charges may apply.</string>
+    <string name="launcher_text2">Make sure you have Location Services or GPS enabled, so you can see what pins are nearby!</string>
+    <string name="launcher_text3">Hernan Cortes was a Spanish Conquistador and explorer.</string>
+    <string name="launcher_text4">If you are confused, the Context Menu at the top-right of each screen should have a Help function!</string>
+    <string name="launcher_text5">Exploring is intense! Make sure to monitor how much battery you have left.</string>
 
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>

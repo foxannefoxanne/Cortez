@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONObject;
+
+import java.util.Random;
 
 import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
@@ -38,6 +41,14 @@ public class LauncherActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
+        final String[] tipStrings = {
+                getString(R.string.launcher_text),
+                getString(R.string.launcher_text1),
+                getString(R.string.launcher_text2),
+                getString(R.string.launcher_text3),
+                getString(R.string.launcher_text4),
+                getString(R.string.launcher_text5)
+        };
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
@@ -56,6 +67,12 @@ public class LauncherActivity extends Activity {
 
         Thread timerThread = new Thread(){
             public void run(){
+
+                // Randomize the tip string
+                TextView currtipString = (TextView) findViewById(R.id.smallertextView);
+                Random pickString = new Random();
+                int chosenString = pickString.nextInt(6);
+                currtipString.setText(tipStrings[chosenString]);
 
                 /*
                  * I think the Intent to transition to MapSelectActivity should be placed
