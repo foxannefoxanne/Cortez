@@ -136,6 +136,7 @@ public class MapActivity extends FragmentActivity {
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         // TODO: Pretty sure this is where we need to do mGeofenceMonitor.stop(), but it's not removing the geofences as expected
+        mGeofenceMonitor.disconnect();
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
     }
@@ -155,7 +156,6 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onStop() {
         Log.d(TAG, "onStop");
-        mGeofenceMonitor.disconnect();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
         notificationManager.cancel(0);
         super.onStop();
