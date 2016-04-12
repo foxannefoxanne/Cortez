@@ -130,15 +130,16 @@ public class MapActivity extends FragmentActivity {
         registerReceiver(broadcastReceiver, intentFilter);
 
         setUpMapIfNeeded();
+
+        // TODO: Write the geofences for the current map into a private file called Geofences_LastRun.txt
+        // This file will remind Cortez which geofences the monitor should remove when the app starts again,
+        // which will prevent Cortez from monitoring geofences from several maps at once.
     }
 
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
-        // TODO: Pretty sure this is where we need to do mGeofenceMonitor.stop(), but it's not removing the geofences as expected
-        mGeofenceMonitor.disconnect();
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -150,14 +151,20 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause");
+        if (this.isFinishing()) {
+            mGeofenceMonitor.stopMonitoring();
+            mGeofenceMonitor.disconnectLocationListener();
+            unregisterReceiver(broadcastReceiver);
+            NotificationManagerCompat
+                    .from(getApplicationContext())
+                    .cancel(0);
+        }
         super.onPause();
     }
 
     @Override
     protected void onStop() {
         Log.d(TAG, "onStop");
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-        notificationManager.cancel(0);
         super.onStop();
     }
 

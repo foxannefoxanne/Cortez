@@ -99,13 +99,14 @@ public class GeofenceMonitor implements ConnectionCallbacks,
         // We want the location to be as accurate as possible.
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        mGoogleApiClient.connect();
+        removePreviousGeofences();
+        connectLocationListener();
     }
 
     /**
      * Connects the Google API client.
      */
-    public void connect() {
+    public void connectLocationListener() {
         Log.d(TAG, "Connected the Google API client");
         mGoogleApiClient.connect();
     }
@@ -113,15 +114,69 @@ public class GeofenceMonitor implements ConnectionCallbacks,
     /**
      * Disconnects the Google API client.
      */
-    public void disconnect() {
+    public void disconnectLocationListener() {
         Log.d(TAG, "Disconnected the Google API client");
         mGoogleApiClient.disconnect();
     }
 
     /**
+     * Removes all geofences from the most recently opened map in Cortez.
+     * This seems to be a necessary evil to prevent Cortez from monitoring
+     * geofences from several maps at the same time (i.e., a bug).
+     */
+    private void removePreviousGeofences() {
+        // TODO: These steps should prevent Cortez from monitoring any Geofences from the last opened map:
+
+        // 1. Create a temporary List<String> from the last opened map by reading Geofences_LastRun.txt
+
+        // 2. Do LocationServices.GeofencingApi.removeGeofences(mGoogleApiClient, List<String>)
+    }
+
+    /**
+     * Adds all geofences that the monitor is keeping track of.
+     */
+    public void beginMonitoring() {
+        /*
+         *  If, for some reason, there are no geofences associated with this map,
+         *  we'll continue monitoring user location, but NOT attempt to monitor geofences.
+         */
+        if (!mGeofences.isEmpty()) {
+            Log.d(TAG, "Started monitoring geofences");
+            mGeofencingRequest = new GeofencingRequest.Builder().addGeofences(
+                    mGeofences).build();
+
+            mPendingIntent = createRequestPendingIntent();
+
+            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            // This is for debugging only and does not affect
+            // geofencing.
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+
+            // Submitting the request to monitor geofences.
+            PendingResult<Status> pendingResult = LocationServices.GeofencingApi
+                    .addGeofences(mGoogleApiClient, mGeofencingRequest,
+                            mPendingIntent);
+
+            // Set the result callbacks listener to this class.
+            pendingResult.setResultCallback(this);
+        }
+    }
+
+    /**
      * Removes all geofences that the monitor is keeping track of.
      */
-    public void stop() {
+    public void stopMonitoring() {
         Log.d(TAG, "Stopped monitoring geofences");
         LocationServices.GeofencingApi.removeGeofences(
                 mGoogleApiClient,
@@ -156,41 +211,7 @@ public class GeofenceMonitor implements ConnectionCallbacks,
         // We're connected, now we need to create a GeofencingRequest with
         // the geofences we have stored.
         Log.d(TAG, "Connected");
-
-        /*
-         *  If, for some reason, there are no geofences associated with this map,
-         *  we'll continue monitoring user location, but NOT attempt to monitor geofences.
-         */
-        if (!mGeofences.isEmpty()) {
-            mGeofencingRequest = new GeofencingRequest.Builder().addGeofences(
-                    mGeofences).build();
-
-            mPendingIntent = createRequestPendingIntent();
-
-            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            // This is for debugging only and does not affect
-            // geofencing.
-            LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
-
-            // Submitting the request to monitor geofences.
-            PendingResult<Status> pendingResult = LocationServices.GeofencingApi
-                    .addGeofences(mGoogleApiClient, mGeofencingRequest,
-                            mPendingIntent);
-
-            // Set the result callbacks listener to this class.
-            pendingResult.setResultCallback(this);
-        }
+        beginMonitoring();
     }
 
     @Override
