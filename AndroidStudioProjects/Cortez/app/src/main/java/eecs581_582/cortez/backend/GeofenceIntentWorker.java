@@ -46,14 +46,20 @@ public class GeofenceIntentWorker {
     }
 
     private static void sendNotificationHelper(Context context, GeofencingEvent geofencingEvent) {
-        // Enable the Notification to take the user back to the map (MapActivity)
-        Intent notificationIntent = new Intent(context, MapActivity.class);
+
+        /*
+         * TODO: If Cortez is currently running (foreground or background),
+         * allow the Notification to take the user to MapActivity on click.
+         *
+         * Otherwise, take the user to LauncherActivity on click (to avoid a crash).
+         */
+//        Intent notificationIntent = new Intent(context, MapActivity.class);
         // If an activity other than the map (MapActivity) is running in Cortez, it will be closed
         // (stopping any running processes within that activity), and the map will be added
         // to the top of the history stack.
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.logo)                                                // Use Cortez logo
@@ -61,8 +67,8 @@ public class GeofenceIntentWorker {
                 .setAutoCancel(true)                                                        // Close when clicked
                 .setContentTitle(getNotificationTitle(context, geofencingEvent))            // Add Notification title
                 .setContentText(getTriggeringGeofences(geofencingEvent))                    // Add Notification text
-                .setDefaults(Notification.DEFAULT_ALL)                                      // Use system defaults for Notification
-                .setContentIntent(pendingIntent);                                           // Set the next PendingIntent to go back to the MapActivity
+                .setDefaults(Notification.DEFAULT_ALL);                                     // Use system defaults for Notification
+//                .setContentIntent(pendingIntent);                                           // Set the next PendingIntent to go back to the MapActivity
 
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
@@ -107,7 +113,8 @@ public class GeofenceIntentWorker {
         String[] geofenceIds = new String[geofences.size()];
 
         for (int i = 0; i < geofences.size(); i++) {
-            geofenceIds[i] = geofences.get(i).getRequestId();
+            String tmp = geofences.get(i).getRequestId();
+            geofenceIds[i] = tmp.substring((tmp.indexOf("@") + 1 ), tmp.indexOf(":"));
         }
 
         return TextUtils.join(", ", geofenceIds);

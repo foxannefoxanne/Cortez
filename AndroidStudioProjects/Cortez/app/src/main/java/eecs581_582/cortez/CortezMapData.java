@@ -171,7 +171,7 @@ public class CortezMapData {
 
 
                 Geofence geofence = new Geofence.Builder()
-                        .setRequestId(cortezMapName + "_" + latitude + "," + longitude)
+                        .setRequestId(cortezMapName + "@" + markerTitle + ":" + latitude + "," + longitude)
                                 // The coordinates of the center of the geofence and the radius in meters.
                         .setCircularRegion(latitude, longitude, radius)
                         .setExpirationDuration(expirationDuration)
