@@ -2,14 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".frontend.MapSelectActivity">
 
-    <!--
-        NOTE: Ensure that any new items added to the menu have orderInCategory >= 200.
-              That will make sure the menu items are below the Activity title bar.
-    -->
-    <item android:id="@+id/action_add_map" android:title="Add A New Map"
-        android:orderInCategory="200" app:showAsAction="never" />
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="300" app:showAsAction="never" />
+    <item android:id="@+id/action_add_map" android:title="@string/action_add_map"
+        android:orderInCategory="1" app:showAsAction="never" />
     <item android:id="@+id/action_help" android:title="@string/action_help"
-        android:orderInCategory="400" app:showAsAction="never" />
+        android:orderInCategory="2" app:showAsAction="never" />
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="3" app:showAsAction="never" />
 </menu>

@@ -17,9 +17,13 @@
 
 
     <!-- CardView colors -->
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
     <color name="accent">#ff9e80</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="bkg_card">#009688</color>
+
+    <!-- MediaSelect colors -->
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+
 </resources>

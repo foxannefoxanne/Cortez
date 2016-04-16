@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="4dip"
     card_view:cardBackgroundColor="@color/backgroundTransparency"
-    card_view:theme="@style/AppTheme.MainActivity"
+    card_view:theme="@style/AppTheme.MapSelectActivity"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout

@@ -1,30 +1,39 @@
 <resources>
 
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme.MainActivity" parent="android:Theme.DeviceDefault">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--</style>-->
+    <style name="AppTheme.MainActivity" parent="android:Theme.DeviceDefault">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
-    <style name="AppTheme.InfoActivity" parent="android:Theme.DeviceDefault">
+    <style name="AppTheme.AudioPlayer" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.HelpActivity" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.ImageViewer" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.InfoActivity" parent="AppTheme.MainActivity">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorPrimaryInverse">@android:color/black</item>
         <item name="android:textColorSecondary">@color/secondary_text_dark</item>
         <item name="android:textColorSecondaryInverse">@color/secondary_text_light</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.MainActivity" parent="android:Theme.DeviceDefault">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.LauncherActivity" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.MapActivity" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.MapSelectActivity" parent="AppTheme.MainActivity">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimaryInverse">@android:color/black</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_light</item>
     </style>
+
+    <style name="AppTheme.VideoViewer" parent="AppTheme.MainActivity"/>
+
+    <style name="AppTheme.YouTubeViewer" parent="AppTheme.MainActivity"/>
 
 </resources>
