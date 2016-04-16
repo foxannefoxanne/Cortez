@@ -41,14 +41,6 @@ public class LauncherActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
-        final String[] tipStrings = {
-                getString(R.string.launcher_text),
-                getString(R.string.launcher_text1),
-                getString(R.string.launcher_text2),
-                getString(R.string.launcher_text3),
-                getString(R.string.launcher_text4),
-                getString(R.string.launcher_text5)
-        };
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
@@ -65,13 +57,15 @@ public class LauncherActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
 
+        final String[] tipStrings = getResources().getStringArray(R.array.launcher_tips);
+
         Thread timerThread = new Thread(){
             public void run(){
 
                 // Randomize the tip string
                 TextView currtipString = (TextView) findViewById(R.id.smallertextView);
                 Random pickString = new Random();
-                int chosenString = pickString.nextInt(6);
+                int chosenString = pickString.nextInt(tipStrings.length);
                 currtipString.setText(tipStrings[chosenString]);
 
                 /*

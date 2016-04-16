@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Launcher 'tip' texts -->
+    <string-array name="launcher_tips">
+        <item>Cortez is a design suite for interactive adventures. It\’s a web/mobile app that allows you to create/view location-based info for exploring!</item>
+        <item>Cortez downloads information from the Internet. Data charges may apply.</item>
+        <item>Make sure you have Location Services or GPS enabled, so you can see what pins are nearby!</item>
+        <item>Hernan Cortes was a Spanish Conquistador and explorer.</item>
+        <item>If you are confused, the Context Menu at the top-right of each screen should have a Help function!</item>
+        <item>Exploring is intense! Make sure to monitor how much battery you have left.</item>
+    </string-array>
+
+</resources>

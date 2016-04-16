@@ -7,37 +7,31 @@
     <string name="title_activity_maps">Cortez</string>
 
     <!-- Info Activity title -->
-    <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_info">Info</string>
+
+    <!-- Cortez Image Viewer title -->
+    <string name="title_activity_imageviewer">Image</string>
 
     <!-- Cortez Audio Player title -->
-    <string name="title_activity_imageviewer">ImageViewer</string>
-
-    <!-- Cortez Audio Player title -->
-    <string name="title_activity_audioplayer">AudioPlayer</string>
+    <string name="title_activity_audioplayer">Audio</string>
 
     <!-- Cortez Video Viewer title -->
-    <string name="title_activity_videoviewer">VideoViewer</string>
+    <string name="title_activity_videoviewer">Video</string>
 
     <!-- Cortez YouTube Viewer title -->
-    <string name="title_activity_youtubeviewer">YouTubeViewer</string>
+    <string name="title_activity_youtubeviewer">YouTube</string>
 
-    <!-- Help Activity title -->
-    <string name="title_activity_help">HelpActivity</string>
+    <!-- Cortez Help Activity title -->
+    <string name="title_activity_help">Help</string>
 
-    <!-- Map Select title -->
+    <!-- Cortez Map Select title -->
     <string name="title_activity_map_select">Select Map</string>
 
-    <!-- Launcher title -->
+    <!-- Cortez Launcher title -->
     <string name="title_activity_launcher">Cortez</string>
 
-    <!-- Launcher 'tip' texts -->
-    <!-- To add more, create them here, add your new string to tipStrings in LauncherActivity, and increase the nextInt argument in LauncherActivity -->
-    <string name="launcher_text">Cortez is a design suite for interactive adventures. It\’s a web/mobile app that allows you to create/view location-based info for exploring!</string>
-    <string name="launcher_text1">Cortez downloads information from the Internet. Data charges may apply.</string>
-    <string name="launcher_text2">Make sure you have Location Services or GPS enabled, so you can see what pins are nearby!</string>
-    <string name="launcher_text3">Hernan Cortes was a Spanish Conquistador and explorer.</string>
-    <string name="launcher_text4">If you are confused, the Context Menu at the top-right of each screen should have a Help function!</string>
-    <string name="launcher_text5">Exploring is intense! Make sure to monitor how much battery you have left.</string>
+    <!-- Cortez Media Select title -->
+    <string name="title_activity_tab_animation">Media</string>
 
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
