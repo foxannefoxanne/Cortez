@@ -85,6 +85,11 @@
             android:name=".frontend.HelpActivity"
             android:label="@string/title_activity_help" />
 
+        <!-- The Media Select Activity -->
+        <activity
+            android:name=".frontend.MediaSelectActivity"
+            android:label="@string/title_activity_media_select"></activity>
+
         <!-- The service we're using for monitoring Geofences -->
         <service android:name=".backend.GeofenceIntentService" />
 
@@ -102,10 +107,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <activity
-            android:name=".frontend.MediaSelectActivity"
-            android:label="@string/title_activity_media_select"></activity>
     </application>
 
 </manifest>
