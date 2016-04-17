@@ -288,22 +288,21 @@ public class MapActivity extends FragmentActivity {
                 String logMessage = "Clicked Marker entitled \"" + marker.getTitle()
                         + "\" at " + marker.getPosition();
 
-                Intent outgoingIntent = new Intent(MapActivity.this, MediaSelectActivity.class);
-
                 CortezGeofence tmp = cortezGeofences.get(marker.getPosition());
 
                 String geofenceInfoText = tmp.getGeofenceInfoText();
 
-                outgoingIntent.putExtra("title", marker.getTitle());
-                outgoingIntent.putExtra("geofenceInfoText", geofenceInfoText);
 
+                Intent outgoingIntent;
                 if (triggeringGeofences == null) {
                     logMessage += ", but no geofences have been triggered yet.";
+                    outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
                 }
                 else if (triggeringGeofences.contains(tmp.getGeofence())) {
                     switch(lastTriggeredGeofenceTransition) {
                         case Geofence.GEOFENCE_TRANSITION_ENTER: {
                             logMessage += ", and the user HAS RECENTLY ENTERED the geofence.";
+                            outgoingIntent = new Intent(MapActivity.this, MediaSelectActivity.class);
                             outgoingIntent.putExtra("picLinks", tmp.getGeofencePicLinks());
                             outgoingIntent.putExtra("audLinks", tmp.getGeofenceAudioLinks());
                             outgoingIntent.putExtra("vidLinks", tmp.getGeofenceVideoLinks());
@@ -311,6 +310,7 @@ public class MapActivity extends FragmentActivity {
                         }
                         case Geofence.GEOFENCE_TRANSITION_DWELL: {
                             logMessage += ", and the user IS DWELLING IN the geofence.";
+                            outgoingIntent = new Intent(MapActivity.this, MediaSelectActivity.class);
                             outgoingIntent.putExtra("picLinks", tmp.getGeofencePicLinks());
                             outgoingIntent.putExtra("audLinks", tmp.getGeofenceAudioLinks());
                             outgoingIntent.putExtra("vidLinks", tmp.getGeofenceVideoLinks());
@@ -318,18 +318,24 @@ public class MapActivity extends FragmentActivity {
                         }
                         case Geofence.GEOFENCE_TRANSITION_EXIT: {
                             logMessage += ", but the user HAS JUST LEFT the geofence.";
+                            outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
                             break;
                         }
                         default: {
                             logMessage += ", but we have no idea what's going on... derp.";
+                            outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
                         }
                     }
                 }
                 else {
                     logMessage += ", but the user IS NOT in the geofence.";
+                    outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
                 }
 
                 Log.d(TAG, logMessage);
+
+                outgoingIntent.putExtra("title", marker.getTitle());
+                outgoingIntent.putExtra("geofenceInfoText", geofenceInfoText);
 
                 startActivity(outgoingIntent);
                 return true;
