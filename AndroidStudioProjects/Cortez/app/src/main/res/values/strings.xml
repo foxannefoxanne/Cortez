@@ -86,4 +86,6 @@
         &lt;br /&gt;
         Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map Select screen.
     </string>
+    <string name="title_activity_media_select">MediaSelectActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

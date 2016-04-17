@@ -288,7 +288,7 @@ public class MapActivity extends FragmentActivity {
                 String logMessage = "Clicked Marker entitled \"" + marker.getTitle()
                         + "\" at " + marker.getPosition();
 
-                Intent outgoingIntent = new Intent(MapActivity.this, InfoActivity.class);
+                Intent outgoingIntent = new Intent(MapActivity.this, MediaSelectActivity.class);
 
                 CortezGeofence tmp = cortezGeofences.get(marker.getPosition());
 
