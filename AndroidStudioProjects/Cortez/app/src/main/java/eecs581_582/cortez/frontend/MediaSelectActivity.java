@@ -155,7 +155,7 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
                 // This means you have selected the Help option
                 Log.d(TAG, "Help button selected");
                 Intent intent = new Intent(this, HelpActivity.class);
-                intent.putExtra(getString(R.string.action_help), Constants.Caller.INFO_ACTIVITY);
+                intent.putExtra(getString(R.string.action_help), Constants.Caller.MEDIASELECT_ACTIVITY);
                 startActivity(intent);
                 return true;
             }
