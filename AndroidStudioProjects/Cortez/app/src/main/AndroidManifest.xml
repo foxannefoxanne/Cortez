@@ -32,9 +32,9 @@
             <!-- This view is displayed at launch -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <!-- The Map Select Activity -->
@@ -46,8 +46,7 @@
         <activity
             android:name=".frontend.MapActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
 
         <!-- The Info Activity view -->
         <activity
@@ -71,20 +70,25 @@
         <activity
             android:name=".frontend.VideoViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:label="@string/title_activity_videoviewer" />
+            android:label="@string/title_activity_videoviewer"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <!-- The Youtube Viewer Activity -->
         <activity
             android:name=".frontend.YouTubeViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:label="@string/title_activity_youtubeviewer" />
+            android:label="@string/title_activity_youtubeviewer"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <!-- The Help screen Activity -->
         <activity
             android:name=".frontend.HelpActivity"
             android:label="@string/title_activity_help" />
+
+        <!-- The Media Select Activity -->
+        <activity
+            android:name=".frontend.MediaSelectActivity"
+            android:label="@string/title_activity_media_select"></activity>
 
         <!-- The service we're using for monitoring Geofences -->
         <service android:name=".backend.GeofenceIntentService" />
@@ -103,7 +107,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

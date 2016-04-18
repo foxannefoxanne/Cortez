@@ -31,7 +31,7 @@
     <string name="title_activity_launcher">Cortez</string>
 
     <!-- Cortez Media Select title -->
-    <string name="title_activity_tab_animation">Media</string>
+    <string name="title_activity_media_select">Select Media</string>
 
     <!-- Geofence transition notification messages -->
     <string name="notifyGeofenceEnter">Geofence Entered</string>
@@ -42,6 +42,9 @@
     <string name="action_add_map">Add Map</string>
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
+
+    <!-- Text inside each section of the tabbed view for Media Select Activity -->
+    <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Help Screen Strings -->
     <string name="HelpActivityContentForMapActivity">&lt;h1&gt;Map Screen&lt;/h1&gt;

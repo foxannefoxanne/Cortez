@@ -1,5 +1,10 @@
 package eecs581_582.cortez.backend;
 
+import eecs581_582.cortez.R;
+import eecs581_582.cortez.frontend.AudioPlayer;
+import eecs581_582.cortez.frontend.ImageViewer;
+import eecs581_582.cortez.frontend.VideoViewer;
+
 /**
  * Created by Joseph on 2/2/16.
  */
@@ -29,5 +34,32 @@ public class Constants {
         INFO_ACTIVITY,
         YOUTUBE_ACTIVITY,
         UNKNOWN
+    }
+
+    public enum MediaType {
+        IMAGE(R.mipmap.ic_action_picture, "Image", ImageViewer.class),
+        AUDIO(R.mipmap.ic_action_play, "Audio", AudioPlayer.class),
+        VIDEO(R.mipmap.ic_action_video, "Video", VideoViewer.class);
+
+        int icon;
+        String name;
+        Class handlerClass;
+        MediaType(int icon, String name, Class handlerClass) {
+            this.icon = icon;
+            this.name = name;
+            this.handlerClass = handlerClass;
+        }
+
+        public int getIcon() {
+            return icon;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Class getHandlerClass() {
+            return handlerClass;
+        }
     }
 }

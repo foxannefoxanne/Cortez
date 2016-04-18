@@ -58,9 +58,6 @@
         sollicitudin lectus lectus. Sed posuere metus id nisl dapibus, et finibus erat tempus.
     </string>
 
-    <!-- TextView inside Info Activity-->
-    <string name="infoActivityTextViewDefault">Links, Media Go Here</string>
-
     <!-- Cortez Map name -->
     <string name="cortezMapNameDefault">Empty Map Name</string>
 

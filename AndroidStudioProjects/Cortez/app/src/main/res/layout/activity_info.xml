@@ -14,22 +14,7 @@
         android:id="@+id/infoActivityWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/infoActivityTextView" />
-
-
-    <TextView
-        android:id="@+id/infoActivityTextView"
-        android:layout_width="match_parent"
-        android:layout_height="140dip"
-        android:text="@string/infoActivityTextViewDefault"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center"
-
-        android:background="#000000"
-        android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true" />
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
