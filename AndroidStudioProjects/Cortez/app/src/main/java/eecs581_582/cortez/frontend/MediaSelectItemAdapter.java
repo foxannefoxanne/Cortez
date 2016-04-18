@@ -57,7 +57,7 @@ public class MediaSelectItemAdapter extends ArrayAdapter<MediaSelectItem> {
 
         }
 
-        // 5. retrn rowView
+        // 5. return rowView
         return rowView;
     }
 }

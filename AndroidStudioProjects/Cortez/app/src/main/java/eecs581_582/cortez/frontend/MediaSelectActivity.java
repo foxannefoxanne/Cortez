@@ -76,9 +76,7 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         picListView.setAdapter(new MediaSelectItemAdapter(this, generateData(picLinks, 1)));
         audListView.setAdapter(new MediaSelectItemAdapter(this, generateData(audLinks, 2)));
         vidListView.setAdapter(new MediaSelectItemAdapter(this, generateData(vidLinks, 3)));
-
-
-
+        
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -113,23 +111,21 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         String s = "";
         switch (num) {
             case 1:
-                r_id = R.drawable.ic_play_light;
+                r_id = R.mipmap.ic_action_picture;
                 s = "Image ";
                 break;
             case 2:
-                r_id = R.drawable.ic_cast_off_light;
+                r_id = R.mipmap.ic_action_play;
                 s = "Audio ";
                 break;
             case 3:
-                r_id = R.drawable.ic_cast_on_2_light;
+                r_id = R.mipmap.ic_action_video;
                 s = "Video ";
                 break;
         }
 
-        int i = 1;
-        for (String str : strings) {
+        for (int i = 1; i < strings.size() + 1; i++) {
             mediaSelectItems.add(new MediaSelectItem(r_id, s + i, ""+i));
-            i++;
         }
 
         return mediaSelectItems;
