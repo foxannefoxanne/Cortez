@@ -22,6 +22,7 @@ public class Constants {
         MAP_ACTIVITY,
         INFO_ACTIVITY,
         YOUTUBE_ACTIVITY,
+        MEDIASELECT_ACTIVITY,
         UNKNOWN
     }
 
@@ -33,6 +34,7 @@ public class Constants {
         MAP_ACTIVITY,
         INFO_ACTIVITY,
         YOUTUBE_ACTIVITY,
+        MEDIASELECT_ACTIVITY,
         UNKNOWN
     }
 

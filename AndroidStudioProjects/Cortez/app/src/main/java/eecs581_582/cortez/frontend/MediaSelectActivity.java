@@ -6,9 +6,11 @@ import android.app.FragmentTransaction;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,8 @@ import eecs581_582.cortez.R;
 import eecs581_582.cortez.backend.Constants;
 
 public class MediaSelectActivity extends Activity implements ActionBar.TabListener {
+
+    public static final String TAG = MediaSelectActivity.class.getSimpleName();
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -146,9 +150,24 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_help: {
+                // This means you have selected the Help option
+                Log.d(TAG, "Help button selected");
+                Intent intent = new Intent(this, HelpActivity.class);
+                intent.putExtra(getString(R.string.action_help), Constants.Caller.INFO_ACTIVITY);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_settings : {
+                // This means you have selected the Settings option.
+                // Since activity_info.xml has that option removed, you've screwed something up. What did you do?
+                Log.d(TAG, "Settings button selected");
+//                Intent intent = new Intent(this, SettingsActivity.class);
+//                intent.putExtra(getString(R.string.action_settings), Constants.Caller.INFO_ACTIVITY);
+//                startActivity(intent);
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);

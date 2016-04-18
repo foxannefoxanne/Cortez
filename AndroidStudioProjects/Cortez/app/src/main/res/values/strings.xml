@@ -59,7 +59,7 @@
         &lt;br /&gt;
         To zoom to your current location, press the Target icon in the upper-right corner of the screen.&lt;br /&gt;
         &lt;br /&gt;
-        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map screen.
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button now to return to the Map screen.
     </string>
     <string name="HelpActivityContentForInfoActivity">&lt;h1&gt;Info Screen&lt;/h1&gt;
         &lt;br /&gt;
@@ -69,7 +69,7 @@
         &lt;br /&gt;
         Not every Marker will have video or pictures. Only those enabled by the map\'s creators. If you want more, ask them!&lt;br /&gt;
         &lt;br /&gt;
-        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Info screen.
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button now to return to the Info screen.
     </string>
     <string name="HelpActivityContentForYoutubeActivity">&lt;h1&gt;Youtube Screen&lt;/h1&gt;
         &lt;br /&gt;
@@ -77,7 +77,7 @@
         &lt;br /&gt;
         This is where you will view Youtube playlists associated with a location. It should behave just like any other Youtube player!&lt;br /&gt;
         &lt;br /&gt;
-        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Youtube screen.
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button now to return to the Youtube screen.
     </string>
     <string name="HelpActivityContentForMapSelectActivity">&lt;h1&gt;Map Select Screen&lt;/h1&gt;
         &lt;br /&gt;
@@ -87,6 +87,15 @@
         &lt;br /&gt;
         If you have not downloaded any maps (or you want to download more), tap the top-right of your screen and select "Add A Map" to open up the list of maps available from our website. The map will be downloaded to your device (carrier data charges may apply) and automatically opened! &lt;br /&gt;
         &lt;br /&gt;
-        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button to return to the Map Select screen.
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button now to return to the Map Select screen.
+    </string>
+    <string name="HelpActivityContentForMediaSelectActivity">
+        &lt;h1&gt;Media Select Activity&lt;/h1&gt;
+        &lt;br /&gt;
+        The Media Selection screen should let you choose between different types of media associated with a pin.&lt;br /&gt;
+        &lt;br /&gt;
+        Swipe left or right to swap between media types, or hit your Phone\'s Back button to return to the map.&lt;br /&gt;
+        &lt;br /&gt;
+        Press your phone\'s &lt;b&gt;Back&lt;/b&gt; button now to return to the Map screen.
     </string>
 </resources>

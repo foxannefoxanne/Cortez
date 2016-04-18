@@ -1,6 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="eecs581_582.cortez.frontend.MediaSelectActivity">
+    <item android:id="@+id/action_help" android:title="@string/action_help"
+        android:orderInCategory="2" android:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

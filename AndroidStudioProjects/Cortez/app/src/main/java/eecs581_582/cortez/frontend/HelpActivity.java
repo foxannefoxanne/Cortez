@@ -80,6 +80,11 @@ public class HelpActivity extends Activity {
                 LocalHelpContent = getString(R.string.HelpActivityContentForYoutubeActivity);
                 break;
             }
+            case MEDIASELECT_ACTIVITY: {
+                whatitsays += " MediaSelectActivity (I think)";
+                LocalHelpContent = getString(R.string.HelpActivityContentForMediaSelectActivity);
+                break;
+            }
             case UNKNOWN: {
                 // We couldn't determine where this came from
                 whatitsays += "... somewhere...";
