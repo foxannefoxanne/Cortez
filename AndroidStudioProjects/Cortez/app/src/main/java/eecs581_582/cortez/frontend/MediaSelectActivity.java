@@ -15,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Vector;
 
 import eecs581_582.cortez.R;
 
@@ -36,6 +39,12 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
      */
     private ViewPager mViewPager;
 
+    private static ArrayList<String>
+            picLinks,
+            audLinks,
+            vidLinks;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +53,30 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
+        ListView picListView = new ListView(this);
+        ListView audListView = new ListView(this);
+        ListView vidListView = new ListView(this);
+
+        Vector<View> pages = new Vector<View>();
+        pages.add(picListView);
+        pages.add(audListView);
+        pages.add(vidListView);
+
+        CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(this, pages);
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(customPagerAdapter);
+
+        // Get the content links for each of the three separate tabs.
+        picLinks = getIntent().getStringArrayListExtra("picLinks");
+        audLinks = getIntent().getStringArrayListExtra("audLinks");
+        vidLinks = getIntent().getStringArrayListExtra("vidLinks");
+
+        picListView.setAdapter(new MyAdapter(this, generateData(picLinks, 1)));
+        audListView.setAdapter(new MyAdapter(this, generateData(audLinks, 2)));
+        vidListView.setAdapter(new MyAdapter(this, generateData(vidLinks, 3)));
+
 
 
         // Set up the action bar.
@@ -74,7 +104,35 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+    }
 
+    private ArrayList<Model> generateData(ArrayList<String> strings, int num){
+        ArrayList<Model> models = new ArrayList<Model>();
+
+        int r_id = 0;
+        String s = "";
+        switch (num) {
+            case 1:
+                r_id = R.drawable.ic_play_light;
+                s = "Image ";
+                break;
+            case 2:
+                r_id = R.drawable.ic_cast_off_light;
+                s = "Audio ";
+                break;
+            case 3:
+                r_id = R.drawable.ic_cast_on_2_light;
+                s = "Video ";
+                break;
+        }
+
+        int i = 1;
+        for (String str : strings) {
+            models.add(new Model(r_id, s + i, ""+i));
+            i++;
+        }
+
+        return models;
     }
 
 
@@ -136,6 +194,17 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            switch (sectionNumber) {
+                case 1:
+                    args.putStringArrayList(ARG_SECTION_NUMBER, picLinks);
+                    break;
+                case 2:
+                    args.putStringArrayList(ARG_SECTION_NUMBER, audLinks);
+                    break;
+                case 3:
+                    args.putStringArrayList(ARG_SECTION_NUMBER, vidLinks);
+                    break;
+            }
             fragment.setArguments(args);
             return fragment;
         }
@@ -143,12 +212,7 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
-            // TODO: Populate each list of images, audio, and video separately here
-
             View rootView = inflater.inflate(R.layout.fragment_media_select, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
