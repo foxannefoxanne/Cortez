@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Constants;
 
 /**
  * Activity class for handling audio files.
@@ -34,7 +35,7 @@ public class AudioPlayer extends Activity
 
         ((TextView)findViewById(R.id.now_playing_text)).setText(audioFile);
 
-        audioFile = getIntent().getStringExtra("audLink");
+        audioFile = getIntent().getStringExtra(Constants.MediaType.AUDIO.getName());
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnPreparedListener(this);

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Constants;
 
 public class MediaSelectActivity extends Activity implements ActionBar.TabListener {
 
@@ -76,7 +77,7 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         picListView.setAdapter(new MediaSelectItemAdapter(this, generateData(picLinks, 1)));
         audListView.setAdapter(new MediaSelectItemAdapter(this, generateData(audLinks, 2)));
         vidListView.setAdapter(new MediaSelectItemAdapter(this, generateData(vidLinks, 3)));
-        
+
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -107,25 +108,24 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
     private ArrayList<MediaSelectItem> generateData(ArrayList<String> strings, int num){
         ArrayList<MediaSelectItem> mediaSelectItems = new ArrayList<MediaSelectItem>();
 
-        int r_id = 0;
+        Constants.MediaType mediaType;
         String s = "";
         switch (num) {
             case 1:
-                r_id = R.mipmap.ic_action_picture;
-                s = "Image ";
+                mediaType = Constants.MediaType.IMAGE;
                 break;
             case 2:
-                r_id = R.mipmap.ic_action_play;
-                s = "Audio ";
+                mediaType = Constants.MediaType.AUDIO;
                 break;
             case 3:
-                r_id = R.mipmap.ic_action_video;
-                s = "Video ";
+                mediaType = Constants.MediaType.VIDEO;
                 break;
+            default:
+                mediaType = null;
         }
 
         for (int i = 1; i < strings.size() + 1; i++) {
-            mediaSelectItems.add(new MediaSelectItem(r_id, s + i, ""+i));
+            mediaSelectItems.add(new MediaSelectItem(mediaType, s + i, ""+i, strings.get(i-1)));
         }
 
         return mediaSelectItems;

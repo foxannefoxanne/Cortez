@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.koushikdutta.ion.Ion;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Constants;
 
 /**
  * Created by Joseph on 4/6/16.
@@ -22,7 +23,7 @@ public class ImageViewer extends Activity {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_imageviewer);
 
-        imageFile = getIntent().getStringExtra("picLink");
+        imageFile = getIntent().getStringExtra(Constants.MediaType.IMAGE.getName());
 
         imageView = (ImageView) findViewById(R.id.image_view);
         Ion.with(imageView)
