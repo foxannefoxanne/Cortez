@@ -8,6 +8,7 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import eecs581_582.cortez.R;
+import eecs581_582.cortez.backend.Constants;
 
 /**
  * Created by Joseph on 4/6/16.
@@ -24,7 +25,7 @@ public class VideoViewer extends Activity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         setContentView(R.layout.activity_videoviewer);
 
-        videoFile = getIntent().getStringExtra("vidLink");
+        videoFile = getIntent().getStringExtra(Constants.MediaType.VIDEO.getName());
 
         videoView = (VideoView) findViewById(R.id.video_view);
         videoView.setVideoPath(videoFile);
