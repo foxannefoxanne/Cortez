@@ -62,20 +62,20 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         pages.add(audListView);
         pages.add(vidListView);
 
-        CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(this, pages);
+        MediaSelectPagerAdapter mediaSelectPagerAdapter = new MediaSelectPagerAdapter(this, pages);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(customPagerAdapter);
+        mViewPager.setAdapter(mediaSelectPagerAdapter);
 
         // Get the content links for each of the three separate tabs.
         picLinks = getIntent().getStringArrayListExtra("picLinks");
         audLinks = getIntent().getStringArrayListExtra("audLinks");
         vidLinks = getIntent().getStringArrayListExtra("vidLinks");
 
-        picListView.setAdapter(new MyAdapter(this, generateData(picLinks, 1)));
-        audListView.setAdapter(new MyAdapter(this, generateData(audLinks, 2)));
-        vidListView.setAdapter(new MyAdapter(this, generateData(vidLinks, 3)));
+        picListView.setAdapter(new MediaSelectItemAdapter(this, generateData(picLinks, 1)));
+        audListView.setAdapter(new MediaSelectItemAdapter(this, generateData(audLinks, 2)));
+        vidListView.setAdapter(new MediaSelectItemAdapter(this, generateData(vidLinks, 3)));
 
 
 
@@ -106,8 +106,8 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
         }
     }
 
-    private ArrayList<Model> generateData(ArrayList<String> strings, int num){
-        ArrayList<Model> models = new ArrayList<Model>();
+    private ArrayList<MediaSelectItem> generateData(ArrayList<String> strings, int num){
+        ArrayList<MediaSelectItem> mediaSelectItems = new ArrayList<MediaSelectItem>();
 
         int r_id = 0;
         String s = "";
@@ -128,11 +128,11 @@ public class MediaSelectActivity extends Activity implements ActionBar.TabListen
 
         int i = 1;
         for (String str : strings) {
-            models.add(new Model(r_id, s + i, ""+i));
+            mediaSelectItems.add(new MediaSelectItem(r_id, s + i, ""+i));
             i++;
         }
 
-        return models;
+        return mediaSelectItems;
     }
 
 

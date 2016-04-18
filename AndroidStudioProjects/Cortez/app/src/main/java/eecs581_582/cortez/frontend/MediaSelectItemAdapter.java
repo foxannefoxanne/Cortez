@@ -14,12 +14,12 @@ import android.widget.TextView;
 /**
  * Credit: https://github.com/hmkcode/Android/blob/master/android-pro-listview/src/com/hmkcode/android/MyAdapter.java
  */
-public class MyAdapter extends ArrayAdapter<Model> {
+public class MediaSelectItemAdapter extends ArrayAdapter<MediaSelectItem> {
 
     private final Context context;
-    private final ArrayList<Model> modelsArrayList;
+    private final ArrayList<MediaSelectItem> modelsArrayList;
 
-    public MyAdapter(Context context, ArrayList<Model> modelsArrayList) {
+    public MediaSelectItemAdapter(Context context, ArrayList<MediaSelectItem> modelsArrayList) {
 
         super(context, R.layout.target_item, modelsArrayList);
 

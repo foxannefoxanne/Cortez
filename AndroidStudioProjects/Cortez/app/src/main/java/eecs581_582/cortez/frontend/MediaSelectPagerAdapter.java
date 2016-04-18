@@ -11,12 +11,12 @@ import java.util.Vector;
 /**
  * Credit: http://android-java-development.blogspot.com/2012/05/system.html
  */
-public class CustomPagerAdapter extends PagerAdapter {
+public class MediaSelectPagerAdapter extends PagerAdapter {
 
     private Context mContext;
     private Vector<View> pages;
 
-    public CustomPagerAdapter(Context context, Vector<View> pages) {
+    public MediaSelectPagerAdapter(Context context, Vector<View> pages) {
         this.mContext = context;
         this.pages = pages;
     }
